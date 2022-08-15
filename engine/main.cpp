@@ -1,11 +1,22 @@
 #include <SDL.h>
 #include <iostream>
 
+#include "events/action.h"
+#include "input_locator.h"
+#include "keyboard.h"
 #include "renderer.h"
 #include "renderer_locator.h"
 
+void print(int i) {
+    std::cout << "YES! num=" << i << std::endl;
+}
+
+void printKey(SDL_KeyboardEvent *event) {
+    std::cout << "KEY=" << event->keysym.sym << std::endl;
+}
+
 int main(int argc, char **args) {
-    RendererLocator::Provide();
+    RendererLocator::Initialize();
     RendererLocator::GetRenderer()->CreateWindow("Galaga", SDL_WINDOWPOS_CENTERED,
                                                  SDL_WINDOWPOS_CENTERED,
                                                  800,
@@ -13,25 +24,14 @@ int main(int argc, char **args) {
                                                  SDL_WINDOW_SHOWN);
     RendererLocator::GetRenderer()->CreateRenderer(Color(0, 0, 255));
 
-    SDL_Event event;
+    InputLocator::Initialize();
 
     while (true) {
         RendererLocator::GetRenderer()->Update();
-        while (SDL_PollEvent(&event)) {
-            switch (event.type) {
-                case SDL_KEYDOWN:
-                    if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-                        exit(0);
-                    break;
-                case SDL_QUIT:
-                    exit(0);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-        SDL_Delay(3000);
+        InputLocator::GetInput()->Update();
+        std::cout << Keyboard::GetKeyDown(Key::A) << std::endl;
+        SDL_Delay(16);
+        // testAction.Invoke(1);
     }
 
     RendererLocator::GetRenderer()->Quit();

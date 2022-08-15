@@ -18,15 +18,16 @@ add_subdirectory(thirdparty/SDL)
 
 set(INCLUDE_DIRS 
     engine/core
+    engine/core/events
     engine/graphics
+    engine/input
 )
 
 include_directories(${INCLUDE_DIRS})
 
 file(GLOB SOURCE_FILES 
         engine/*.cpp
-        engine/core/*.cpp
-        engine/graphics/*.cpp
+        engine/**/*.cpp
     )
 
 add_executable(Galaga ${SOURCE_FILES})
