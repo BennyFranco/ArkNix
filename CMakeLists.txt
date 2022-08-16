@@ -14,7 +14,12 @@ set(SDL_STATIC OFF)
 set(SDL2_DISABLE_SDL2MAIN ON)
 set(SDL2_DISABLE_INSTALL ON)
 
+set(SDL2IMAGE_SAMPLES OFF)
+set(SDL2IMAGE_TESTS OFF)
+set(SDL2IMAGE_INSTALL OFF)
+
 add_subdirectory(thirdparty/SDL)
+add_subdirectory(thirdparty/SDL_image)
 
 set(INCLUDE_DIRS 
     engine/core
@@ -35,6 +40,7 @@ target_include_directories(Galaga PUBLIC ${INCLUDE_DIRS})
 
 target_link_libraries(Galaga
                       PUBLIC SDL2
+                      PUBLIC SDL2_image
                       )
 
 # install(TARGETS SDL2 EXPORT SDL2Targets
