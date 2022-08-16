@@ -1,8 +1,7 @@
 #ifndef INPUT_EVENTS_H
 #define INPUT_EVENTS_H
 
-#include "Entity.h"
-#include "events/action.h"
+#include "entity.h"
 
 enum class Key {
     A = 0,

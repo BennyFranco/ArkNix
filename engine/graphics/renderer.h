@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "Entity.h"
+#include "entity.h"
 
 struct Color {
     uint8_t R;
@@ -30,6 +30,7 @@ class Renderer : public Entity {
 public:
     virtual void CreateWindow(std::string title, int x_position, int y_position, int width, int height, uint flags) = 0;
     virtual void CreateRenderer(Color color) = 0;
+    virtual void Clear() = 0;
 };
 
 #endif// RENDERER_H

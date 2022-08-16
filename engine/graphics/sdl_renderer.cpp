@@ -19,8 +19,11 @@ void SDLRenderer::CreateRenderer(Color color) {
     SDL_SetRenderDrawColor(renderer, color.R, color.G, color.B, color.A);
 }
 
-void SDLRenderer::Update() {
+void SDLRenderer::Clear() {
     SDL_RenderClear(renderer);
+}
+
+void SDLRenderer::Update() {
     SDL_RenderPresent(renderer);
 }
 
