@@ -1,8 +1,8 @@
 
-#include "game.h"
+#include "galaga.h"
 
 int main(int argc, char **args) {
-    nim::Game newGame;
+    Galaga newGame;
     newGame.Run();
     return 0;
 }

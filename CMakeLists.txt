@@ -22,7 +22,7 @@ set(SDL2IMAGE_INSTALL OFF)
 add_subdirectory(thirdparty/SDL)
 add_subdirectory(thirdparty/SDL_image)
 
-set(INCLUDE_DIRS 
+set(INCLUDE_DIRS
     engine/core
     engine/core/asset_manager
     engine/core/events
@@ -31,7 +31,6 @@ set(INCLUDE_DIRS
     engine/graphics/sprites
     engine/input
 )
-
 include_directories(${INCLUDE_DIRS})
 
 file(GLOB SOURCE_FILES 
@@ -40,10 +39,18 @@ file(GLOB SOURCE_FILES
         engine/**/**/*.cpp
     )
 
-add_executable(Galaga ${SOURCE_FILES})
-target_include_directories(Galaga PUBLIC ${INCLUDE_DIRS})
+add_library(NimEngine ${SOURCE_FILES})
+
+add_executable(Galaga game/main.cpp)
+#target_include_directories(Galaga PUBLIC ${INCLUDE_DIRS})
+
+target_link_libraries(NimEngine
+                      PUBLIC SDL2
+                      PUBLIC SDL2_image
+                      )
 
 target_link_libraries(Galaga
                       PUBLIC SDL2
                       PUBLIC SDL2_image
+                      NimEngine
                       )
