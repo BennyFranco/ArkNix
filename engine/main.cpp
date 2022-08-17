@@ -12,6 +12,9 @@
 
 using namespace nim;
 
+const uint kTargetFps = 60;
+const uint kDelayTime = 1000.f / kTargetFps;
+
 int main(int argc, char **args) {
     RendererLocator::Initialize();
     RendererLocator::GetRenderer()->CreateWindow("Nim Engine", SDL_WINDOWPOS_CENTERED,
@@ -30,8 +33,11 @@ int main(int argc, char **args) {
     position.y = (position.y / 2.f) - 64.f;
     player.Position(std::move(position));
     player.Size(128, 128);
+    int fps = 0;
 
+    uint timestamp = SDL_GetTicks();
     while (true) {
+        uint frameStart = SDL_GetTicks();
 
         RendererLocator::GetRenderer()->Clear();
 
@@ -48,8 +54,19 @@ int main(int argc, char **args) {
         player.Update();
         RendererLocator::GetRenderer()->Update();
 
-        // TODO: Check loop pattern and update this.
-        SDL_Delay(16);
+        uint frameEnd = SDL_GetTicks();
+        uint frameDuration = frameEnd - frameStart;
+
+        if ((frameEnd - timestamp) >= 1000) {
+            RendererLocator::GetRenderer()->SetWindowTitle(std::string("Nim Engine - FPS: " + std::to_string(fps)));
+            fps = 0;
+            timestamp = frameEnd;
+        }
+
+        if (frameDuration < kDelayTime) {
+            SDL_Delay(kDelayTime - frameDuration);
+        }
+        fps++;
     }
 
     RendererLocator::GetRenderer()->Quit();

@@ -16,6 +16,10 @@ void SDLRenderer::CreateWindow(std::string title, int x_position, int y_position
             flags);
 }
 
+void SDLRenderer::SetWindowTitle(std::string title) {
+    SDL_SetWindowTitle(window, title.c_str());
+}
+
 void SDLRenderer::CreateRenderer(Color color) {
     renderer = SDL_CreateRenderer(window, -1, 0);
     SDL_SetRenderDrawColor(renderer, color.R, color.G, color.B, color.A);
