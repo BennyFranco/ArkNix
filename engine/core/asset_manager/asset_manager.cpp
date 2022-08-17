@@ -1,7 +1,13 @@
 #include "asset_manager.h"
+#include "color.h"
 #include "sprite.h"
 
 #include <filesystem>
+
+using namespace nim;
+
+AssetManager::AssetManager() {
+}
 
 AssetManager &AssetManager::Instance() {
     static std::unique_ptr<AssetManager> instance{new AssetManager()};

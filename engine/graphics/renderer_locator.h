@@ -5,13 +5,14 @@
 #include "sdl_renderer.h"
 #include <memory>
 
-class RendererLocator {
-public:
-    static Renderer *GetRenderer() { return renderer.get(); }
-    static void Initialize();
+namespace nim {
+    class RendererLocator {
+    public:
+        static Renderer *GetRenderer() { return renderer.get(); }
+        static void Initialize();
 
-private:
-    static std::unique_ptr<Renderer> renderer;
-};
-
+    private:
+        static std::unique_ptr<Renderer> renderer;
+    };
+}// namespace nim
 #endif

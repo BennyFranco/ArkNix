@@ -63,7 +63,7 @@ Sprite &Sprite::operator=(Sprite &&other) {
     std::cout << "Sprite Move Operator" << std::endl;
     if (&other == this) return *this;
 
-    // filename = other.filename;
+    filename = other.filename;
     texture = other.texture;
 
     other.filename = nullptr;

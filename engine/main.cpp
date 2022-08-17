@@ -10,6 +10,8 @@
 #include "asset_manager/asset_manager.h"
 #include "sprites/sprite.h"
 
+using namespace nim;
+
 int main(int argc, char **args) {
     RendererLocator::Initialize();
     RendererLocator::GetRenderer()->CreateWindow("Nim Engine", SDL_WINDOWPOS_CENTERED,

@@ -1,5 +1,7 @@
 #include "sdl_renderer.h"
 
+using namespace nim;
+
 void SDLRenderer::Init() {
     SDL_Init(SDL_INIT_VIDEO);
 }

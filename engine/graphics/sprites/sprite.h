@@ -5,9 +5,11 @@
 #include <string>
 
 #include "asset_manager.h"
+#include "color.h"
 
 // https://wiki.libsdl.org/SDL_CreateTexture
 // https://wiki.libsdl.org/SDL_DestroyTexture
+// https://wiki.libsdl.org/SDL_Rect
 
 // TODO: Create macro for enable only SDL dependencies
 namespace nim {
