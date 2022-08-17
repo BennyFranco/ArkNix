@@ -5,20 +5,21 @@
 #include "input.h"
 #include <SDL.h>
 
-class SDLInput : public Input {
-public:
-    void Init() override;
-    void Update() override;
-    void Quit() override;
-    bool GetKeyDown(Key key) override;
-    bool GetKeyUp(Key key) override;
+namespace nim {
+    class SDLInput : public Input {
+    public:
+        void Init() override;
+        void Update() override;
+        void Quit() override;
+        bool GetKeyDown(Key key) override;
+        bool GetKeyUp(Key key) override;
 
-private:
-    void PrintDebugKey(SDL_Event *event);
-    SDL_KeyCode ConvertNimKeyToSDLKey(Key key);
-
-private:
-    // https://wiki.libsdl.org/SDL_Event
-    SDL_Event event;
-};
+    private:
+        void PrintDebugKey(SDL_Event *event);
+        SDL_KeyCode ConvertNimKeyToSDLKey(Key key);
+    private:
+        // https://wiki.libsdl.org/SDL_Event
+        SDL_Event event;
+    };
+}// namespace nim
 #endif// SDL_INPUT_H

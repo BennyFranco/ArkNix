@@ -5,12 +5,14 @@
 #include "sdl_input.h"
 #include <memory>
 
-class InputLocator {
-public:
-    static Input *GetInput() { return input.get(); }
-    static void Initialize();
+namespace nim {
+    class InputLocator {
+    public:
+        static Input *GetInput() { return input.get(); }
+        static void Initialize();
 
-private:
-    static std::unique_ptr<Input> input;
-};
+    private:
+        static std::unique_ptr<Input> input;
+    };
+}// namespace nim
 #endif// INPUT_SERVICE_LOCATOR_H

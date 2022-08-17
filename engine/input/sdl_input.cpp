@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+using namespace ::nim;
+
 void SDLInput::Init() {
 }
 
@@ -10,10 +12,20 @@ void SDLInput::Init() {
 void SDLInput::Update() {
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
+            case SDL_KEYUP:
+                lastKeyEvent.isKeyDown = false;
+                lastKeyEvent.key = event.key.keysym.sym;
+                break;
+            case SDL_KEYDOWN:
+                lastKeyEvent.isKeyDown = true;
+                lastKeyEvent.key = event.key.keysym.sym;
+                break;
             case SDL_QUIT:
                 exit(0);
                 return;
             default:
+                lastKeyEvent.isKeyDown = false;
+                lastKeyEvent.key = SDL_KeyCode::SDLK_UNKNOWN;
                 break;
         }
     }
@@ -22,11 +34,11 @@ void SDLInput::Update() {
 void SDLInput::Quit() {}
 
 bool SDLInput::GetKeyUp(Key key) {
-    return SDL_WaitEvent(&event) && event.type == SDL_KEYUP && event.key.keysym.sym == ConvertNimKeyToSDLKey(key);
+    return !lastKeyEvent.isKeyDown && lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
 }
 
 bool SDLInput::GetKeyDown(Key key) {
-    return SDL_WaitEvent(&event) && event.type == SDL_KEYDOWN && event.key.keysym.sym == ConvertNimKeyToSDLKey(key);
+    return lastKeyEvent.isKeyDown && lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
 }
 
 SDL_KeyCode SDLInput::ConvertNimKeyToSDLKey(Key key) {
