@@ -2,10 +2,10 @@
 #define SPRITE_H
 
 #include "SDL_image.h"
-#include <string>
 
 #include "asset_manager.h"
 #include "color.h"
+#include "component.h"
 #include "vector2d.h"
 
 // https://wiki.libsdl.org/SDL_CreateTexture
@@ -15,7 +15,7 @@
 
 // TODO: Create macro for enable only SDL dependencies
 namespace nim {
-    class Sprite : public Asset {
+    class Sprite : public Asset, public Component {
     public:
         Sprite();
         Sprite(const char *filename);
@@ -27,17 +27,19 @@ namespace nim {
         Sprite &operator=(Sprite &&other);
 
         bool Load(const char *filename) override;
-        void Draw();
-        void SetSize(float w, float h);
-        void SetPosition(float x, float y);
+        void Draw() override;
+        void Size(Vector2 size) override;
+        void Position(Vector2 position) override;
+        void Size(float width, float height) override;
+        void Position(float x, float y) override;
         void Centered();
 
     private:
         SDL_FRect canvas;
         SDL_Texture *texture;
         SDL_Renderer *renderer;
-        Vector2 size;
-        Vector2 position;
+        // Vector2 size;
+        // Vector2 position;
 
     private:
         void SetRectSize();

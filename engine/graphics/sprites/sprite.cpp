@@ -1,4 +1,4 @@
-#include "sprites/sprite.h"
+#include "sprite.h"
 #include "renderer_locator.h"
 
 #include <iostream>
@@ -12,11 +12,13 @@ Sprite::Sprite() {
     size = Vector2(1, 1);
     position = Vector2(0, 0);
     texture = NULL;
+    name = "SpriteComponent";
 }
 
 Sprite::Sprite(const char *filename) {
     std::cout << "Sprite Constructor With Filename" << std::endl;
 
+    name = "SpriteComponent";
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
     Load(filename);
@@ -34,6 +36,7 @@ Sprite::Sprite(const Sprite &other) {
 
     filename = other.filename;
     texture = other.texture;
+    name = other.name;
 }
 
 Sprite::Sprite(Sprite &&other) {
@@ -41,9 +44,11 @@ Sprite::Sprite(Sprite &&other) {
 
     filename = other.filename;
     texture = other.texture;
+    name = other.name;
 
     other.filename = nullptr;
     other.texture = NULL;
+    other.name = nullptr;
 }
 
 Sprite &Sprite::operator=(const Sprite &other) {
@@ -56,6 +61,7 @@ Sprite &Sprite::operator=(const Sprite &other) {
 
     filename = other.filename;
     texture = other.texture;
+    name = other.name;
 
     return *this;
 }
@@ -66,9 +72,11 @@ Sprite &Sprite::operator=(Sprite &&other) {
 
     filename = other.filename;
     texture = other.texture;
+    name = other.name;
 
     other.filename = nullptr;
     other.texture = NULL;
+    other.name = nullptr;
 
     return *this;
 }
@@ -95,15 +103,23 @@ void Sprite::Draw() {
     SDL_RenderCopyF(renderer, texture, NULL, &canvas);
 }
 
-void Sprite::SetSize(float w, float h) {
-    size.x = w;
-    size.y = h;
+void Sprite::Size(Vector2 size) {
+    Component::Size(size);
     SetRectSize();
 }
 
-void Sprite::SetPosition(float x, float y) {
-    position.x = x;
-    position.y = y;
+void Sprite::Position(Vector2 position) {
+    Component::Position(position);
+    SetRectPosition();
+}
+
+void Sprite::Size(float width, float height) {
+    Component::Size(width, height);
+    SetRectSize();
+}
+
+void Sprite::Position(float x, float y) {
+    Component::Position(x, y);
     SetRectPosition();
 }
 

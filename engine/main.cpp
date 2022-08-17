@@ -8,6 +8,7 @@
 #include "renderer_locator.h"
 
 #include "asset_manager/asset_manager.h"
+#include "game_object.h"
 #include "sprites/sprite.h"
 
 using namespace nim;
@@ -24,14 +25,16 @@ int main(int argc, char **args) {
     InputLocator::Initialize();
     AssetManager::Instance().LoadAssets();
     nim::Sprite *s = AssetManager::Instance().Get<nim::Sprite>("ship_6");
-    s->SetSize(128, 128);
+    s->Size(128, 128);
     s->Centered();
+
+    nim::GameObject player("Player", {s});
 
     while (true) {
 
         InputLocator::GetInput()->Update();
         RendererLocator::GetRenderer()->Clear();
-        s->Draw();
+        player.Update();
         RendererLocator::GetRenderer()->Update();
 
         // TODO: Check loop pattern and update this.
