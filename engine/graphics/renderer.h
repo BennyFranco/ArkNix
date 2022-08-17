@@ -12,6 +12,7 @@ namespace nim {
     public:
         virtual void CreateWindow(std::string title, int x_position,
                                   int y_position, int width, int height, uint flags) = 0;
+        virtual void CreateWindow(std::string title, int width, int height) = 0;
         virtual void SetWindowTitle(std::string title) = 0;
         virtual void CreateRenderer(Color color) = 0;
         virtual void Clear() = 0;

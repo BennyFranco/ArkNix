@@ -26,6 +26,7 @@ set(INCLUDE_DIRS
     engine/core
     engine/core/asset_manager
     engine/core/events
+    engine/game
     engine/graphics
     engine/graphics/sprites
     engine/input

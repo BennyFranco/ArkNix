@@ -21,7 +21,9 @@ void SDLInput::Update() {
                 lastKeyEvent.key = event.key.keysym.sym;
                 break;
             case SDL_QUIT:
-                exit(0);
+                lastKeyEvent.isKeyDown = false;
+                lastKeyEvent.key = SDL_KeyCode::SDLK_UNKNOWN;
+                onExitGameEvent.Invoke(false);
                 return;
             default:
                 lastKeyEvent.isKeyDown = false;

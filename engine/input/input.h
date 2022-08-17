@@ -1,8 +1,9 @@
 #ifndef INPUT_EVENTS_H
 #define INPUT_EVENTS_H
 
-#include "entity.h"
 #include "SDL.h"
+#include "action.h"
+#include "entity.h"
 
 namespace nim {
     enum class Key {
@@ -80,6 +81,9 @@ namespace nim {
     public:
         virtual bool GetKeyDown(Key key) = 0;
         virtual bool GetKeyUp(Key key) = 0;
+
+    public:
+        Action<bool> onExitGameEvent;
 
     protected:
         KeyEvent lastKeyEvent;

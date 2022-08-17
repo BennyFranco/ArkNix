@@ -1,7 +1,6 @@
 #ifndef SDL_INPUT_H
 #define SDL_INPUT_H
 
-#include "events/action.h"
 #include "input.h"
 #include <SDL.h>
 
@@ -17,6 +16,7 @@ namespace nim {
     private:
         void PrintDebugKey(SDL_Event *event);
         SDL_KeyCode ConvertNimKeyToSDLKey(Key key);
+
     private:
         // https://wiki.libsdl.org/SDL_Event
         SDL_Event event;

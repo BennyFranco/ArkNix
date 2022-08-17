@@ -11,6 +11,7 @@ namespace nim {
         void Init() override;
         void CreateWindow(std::string title, int x_position,
                           int y_position, int width, int height, uint flags) override;
+        void CreateWindow(std::string title, int width, int height) override;
         void SetWindowTitle(std::string title) override;
         void CreateRenderer(Color color) override;
         void Clear() override;

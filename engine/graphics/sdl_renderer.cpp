@@ -16,6 +16,16 @@ void SDLRenderer::CreateWindow(std::string title, int x_position, int y_position
             flags);
 }
 
+void SDLRenderer::CreateWindow(std::string title, int width, int height) {
+    window = SDL_CreateWindow(
+            title.c_str(),
+            SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED,
+            width,
+            height,
+            SDL_WINDOW_SHOWN);
+}
+
 void SDLRenderer::SetWindowTitle(std::string title) {
     SDL_SetWindowTitle(window, title.c_str());
 }
@@ -36,6 +46,7 @@ void SDLRenderer::Update() {
 void SDLRenderer::Quit() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
 int SDLRenderer::Width() {
