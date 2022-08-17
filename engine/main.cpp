@@ -24,6 +24,8 @@ int main(int argc, char **args) {
     InputLocator::Initialize();
     AssetManager::Instance().LoadAssets();
     nim::Sprite *s = AssetManager::Instance().Get<nim::Sprite>("ship_6");
+    s->SetSize(128, 128);
+    s->Centered();
 
     while (true) {
 

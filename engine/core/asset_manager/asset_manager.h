@@ -16,7 +16,8 @@ namespace nim {
         template<typename T>
         T *Get(std::string id) {
             if (assets.find(id) == assets.end()) {
-                // throw std::runtime_error("[AssetManager] The asset with id: '" + id + "' doesn't exist!");
+                // TODO: Create a logger
+                std::cout << "[AssetManager] The asset with id: '" + id + "' doesn't exist!" << std::endl;
                 return static_cast<T *>(assets["default"].get());
             }
             return static_cast<T *>(assets[id].get());

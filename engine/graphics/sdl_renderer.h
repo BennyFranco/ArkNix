@@ -14,7 +14,11 @@ namespace nim {
         void Clear() override;
         void Update() override;
         void Quit() override;
+        int Width() override;
+        int Height() override;
+        Vector2 WindowSize() override;
 
+    public:
         SDL_Renderer *Renderer() const { return renderer; }
 
     private:

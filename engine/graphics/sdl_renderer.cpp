@@ -33,3 +33,19 @@ void SDLRenderer::Quit() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 }
+
+int SDLRenderer::Width() {
+    int w;
+    SDL_GetWindowSize(window, &w, NULL);
+    return w;
+}
+int SDLRenderer::Height() {
+    int h;
+    SDL_GetWindowSize(window, NULL, &h);
+    return h;
+}
+Vector2 SDLRenderer::WindowSize() {
+    int w, h;
+    SDL_GetRendererOutputSize(renderer, &w, &h);
+    return Vector2(w, h);
+}
