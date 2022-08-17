@@ -103,12 +103,12 @@ void Sprite::Draw() {
     SDL_RenderCopyF(renderer, texture, NULL, &canvas);
 }
 
-void Sprite::Size(Vector2 size) {
+void Sprite::Size(Vector2 *size) {
     Component::Size(size);
     SetRectSize();
 }
 
-void Sprite::Position(Vector2 position) {
+void Sprite::Position(const Vector2 *position) {
     Component::Position(position);
     SetRectPosition();
 }

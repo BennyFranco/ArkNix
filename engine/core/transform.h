@@ -17,8 +17,20 @@ namespace nim {
         virtual void Y(float value) { position.y = value; }
         virtual void Width(float value) { size.x = value; }
         virtual void Height(float value) { size.y = value; }
-        virtual void Size(Vector2 size) { this->size = size; }
-        virtual void Position(Vector2 position) { this->position = position; }
+        virtual void Size(Vector2 *size) {
+            this->size.x = size->x;
+            this->size.y = size->y;
+        }
+        virtual void Size(Vector2 &&size) {
+            this->size = size;
+        }
+        virtual void Position(const Vector2 *position) {
+            this->position.x = position->x;
+            this->position.y = position->y;
+        }
+        virtual void Position(Vector2 &&position) {
+            this->position = position;
+        }
         virtual void Size(float width, float height) {
             size.x = width;
             size.y = height;

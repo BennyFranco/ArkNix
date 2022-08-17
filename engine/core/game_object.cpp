@@ -34,6 +34,8 @@ Component *GameObject::GetComponent(const char *id) {
 #pragma region entity_functions
 void GameObject::Update() {
     for (auto component: components) {
+        component.second->Size(&size);
+        component.second->Position(&position);
         component.second->Draw();
     }
 }

@@ -28,8 +28,8 @@ namespace nim {
 
         bool Load(const char *filename) override;
         void Draw() override;
-        void Size(Vector2 size) override;
-        void Position(Vector2 position) override;
+        void Size(Vector2 *size) override;
+        void Position(const Vector2 *position) override;
         void Size(float width, float height) override;
         void Position(float x, float y) override;
         void Centered();
@@ -38,8 +38,6 @@ namespace nim {
         SDL_FRect canvas;
         SDL_Texture *texture;
         SDL_Renderer *renderer;
-        // Vector2 size;
-        // Vector2 position;
 
     private:
         void SetRectSize();

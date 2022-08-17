@@ -3,7 +3,6 @@
 
 #include "events/action.h"
 #include "input_locator.h"
-#include "keyboard.h"
 #include "renderer.h"
 #include "renderer_locator.h"
 
@@ -25,15 +24,27 @@ int main(int argc, char **args) {
     InputLocator::Initialize();
     AssetManager::Instance().LoadAssets();
     nim::Sprite *s = AssetManager::Instance().Get<nim::Sprite>("ship_6");
-    s->Size(128, 128);
-    s->Centered();
-
     nim::GameObject player("Player", {s});
+    Vector2 position = RendererLocator::GetRenderer()->WindowSize();
+    position.x = (position.x / 2.f) - 64.f;
+    position.y = (position.y / 2.f) - 64.f;
+    player.Position(std::move(position));
+    player.Size(128, 128);
 
     while (true) {
 
-        InputLocator::GetInput()->Update();
         RendererLocator::GetRenderer()->Clear();
+
+        if (InputLocator::GetInput()->GetKeyDown(Key::LEFT)) {
+            player.X(player.X() - 1);
+        }
+
+        if (InputLocator::GetInput()->GetKeyDown(Key::RIGHT)) {
+            player.X(player.X() + 1);
+        }
+
+        InputLocator::GetInput()->Update();
+
         player.Update();
         RendererLocator::GetRenderer()->Update();
 
