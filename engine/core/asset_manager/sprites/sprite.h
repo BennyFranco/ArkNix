@@ -15,7 +15,7 @@
 
 // TODO: Create macro for enable only SDL dependencies
 namespace nim {
-    class Sprite : public Asset, public Component {
+    class Sprite : public Asset {
     public:
         Sprite();
         Sprite(const char *filename);
@@ -27,18 +27,16 @@ namespace nim {
         Sprite &operator=(Sprite &&other);
 
         bool Load(const char *filename) override;
-        void Draw() override;
+        void Draw();
 
-        Vector2 Centered();
+        // void SetRectSize(const Vector2& value);
+        // void SetRectPosition(const Vector2& value);
+        void SetCanvas(SDL_FRect *rect);
 
     private:
-        SDL_FRect canvas;
+        SDL_FRect *canvas;
         SDL_Texture *texture;
         SDL_Renderer *renderer;
-
-    private:
-        void SetRectSize();
-        void SetRectPosition();
     };
 }// namespace nim
 

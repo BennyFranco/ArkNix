@@ -25,7 +25,7 @@ namespace nim {
 
     private:
         AssetManager();
-        std::map<std::string, std::unique_ptr<nim::Asset>> assets;
+        std::map<std::string, std::shared_ptr<nim::Asset>> assets;
 #ifdef EDITOR_DEBUG
         const char *kAssetsPath = "../assets/";
 #else

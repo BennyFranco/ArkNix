@@ -1,6 +1,7 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
+#include "SDL.h"
 #include "vector2d.h"
 
 namespace nim {
@@ -22,9 +23,17 @@ namespace nim {
         void Size(float width, float height);
         void Position(float x, float y);
 
+        SDL_FRect *GetRect();
+
+    private:
+        void SetRect();
+
     public:
         Vector2 size;
         Vector2 position;
+
+    private:
+        SDL_FRect rect;
     };
 }// namespace nim
 #endif// TRANSFORM_H

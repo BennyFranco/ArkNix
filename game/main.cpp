@@ -1,6 +1,6 @@
 #include "galaga.h"
 #include "scene.h"
-#include "sprite.h"
+#include "sprite_component.h"
 
 int main(int argc, char **args) {
     Galaga newGame;
@@ -8,10 +8,9 @@ int main(int argc, char **args) {
 
     // TEST CODE
     nim::GameObject player("Player");
-    nim::Sprite *sprite = nim::AssetManager::Instance().Get<nim::Sprite>("ship_6");
-    player.AddComponent("texture", sprite);
+    player.AddComponent(std::make_shared<nim::SpriteComponent>("ship_6"));
     player.transform->Size(128, 128);
-    player.transform->Position(sprite->Centered());
+    player.transform->Position(0, 0);
 
     auto currentScene = std::make_unique<nim::Scene>();
     currentScene->Init();

@@ -23,13 +23,16 @@ add_subdirectory(thirdparty/SDL)
 add_subdirectory(thirdparty/SDL_image)
 
 set(INCLUDE_DIRS
+    engine/components
     engine/core
     engine/core/asset_manager
+    engine/core/asset_manager/sprites
     engine/core/events
     engine/game
     engine/graphics
     engine/graphics/sprites
     engine/input
+    engine/math
 )
 include_directories(${INCLUDE_DIRS})
 
@@ -37,6 +40,7 @@ file(GLOB SOURCE_FILES
         engine/*.cpp
         engine/**/*.cpp
         engine/**/**/*.cpp
+        engine/**/**/**/*.cpp
     )
 
 add_library(NimEngine ${SOURCE_FILES})
@@ -48,6 +52,9 @@ target_link_libraries(NimEngine
                       PUBLIC SDL2
                       PUBLIC SDL2_image
                       )
+
+target_compile_options(NimEngine PUBLIC -std=c++17)
+target_compile_options(Galaga PUBLIC -std=c++17)
 
 target_link_libraries(Galaga
                       PUBLIC SDL2

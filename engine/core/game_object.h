@@ -7,13 +7,14 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace nim {
     class GameObject : public Entity {
     public:
         GameObject();
         GameObject(const char *name);
-        GameObject(const char *name, std::initializer_list<Component *> components);
+        // GameObject(const char *name, std::initializer_list<Component *> components);
         GameObject(const GameObject &other);
         GameObject(GameObject &&other);
         ~GameObject();
@@ -25,15 +26,15 @@ namespace nim {
         virtual void Update() override;
         virtual void Quit() override {}
 
-        void AddComponent(const char *id, Component *component);
-        Component *GetComponent(const char *id);
+        void AddComponent(std::shared_ptr<Component> component);
+        // Component *GetComponent(const char *id);
 
     public:
         std::string name;
         std::unique_ptr<Transform> transform;
 
     private:
-        std::unordered_map<std::string, Component *> components;
+        std::vector<std::shared_ptr<Component>> components;
     };
 }// namespace nim
 #endif//GAME_OBJECT_H

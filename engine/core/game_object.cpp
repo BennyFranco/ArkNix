@@ -13,13 +13,13 @@ GameObject::GameObject(const char *name) : name(name) {
     transform = std::make_unique<Transform>();
 }
 
-GameObject::GameObject(const char *name, std::initializer_list<Component *> components) : name(name) {
-    std::cout << "[" << name << "] Created!" << std::endl;
-    transform = std::make_unique<Transform>();
-    for (auto item: components) {
-        AddComponent(item->name.c_str(), item);
-    }
-}
+// GameObject::GameObject(const char *name, std::initializer_list<Component *> components) : name(name) {
+//     std::cout << "[" << name << "] Created!" << std::endl;
+//     transform = std::make_unique<Transform>();
+//     for (auto item: components) {
+//         AddComponent(item->name.c_str(), item);
+//     }
+// }
 
 GameObject::GameObject(const GameObject &other) {
     name = other.name;
@@ -63,24 +63,24 @@ GameObject &GameObject::operator=(GameObject &&other) {
     return *this;
 }
 
-void GameObject::AddComponent(const char *id, Component *component) {
-    component->transform = transform.get();
-    components.emplace(id, component);
+void GameObject::AddComponent(std::shared_ptr<Component> component) {
+    component->SetTransform(transform.get());
+    components.emplace_back(std::move(component));
 }
 
-Component *GameObject::GetComponent(const char *id) {
-    if (components.find(id) == components.end()) {
-        std::cout << "[" << name << "] Component '" << id << "' doesn't exist!" << std::endl;
-        return nullptr;
-    }
+// Component *GameObject::GetComponent(const char *id) {
+//     if (components.find(id) == components.end()) {
+//         std::cout << "[" << name << "] Component '" << id << "' doesn't exist!" << std::endl;
+//         return nullptr;
+//     }
 
-    return components[id];
-}
+//     return components[id].get();
+// }
 
 #pragma region entity_functions
 void GameObject::Update() {
-    for (auto component: components) {
-        component.second->Draw();
+    for (auto &component: components) {
+        component->Draw();
     }
 }
 #pragma endregion
