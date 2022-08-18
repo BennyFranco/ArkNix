@@ -1,7 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "scene.h"
+
 #include <iostream>
+#include <memory>
 
 namespace nim {
     class Game {
@@ -18,6 +21,7 @@ namespace nim {
         bool running;
         const uint kTargetFps = 60;
         const uint kDelayTime = 1000.f / kTargetFps;
+        std::unique_ptr<Scene> currentScene;
     };
 }// namespace nim
 #endif// GAME_H

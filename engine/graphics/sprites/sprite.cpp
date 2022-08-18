@@ -1,12 +1,10 @@
 #include "sprite.h"
 #include "renderer_locator.h"
 
-#include <iostream>
-
 using namespace nim;
 
 Sprite::Sprite() {
-    std::cout << "Sprite Constructor" << std::endl;
+    // std::cout << "Sprite Constructor" << std::endl;
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
     size = Vector2(1, 1);
@@ -16,7 +14,7 @@ Sprite::Sprite() {
 }
 
 Sprite::Sprite(const char *filename) {
-    std::cout << "Sprite Constructor With Filename" << std::endl;
+    // std::cout << "Sprite Constructor With Filename" << std::endl;
 
     name = "SpriteComponent";
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
@@ -25,14 +23,14 @@ Sprite::Sprite(const char *filename) {
 }
 
 Sprite::~Sprite() {
-    std::cout << "Sprite Destructor" << std::endl;
+    // std::cout << "Sprite Destructor" << std::endl;
 
     if (texture != NULL)
         SDL_DestroyTexture(texture);
 }
 
 Sprite::Sprite(const Sprite &other) {
-    std::cout << "Sprite Copy Constructor" << std::endl;
+    // std::cout << "Sprite Copy Constructor" << std::endl;
 
     filename = other.filename;
     texture = other.texture;
@@ -40,7 +38,7 @@ Sprite::Sprite(const Sprite &other) {
 }
 
 Sprite::Sprite(Sprite &&other) {
-    std::cout << "Sprite Move Constructor" << std::endl;
+    // std::cout << "Sprite Move Constructor" << std::endl;
 
     filename = other.filename;
     texture = other.texture;
@@ -52,7 +50,7 @@ Sprite::Sprite(Sprite &&other) {
 }
 
 Sprite &Sprite::operator=(const Sprite &other) {
-    std::cout << "Sprite Copy Operator" << std::endl;
+    // std::cout << "Sprite Copy Operator" << std::endl;
 
     if (&other == this) return *this;
 
@@ -67,7 +65,7 @@ Sprite &Sprite::operator=(const Sprite &other) {
 }
 
 Sprite &Sprite::operator=(Sprite &&other) {
-    std::cout << "Sprite Move Operator" << std::endl;
+    // std::cout << "Sprite Move Operator" << std::endl;
     if (&other == this) return *this;
 
     filename = other.filename;
