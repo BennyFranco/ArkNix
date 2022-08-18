@@ -7,10 +7,9 @@ Sprite::Sprite() {
     // std::cout << "Sprite Constructor" << std::endl;
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
-    size = Vector2(1, 1);
-    position = Vector2(0, 0);
     texture = NULL;
     name = "SpriteComponent";
+    transform = nullptr;
 }
 
 Sprite::Sprite(const char *filename) {
@@ -20,6 +19,7 @@ Sprite::Sprite(const char *filename) {
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
     Load(filename);
+    transform = nullptr;
 }
 
 Sprite::~Sprite() {
@@ -35,6 +35,7 @@ Sprite::Sprite(const Sprite &other) {
     filename = other.filename;
     texture = other.texture;
     name = other.name;
+    transform = other.transform;
 }
 
 Sprite::Sprite(Sprite &&other) {
@@ -43,10 +44,12 @@ Sprite::Sprite(Sprite &&other) {
     filename = other.filename;
     texture = other.texture;
     name = other.name;
+    transform = other.transform;
 
     other.filename = nullptr;
     other.texture = NULL;
     other.name = nullptr;
+    other.transform = nullptr;
 }
 
 Sprite &Sprite::operator=(const Sprite &other) {
@@ -55,26 +58,29 @@ Sprite &Sprite::operator=(const Sprite &other) {
     if (&other == this) return *this;
 
     SDL_DestroyTexture(texture);
-    filename = nullptr;
 
     filename = other.filename;
     texture = other.texture;
     name = other.name;
+    transform = other.transform;
 
     return *this;
 }
 
 Sprite &Sprite::operator=(Sprite &&other) {
-    // std::cout << "Sprite Move Operator" << std::endl;
     if (&other == this) return *this;
+
+    SDL_DestroyTexture(texture);
 
     filename = other.filename;
     texture = other.texture;
     name = other.name;
+    transform = other.transform;
 
     other.filename = nullptr;
     other.texture = NULL;
     other.name = nullptr;
+    transform = nullptr;
 
     return *this;
 }
@@ -87,55 +93,36 @@ bool Sprite::Load(const char *filename) {
 
     int w, h;
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    // TODO: Put this in an else case for no SDL available
-    size = Vector2(w, h);
-    position = Vector2(0, 0);
 
-    SetRectPosition();
-    SetRectSize();
+    // SetRectPosition();
+    // SetRectSize();
 
     return true;
 }
 
 void Sprite::Draw() {
+    SetRectPosition();
+    SetRectSize();
     SDL_RenderCopyF(renderer, texture, NULL, &canvas);
 }
 
-void Sprite::Size(Vector2 *size) {
-    Component::Size(size);
-    SetRectSize();
-}
-
-void Sprite::Position(const Vector2 *position) {
-    Component::Position(position);
-    SetRectPosition();
-}
-
-void Sprite::Size(float width, float height) {
-    Component::Size(width, height);
-    SetRectSize();
-}
-
-void Sprite::Position(float x, float y) {
-    Component::Position(x, y);
-    SetRectPosition();
-}
-
 void Sprite::SetRectSize() {
-    canvas.w = size.w();
-    canvas.h = size.h();
+    canvas.w = transform->size.w();
+    canvas.h = transform->size.h();
 }
 
 void Sprite::SetRectPosition() {
-    canvas.x = position.x;
-    canvas.y = position.y;
+    canvas.x = transform->position.x;
+    canvas.y = transform->position.y;
 }
 
-void Sprite::Centered() {
+Vector2 Sprite::Centered() {
     SDLRenderer *sdlRenderer = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
-    position = sdlRenderer->WindowSize();
-    position.x = (position.x / 2.f) - (size.x / 2.f);
-    position.y = (position.y / 2.f) - (size.y / 2.f);
+    transform->position = sdlRenderer->WindowSize();
+    transform->position.x = (transform->position.x / 2.f) - (transform->size.x / 2.f);
+    transform->position.y = (transform->position.y / 2.f) - (transform->size.y / 2.f);
 
     SetRectPosition();
+
+    return transform->position;
 }

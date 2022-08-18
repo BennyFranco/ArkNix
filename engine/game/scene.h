@@ -1,6 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include "asset_manager.h"
 #include "entity.h"
 #include "game_object.h"
 
@@ -21,7 +22,7 @@ namespace nim {
         void Quit() override;
         std::string Name() const { return sceneData->name; }
 
-    private:
+        // private:
         std::unique_ptr<SceneData> sceneData;
     };
 }// namespace nim

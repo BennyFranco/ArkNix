@@ -17,11 +17,13 @@ namespace nim {
         void Update();
         void ExitGameListener(bool);
 
+    public:
+        std::unique_ptr<Scene> currentScene;
+
     private:
         bool running;
         const uint kTargetFps = 60;
         const uint kDelayTime = 1000.f / kTargetFps;
-        std::unique_ptr<Scene> currentScene;
     };
 }// namespace nim
 #endif// GAME_H

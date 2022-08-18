@@ -5,10 +5,13 @@
 #include <string>
 
 namespace nim {
-    class Component : public Transform {
+    class Component {
     public:
         virtual void Draw(){};
+
+    public:
         std::string name;
+        Transform *transform;
     };
 }// namespace nim
 #endif// COMPONENT_H

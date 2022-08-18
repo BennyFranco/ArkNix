@@ -10,7 +10,6 @@ void Scene::Init() {
 }
 
 void Scene::Update() {
-    std::cout << "[Scene] Update" << std::endl;
     for (auto gameObject: sceneData->gameObjects) {
         gameObject.Update();
     }

@@ -15,21 +15,18 @@ void Game::Awake() {
     AssetManager::Instance().LoadAssets();
     running = true;
     std::function<void(bool)> callback = [=](bool stop) { ExitGameListener(stop); };
-    InputLocator::GetInput()->onExitGameEvent.AddListener(std::move(callback));
-
-    // TEST CODE
-    currentScene = std::make_unique<Scene>();
-    currentScene->Init();
+    InputLocator::GetInput()->onExitGameEvent.AddListener(std::move(callback));    
 }
 
 void Game::Run() {
-    Awake();
+    // Awake();
     Update();
     Quit();
 }
 
 void Game::Quit() {
-    currentScene->Quit();
+    if (currentScene != nullptr)
+        currentScene->Quit();
     RendererLocator::GetRenderer()->Quit();
 }
 
@@ -43,7 +40,8 @@ void Game::Update() {
         InputLocator::GetInput()->Update();
         RendererLocator::GetRenderer()->Clear();
 
-        currentScene->Update();
+        if (currentScene != nullptr)
+            currentScene->Update();
 
         RendererLocator::GetRenderer()->Update();
         uint frameEnd = SDL_GetTicks();

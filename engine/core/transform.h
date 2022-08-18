@@ -6,41 +6,23 @@
 namespace nim {
     class Transform {
     public:
-        virtual inline float X() const { return position.x; }
-        virtual inline float Y() const { return position.y; }
-        virtual inline float Width() const { return size.x; }
-        virtual inline float Height() const { return size.y; }
-        virtual inline Vector2 Size() const { return size; }
-        virtual inline Vector2 Position() const { return position; }
+        Transform();
+        Transform(Vector2 size, Vector2 position);
+        Transform(const Transform &other);
+        Transform(Transform &&other);
+        ~Transform() = default;
 
-        virtual void X(float value) { position.x = value; }
-        virtual void Y(float value) { position.y = value; }
-        virtual void Width(float value) { size.x = value; }
-        virtual void Height(float value) { size.y = value; }
-        virtual void Size(Vector2 *size) {
-            this->size.x = size->x;
-            this->size.y = size->y;
-        }
-        virtual void Size(Vector2 &&size) {
-            this->size = size;
-        }
-        virtual void Position(const Vector2 *position) {
-            this->position.x = position->x;
-            this->position.y = position->y;
-        }
-        virtual void Position(Vector2 &&position) {
-            this->position = position;
-        }
-        virtual void Size(float width, float height) {
-            size.x = width;
-            size.y = height;
-        }
-        virtual void Position(float x, float y) {
-            position.x = x;
-            position.y = y;
-        }
+        Transform &operator=(const Transform &other);
+        Transform &operator=(Transform &&other);
 
-    protected:
+        void Size(Vector2 *size);
+        void Size(Vector2 &&size);
+        void Position(const Vector2 *position);
+        void Position(Vector2 &&position);
+        void Size(float width, float height);
+        void Position(float x, float y);
+
+    public:
         Vector2 size;
         Vector2 position;
     };
