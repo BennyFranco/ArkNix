@@ -10,6 +10,12 @@
 #include <vector>
 
 namespace nim {
+#ifdef EDITOR_DEBUG
+    const std::string kScenesPath = "../scenes/";
+#else
+    const std::string kScenesPath = "scenes/";
+#endif
+
     struct SceneData {
         std::string name;
         std::vector<GameObject> gameObjects;

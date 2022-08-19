@@ -52,13 +52,17 @@ void Scene::Quit() {
 }
 
 std::unique_ptr<Scene> Scene::LoadScene(std::string sceneName) {
-    // TODO: include scenes in asset manager
-    YAML::Node sceneNode = YAML::LoadFile(sceneName);
-    SceneData sceneData = sceneNode.as<SceneData>();
-    auto currentScene = std::make_unique<Scene>();
-    currentScene->GetData()->name = std::move(sceneData.name);
-    currentScene->GetData()->gameObjects = std::move(sceneData.gameObjects);
-    return currentScene;
+    try {
+        YAML::Node sceneNode = YAML::LoadFile(kScenesPath + sceneName);
+        SceneData sceneData = sceneNode.as<SceneData>();
+        auto currentScene = std::make_unique<Scene>();
+        currentScene->GetData()->name = std::move(sceneData.name);
+        currentScene->GetData()->gameObjects = std::move(sceneData.gameObjects);
+        return currentScene;
+    } catch (YAML::BadFile ex) {
+        std::cout << "[Scene] " << ex.what() << std::endl;
+    }
+    return nullptr;
 }
 
 void Scene::Save(std::string filename) {
@@ -79,7 +83,7 @@ void Scene::Save(std::string filename) {
     document << common;
     document << YAML::EndDoc;
 
-    std::ofstream fileOut(filename);
+    std::ofstream fileOut(kScenesPath + filename);
     fileOut << document.c_str();
     fileOut.close();
 }

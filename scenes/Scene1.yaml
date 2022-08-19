@@ -1,0 +1,18 @@
+# Scene: Scene1
+# Date: Fri Aug 19 14:20:18 2022
+# 
+---
+name: Scene1
+gameObjects:
+  - type: GameObject
+    name: Player
+    transform:
+      size: [128, 128]
+      position: [0, 0]
+    components:
+      - type: 1
+        name: SpriteComponent
+        asset: ship_6
+---
+version: 1
+...
