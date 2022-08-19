@@ -61,9 +61,8 @@ namespace YAML {
             sd.name = node["name"].as<std::string>();
 
             std::vector<nim::GameObject> gameObjects;
-            // for (auto i = node["gameObjects"].begin(); i != node["gameObjects"].end(); i++)
-            for (int i = 0; i < node["gameObjects"].size(); i++) {
-                gameObjects.emplace_back(node["gameObjects"][i].as<nim::GameObject>());
+            for (auto i = node["gameObjects"].begin(); i != node["gameObjects"].end(); i++) {
+                gameObjects.emplace_back(i->as<nim::GameObject>());
             }
 
             sd.gameObjects = std::move(gameObjects);
