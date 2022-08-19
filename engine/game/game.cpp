@@ -15,7 +15,7 @@ void Game::Awake() {
     AssetManager::Instance().LoadAssets();
     running = true;
     std::function<void(bool)> callback = [=](bool stop) { ExitGameListener(stop); };
-    InputLocator::GetInput()->onExitGameEvent.AddListener(std::move(callback));    
+    InputLocator::GetInput()->onExitGameEvent.AddListener(std::move(callback));
 }
 
 void Game::Run() {
@@ -62,4 +62,8 @@ void Game::Update() {
 
 void Game::ExitGameListener(bool stop) {
     running = stop;
+}
+
+void Game::LoadScene(std::string sceneName) {
+    currentScene = std::move(Scene::LoadScene(sceneName));
 }

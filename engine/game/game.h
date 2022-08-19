@@ -13,6 +13,8 @@ namespace nim {
         virtual void Run();
         virtual void Quit();
 
+        virtual void LoadScene(std::string sceneName);
+
     private:
         void Update();
         void ExitGameListener(bool);
