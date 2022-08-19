@@ -21,7 +21,7 @@ void Game::Awake() {
 void Game::Run() {
     // Awake();
     Update();
-    Quit();
+    // Quit();
 }
 
 void Game::Quit() {
