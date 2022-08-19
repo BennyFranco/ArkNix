@@ -19,8 +19,11 @@ set(SDL2IMAGE_SAMPLES OFF)
 set(SDL2IMAGE_TESTS OFF)
 set(SDL2IMAGE_INSTALL OFF)
 
+set(YAML_BUILD_SHARED_LIBS ON)
+
 add_subdirectory(thirdparty/SDL)
 add_subdirectory(thirdparty/SDL_image)
+add_subdirectory(thirdparty/yaml-cpp)
 
 set(INCLUDE_DIRS
     engine/components
@@ -51,6 +54,7 @@ add_executable(Galaga game/main.cpp)
 target_link_libraries(NimEngine
                       PUBLIC SDL2
                       PUBLIC SDL2_image
+                      yaml-cpp
                       )
 
 target_compile_options(NimEngine PUBLIC -std=c++17)
@@ -59,5 +63,6 @@ target_compile_options(Galaga PUBLIC -std=c++17)
 target_link_libraries(Galaga
                       PUBLIC SDL2
                       PUBLIC SDL2_image
+                      yaml-cpp
                       NimEngine
                       )
