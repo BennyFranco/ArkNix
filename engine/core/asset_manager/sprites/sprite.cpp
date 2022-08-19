@@ -9,9 +9,10 @@ Sprite::Sprite() {
     texture = NULL;
 }
 
-Sprite::Sprite(const char *filename) {
+Sprite::Sprite(const char *id, const char *filename) {
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
+    this->id = id;
     Load(filename);
 }
 

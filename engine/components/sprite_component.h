@@ -23,7 +23,29 @@ namespace nim {
         void SetTransform(Transform *transform) override;
 
     public:
-        Sprite *sprite; // owned by AssetManager
+        Sprite *sprite;// owned by AssetManager
     };
 }// namespace nim
+
+namespace YAML {
+    template<>
+    struct convert<nim::SpriteComponent *> {
+        static YAML::Node encode(const nim::SpriteComponent *component) {
+            YAML::Node node;
+            node["type"] = (int) component->type;
+            node["name"] = component->name;
+            node["asset"] = component->sprite->id;
+            return node;
+        }
+    };
+    template<>
+    struct convert<nim::SpriteComponent> {
+        static bool decode(const YAML::Node &node, nim::SpriteComponent &component) {
+            if (!node["name"] && !node["asset"]) return false;
+            nim::SpriteComponent sc(node["asset"].as<std::string>().c_str());
+            component = std::move(sc);
+            return true;
+        }
+    };
+}// namespace YAML
 #endif//SPRITE_COMPONENT_H

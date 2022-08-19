@@ -18,7 +18,7 @@ namespace nim {
     class Sprite : public Asset {
     public:
         Sprite();
-        Sprite(const char *filename);
+        Sprite(const char* id, const char *filename);
         Sprite(const Sprite &other);
         Sprite(Sprite &&other);
         ~Sprite();
