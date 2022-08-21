@@ -62,38 +62,25 @@ bool Sprite::Load(const char *filename) {
     SDL_FreeSurface(loadingSurface);
     this->filename = filename;
 
-    int w, h;
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    // int w, h;
+    // SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 
     return true;
 }
 
 void Sprite::Draw() {
-    SDL_RenderCopyF(renderer, texture, NULL, canvas);
+    SDL_RenderCopyF(renderer, texture, &srcCanvas, canvas);
+    // SDL_RenderCopyF(renderer, texture, NULL, NULL);
 }
-
 
 void Sprite::SetCanvas(SDL_FRect *rect) {
+    srcCanvas.x = 0;
+    srcCanvas.y = 0;
+    srcCanvas.w = rect->w;
+    srcCanvas.h = rect->h;
     canvas = rect;
+    // canvas.x = rect->x;
+    // canvas.y = rect->y;
+    // canvas.w = rect->w;
+    // canvas.h = rect->h;
 }
-
-// void Sprite::SetRectSize(const Vector2 &value) {
-//     canvas.w = value.x;
-//     canvas.h = value.y;
-// }
-
-// void Sprite::SetRectPosition(const Vector2 &value) {
-//     canvas.x = value.x;
-//     canvas.y = value.y;
-// }
-
-// Vector2 Sprite::Centered() {
-//     SDLRenderer *sdlRenderer = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
-//     transform->position = sdlRenderer->WindowSize();
-//     transform->position.x = (transform->position.x / 2.f) - (transform->size.x / 2.f);
-//     transform->position.y = (transform->position.y / 2.f) - (transform->size.y / 2.f);
-
-//     SetRectPosition();
-
-//     return transform->position;
-// }

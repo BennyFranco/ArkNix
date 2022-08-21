@@ -7,6 +7,12 @@
 #include <memory>
 
 namespace nim {
+    struct WindowProperties {
+        int width = 800;
+        int height = 600;
+        std::string title = "Nim Engine";
+    };
+
     class Game {
     public:
         virtual void Awake();
@@ -21,6 +27,9 @@ namespace nim {
 
     public:
         std::unique_ptr<Scene> currentScene;
+
+    protected:
+        WindowProperties windowProperties;
 
     private:
         bool running;

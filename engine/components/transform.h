@@ -4,6 +4,7 @@
 #include "SDL.h"
 #include "vector2d.h"
 #include "yaml-cpp/yaml.h"
+#include <memory>
 
 namespace nim {
     class Transform {
@@ -12,7 +13,7 @@ namespace nim {
         Transform(Vector2 size, Vector2 position);
         Transform(const Transform &other);
         Transform(Transform &&other);
-        ~Transform() = default;
+        ~Transform();
 
         Transform &operator=(const Transform &other);
         Transform &operator=(Transform &&other);
@@ -34,7 +35,7 @@ namespace nim {
         Vector2 position;
 
     private:
-        SDL_FRect rect;
+        std::unique_ptr<SDL_FRect> rect = nullptr;
     };
 }// namespace nim
 

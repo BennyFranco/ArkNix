@@ -31,7 +31,7 @@ void SDLRenderer::SetWindowTitle(std::string title) {
 }
 
 void SDLRenderer::CreateRenderer(Color color) {
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawColor(renderer, color.R, color.G, color.B, color.A);
 }
 

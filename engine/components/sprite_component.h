@@ -9,8 +9,6 @@ namespace nim {
     public:
         SpriteComponent();
         SpriteComponent(const char *assetName);
-        SpriteComponent(const char *name, const char *assetName);
-        SpriteComponent(Sprite *sprite);
         SpriteComponent(const char *name, Sprite *sprite);
         SpriteComponent(const SpriteComponent &other);
         SpriteComponent(SpriteComponent &&other);

@@ -5,15 +5,26 @@
 name: Scene1
 gameObjects:
   - type: GameObject
+    name: Background
+    transform:
+      size: [720, 960]
+      position: [0, 0]
+    components:
+      - type: 1
+        name: SpriteComponent
+        asset: default
+  - type: GameObject
     name: Player
     transform:
-      size: [128, 128]
-      position: [0, 0]
+      size: [64, 64]
+      position: [339, 864]
     components:
       - type: 1
         name: SpriteComponent
         asset: ship_6
       - type: 2
         name: CharacterController
+    # - type: 3
+    #   name: DebugComponent
 ---
 version: 1

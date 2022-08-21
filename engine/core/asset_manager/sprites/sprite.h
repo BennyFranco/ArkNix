@@ -18,7 +18,7 @@ namespace nim {
     class Sprite : public Asset {
     public:
         Sprite();
-        Sprite(const char* id, const char *filename);
+        Sprite(const char *id, const char *filename);
         Sprite(const Sprite &other);
         Sprite(Sprite &&other);
         ~Sprite();
@@ -34,7 +34,8 @@ namespace nim {
         void SetCanvas(SDL_FRect *rect);
 
     private:
-        SDL_FRect *canvas;
+        SDL_Rect srcCanvas;
+        SDL_FRect* canvas;
         SDL_Texture *texture;
         SDL_Renderer *renderer;
     };

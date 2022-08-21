@@ -23,10 +23,7 @@ GameObject::GameObject(const char *name) : name(name) {
 
 GameObject::GameObject(const GameObject &other) {
     name = other.name;
-    Transform otherTransform;
-    otherTransform.position = other.transform->position;
-    otherTransform.size = other.transform->size;
-    transform = std::make_unique<Transform>(std::move(otherTransform));
+    transform = other.transform;
     components = other.components;
 }
 
@@ -65,7 +62,7 @@ GameObject &GameObject::operator=(GameObject &&other) {
 
 void GameObject::AddComponent(std::shared_ptr<Component> component) {
     component->SetTransform(transform.get());
-    components.emplace_back(std::move(component));
+    components.emplace_back(component);
 }
 
 // Component *GameObject::GetComponent(const char *id) {
@@ -79,20 +76,20 @@ void GameObject::AddComponent(std::shared_ptr<Component> component) {
 
 #pragma region entity_functions
 void GameObject::Init() {
-    for (auto &component: components) {
-        component->Init();
+    for (int i = 0; i < components.size(); i++) {
+        components[i]->Init();
     }
 }
 
 void GameObject::Update() {
-    for (auto &component: components) {
-        component->Update();
+    for (int i = 0; i < components.size(); i++) {
+        components[i]->Update();
     }
 }
 
 void GameObject::Quit() {
-    for (auto &component: components) {
-        component->Quit();
+    for (int i = 0; i < components.size(); i++) {
+        components[i]->Quit();
     }
 }
 #pragma endregion

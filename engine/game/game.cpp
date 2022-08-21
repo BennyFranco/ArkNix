@@ -6,10 +6,10 @@
 
 using namespace nim;
 
-void Game::Awake() {    
+void Game::Awake() {
     RendererLocator::Initialize();
     auto renderer = RendererLocator::GetRenderer();
-    renderer->CreateWindow("Nim Engine", 800, 600);
+    renderer->CreateWindow(windowProperties.title, windowProperties.width, windowProperties.height);
     renderer->CreateRenderer(Color(0, 0, 0));
     InputLocator::Initialize();
     AssetManager::Instance().LoadAssets();
@@ -19,9 +19,7 @@ void Game::Awake() {
 }
 
 void Game::Run() {
-    // Awake();
     Update();
-    // Quit();
 }
 
 void Game::Quit() {
@@ -48,7 +46,7 @@ void Game::Update() {
         uint frameDuration = frameEnd - frameStart;
 
         if ((frameEnd - timestamp) >= 1000) {
-            RendererLocator::GetRenderer()->SetWindowTitle(std::string("Nim Engine - FPS: " + std::to_string(fps)));
+            RendererLocator::GetRenderer()->SetWindowTitle(std::string(windowProperties.title + " - FPS: " + std::to_string(fps)));
             fps = 0;
             timestamp = frameEnd;
         }

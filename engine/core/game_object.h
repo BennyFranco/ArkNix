@@ -31,7 +31,7 @@ namespace nim {
 
     public:
         std::string name;
-        std::unique_ptr<Transform> transform;
+        std::shared_ptr<Transform> transform;
 
     private:
         std::vector<std::shared_ptr<Component>> components;

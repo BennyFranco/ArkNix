@@ -36,6 +36,8 @@ set(INCLUDE_DIRS
     engine/graphics/sprites
     engine/input
     engine/math
+    game/
+    game/components
 )
 include_directories(${INCLUDE_DIRS})
 
@@ -44,6 +46,7 @@ file(GLOB SOURCE_FILES
         engine/**/*.cpp
         engine/**/**/*.cpp
         engine/**/**/**/*.cpp
+        game/*.cpp
     )
 
 add_library(NimEngine ${SOURCE_FILES})

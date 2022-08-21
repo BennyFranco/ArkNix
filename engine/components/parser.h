@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include "character_controller.h"
+#include "debug_component.h"
 #include "game_object.h"
 #include "sprite_component.h"
 
@@ -22,8 +23,9 @@ namespace YAML {
                         node["components"].push_back(dynamic_cast<nim::CharacterController *>(component.get()));
                     } break;
                     case nim::ComponentType::Custom:
-                    // TODO: open for custom components from game implementation side. As C++ doesn't have reflection,
-                    // I'll handled that feature later, it's out of my current scope.
+                        // TODO: open for custom components from game implementation side. As C++ doesn't have reflection,
+                        // I'll handled that feature later, it's out of my current scope.
+
                     default:
                         break;
                 }
@@ -35,7 +37,7 @@ namespace YAML {
             if (!node["type"]) return false;
 
             go.name = node["name"].as<std::string>();
-            auto t = node["transform"].as<nim::Transform>();
+            nim::Transform t = node["transform"].as<nim::Transform>();
             go.transform->size = t.size;
             go.transform->position = t.position;
 
@@ -43,14 +45,14 @@ namespace YAML {
                 for (int i = 0; i < node["components"].size(); i++) {
                     switch (node["components"][i]["type"].as<nim::ComponentType>()) {
                         case nim::ComponentType::Sprite: {
-                            auto sc = std::move(node["components"][i].as<nim::SpriteComponent>());
-                            go.AddComponent(std::make_shared<nim::SpriteComponent>(sc));
+                            go.AddComponent(std::make_shared<nim::SpriteComponent>(node["components"][i].as<nim::SpriteComponent>()));
                         } break;
                         case nim::ComponentType::Controller: {
                             auto sc = std::move(node["components"][i].as<nim::CharacterController>());
                             go.AddComponent(std::make_shared<nim::CharacterController>(sc));
                         } break;
                         case nim::ComponentType::Custom:
+                            go.AddComponent(std::make_shared<nim::DebugComponent>());
                         default:
                             break;
                     }
