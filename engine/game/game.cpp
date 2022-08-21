@@ -6,7 +6,7 @@
 
 using namespace nim;
 
-void Game::Awake() {
+void Game::Awake() {    
     RendererLocator::Initialize();
     auto renderer = RendererLocator::GetRenderer();
     renderer->CreateWindow("Nim Engine", 800, 600);
@@ -66,4 +66,5 @@ void Game::ExitGameListener(bool stop) {
 
 void Game::LoadScene(std::string sceneName) {
     currentScene = std::move(Scene::LoadScene(sceneName));
+    currentScene->Init();
 }

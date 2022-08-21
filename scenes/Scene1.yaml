@@ -1,6 +1,6 @@
 # Scene: Scene1
 # Date: Fri Aug 19 14:20:18 2022
-# 
+#
 ---
 name: Scene1
 gameObjects:
@@ -13,6 +13,7 @@ gameObjects:
       - type: 1
         name: SpriteComponent
         asset: ship_6
+      - type: 2
+        name: CharacterController
 ---
 version: 1
-...

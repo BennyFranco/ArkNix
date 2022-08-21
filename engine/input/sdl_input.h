@@ -10,6 +10,7 @@ namespace nim {
         void Init() override;
         void Update() override;
         void Quit() override;
+        bool GetKey(Key key) override;
         bool GetKeyDown(Key key) override;
         bool GetKeyUp(Key key) override;
 

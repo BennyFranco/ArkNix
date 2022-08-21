@@ -88,7 +88,7 @@ SpriteComponent &SpriteComponent::operator=(SpriteComponent &&other) {
     return *this;
 }
 
-void SpriteComponent::Draw() {
+void SpriteComponent::Update() {
     if (sprite == nullptr) return;
 
     sprite->Draw();

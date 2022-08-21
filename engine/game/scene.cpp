@@ -7,7 +7,7 @@
 using namespace nim;
 
 Scene::Scene() {
-    std::cout << "[Scene] Init" << std::endl;
+    std::cout << "[Scene] Constructed" << std::endl;
     sceneData = std::make_unique<SceneData>();
 }
 
@@ -39,7 +39,12 @@ Scene &Scene::operator=(Scene &&otherScene) {
     return *this;
 }
 
-void Scene::Init() {}
+void Scene::Init() {
+    std::cout << "[Scene] Init" << std::endl;
+    for (auto gameObject: sceneData->gameObjects) {
+        gameObject.Init();
+    }
+}
 
 void Scene::Update() {
     for (auto gameObject: sceneData->gameObjects) {
@@ -49,6 +54,9 @@ void Scene::Update() {
 
 void Scene::Quit() {
     std::cout << "[Scene] Quit" << std::endl;
+    for (auto gameObject: sceneData->gameObjects) {
+        gameObject.Quit();
+    }
 }
 
 std::unique_ptr<Scene> Scene::LoadScene(std::string sceneName) {

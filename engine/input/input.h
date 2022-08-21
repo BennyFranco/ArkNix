@@ -79,6 +79,7 @@ namespace nim {
 
     class Input : public Entity {
     public:
+        virtual bool GetKey(Key key) = 0;
         virtual bool GetKeyDown(Key key) = 0;
         virtual bool GetKeyUp(Key key) = 0;
 

@@ -19,7 +19,7 @@ namespace nim {
         SpriteComponent &operator=(const SpriteComponent &other);
         SpriteComponent &operator=(SpriteComponent &&other);
 
-        void Draw() override;
+        void Update() override;
         void SetTransform(Transform *transform) override;
 
     public:

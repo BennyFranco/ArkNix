@@ -78,9 +78,21 @@ void GameObject::AddComponent(std::shared_ptr<Component> component) {
 // }
 
 #pragma region entity_functions
+void GameObject::Init() {
+    for (auto &component: components) {
+        component->Init();
+    }
+}
+
 void GameObject::Update() {
     for (auto &component: components) {
-        component->Draw();
+        component->Update();
+    }
+}
+
+void GameObject::Quit() {
+    for (auto &component: components) {
+        component->Quit();
     }
 }
 #pragma endregion

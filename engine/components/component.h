@@ -9,13 +9,16 @@ namespace nim {
     enum class ComponentType {
         Generic = 0,
         Sprite,
-        Unknown
+        Controller,
+        Custom
     };
 
     class Component {
     public:
         virtual ~Component() = default;
-        virtual void Draw(){};
+        virtual void Init(){};
+        virtual void Update(){};
+        virtual void Quit(){};
         virtual Transform *GetTransform() const { return transform; };
         virtual void SetTransform(Transform *transform) {
             this->transform = transform;
@@ -32,31 +35,12 @@ namespace nim {
 
 namespace YAML {
     template<>
-    struct convert<nim::Component> {
-        static YAML::Node encode(const nim::Component &component) {
-            YAML::Node node;
-            node["name"] = component.name;
-            return node;
-        }
+    struct convert<nim::ComponentType> {
+        static Node encode(const nim::ComponentType &rhs) { return Node((int) rhs); }
 
-        static bool decode(const YAML::Node &node, nim::Component &component) {
-            if (!node["name"]) return false;
-            component.name = node["name"].as<std::string>();
-            return true;
-        }
-    };
-
-    template<>
-    struct convert<nim::Component *> {
-        static YAML::Node encode(const nim::Component *component) {
-            YAML::Node node;
-            node["name"] = component->name;
-            return node;
-        }
-
-        static bool decode(const YAML::Node &node, nim::Component &component) {
-            if (!node["name"]) return false;
-            component.name = node["name"].as<std::string>();
+        static bool decode(const Node &node, nim::ComponentType &rhs) {
+            if (!node.IsScalar()) return false;
+            rhs = static_cast<nim::ComponentType>(node.as<int>());
             return true;
         }
     };

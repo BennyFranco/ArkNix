@@ -35,6 +35,10 @@ void SDLInput::Update() {
 
 void SDLInput::Quit() {}
 
+bool SDLInput::GetKey(Key key) {
+    return lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
+}
+
 bool SDLInput::GetKeyUp(Key key) {
     return !lastKeyEvent.isKeyDown && lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
 }
