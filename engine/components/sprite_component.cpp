@@ -88,11 +88,6 @@ void SpriteComponent::Update() {
     if (sprite == nullptr) return;
 
     sprite->Draw();
-
-    // if (transform != nullptr) {
-    //     std::cout << "[" << name << "] Size: X=" << transform->size.x << " Y=" << transform->size.y << "\n";
-    //     std::cout << "[" << name << "] Pos: X=" << transform->position.x << " Y=" << transform->position.y << "\n";
-    // }
 }
 
 void SpriteComponent::SetTransform(Transform *transform) {

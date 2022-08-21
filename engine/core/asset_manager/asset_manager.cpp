@@ -3,6 +3,7 @@
 #include "sprite.h"
 
 #include <filesystem>
+#include <iostream>
 
 using namespace nim;
 
@@ -19,9 +20,10 @@ void AssetManager::LoadAssets() {
         if (!item.is_regular_file()) continue;
         // TODO: define more supported formats
         if (item.path().extension() == ".png") {
-            const char *filename = item.path().c_str();
-            const char *id = item.path().filename().replace_extension("").c_str();
-            assets.emplace(id, std::make_shared<nim::Sprite>(id, filename));
-        }    
+            std::string filename = item.path().c_str();
+            std::string id = item.path().filename().replace_extension("").c_str();
+            assets.emplace(id, std::make_shared<nim::Sprite>(id.c_str(), filename.c_str()));
+            std::cout << "[AssetManager] Asset loaded with id = " << id << "\n";
+        }
     }
 }

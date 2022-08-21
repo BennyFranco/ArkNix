@@ -12,7 +12,16 @@ gameObjects:
     components:
       - type: 1
         name: SpriteComponent
-        asset: default
+        asset: background_1
+      - type: 1
+        name: SpriteComponent
+        asset: background_2
+      - type: 1
+        name: SpriteComponent
+        asset: background_3
+      - type: 1
+        name: SpriteComponent
+        asset: background_4
   - type: GameObject
     name: Player
     transform:
