@@ -1,6 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "animation_component.h"
 #include "character_controller.h"
 #include "debug_component.h"
 #include "game_object.h"
@@ -21,6 +22,9 @@ namespace YAML {
                     } break;
                     case nim::ComponentType::Controller: {
                         node["components"].push_back(dynamic_cast<nim::CharacterController *>(component.get()));
+                    } break;
+                    case nim::ComponentType::Animation: {
+                        node["components"].push_back(dynamic_cast<nim::AnimationComponent *>(component.get()));
                     } break;
                     case nim::ComponentType::Custom:
                         // TODO: open for custom components from game implementation side. As C++ doesn't have reflection,
@@ -50,6 +54,9 @@ namespace YAML {
                         case nim::ComponentType::Controller: {
                             auto sc = std::move(node["components"][i].as<nim::CharacterController>());
                             go.AddComponent(std::make_shared<nim::CharacterController>(sc));
+                        } break;
+                        case nim::ComponentType::Animation: {
+                            go.AddComponent(std::make_shared<nim::AnimationComponent>(node["components"][i].as<nim::AnimationComponent>()));
                         } break;
                         case nim::ComponentType::Custom:
                             go.AddComponent(std::make_shared<nim::DebugComponent>());

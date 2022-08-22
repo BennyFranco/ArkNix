@@ -28,14 +28,14 @@ namespace nim {
 
         bool Load(const char *filename) override;
         void Draw();
-
-        // void SetRectSize(const Vector2& value);
-        // void SetRectPosition(const Vector2& value);
         void SetCanvas(SDL_FRect *rect);
+        Vector2int GetSpriteSize();
+
+    public:
+        std::unique_ptr<SDL_Rect> srcCanvas;
 
     private:
-        SDL_Rect srcCanvas;
-        SDL_FRect* canvas;
+        SDL_FRect *canvas;
         SDL_Texture *texture;
         SDL_Renderer *renderer;
     };

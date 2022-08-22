@@ -11,7 +11,7 @@ namespace nim {
         Sprite,
         Controller,
         Custom,
-        Animation,
+        Animation
     };
 
     class Component {

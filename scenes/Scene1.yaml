@@ -23,6 +23,18 @@ gameObjects:
         name: SpriteComponent
         asset: background_4
   - type: GameObject
+    name: EnemyTest_Alan
+    transform:
+      size: [64, 64]
+      position: [0, 0]
+    components:
+      - type: 4
+        name: AnimationComponent
+        atlas: alan
+        animateOnInit: true
+        offset: [16, 0]
+        frames: 6
+  - type: GameObject
     name: Player
     transform:
       size: [64, 64]
