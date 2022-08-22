@@ -10,7 +10,8 @@ namespace nim {
         Generic = 0,
         Sprite,
         Controller,
-        Custom
+        Custom,
+        Animation,
     };
 
     class Component {
