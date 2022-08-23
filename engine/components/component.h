@@ -2,6 +2,7 @@
 #define COMPONENT_H
 
 #include "transform.h"
+#include "types.h"
 #include <string>
 
 namespace nim {
