@@ -6,14 +6,12 @@ using namespace nim;
 SpriteComponent::SpriteComponent() {
     name = "SpriteComponent";
     transform = nullptr;
-    type = ComponentType::Sprite;
 }
 
 SpriteComponent::SpriteComponent(const char *assetName) {
     name = "SpriteComponent";
     transform = nullptr;
     sprite = nim::AssetManager::Instance().Get<Sprite>(assetName);
-    type = ComponentType::Sprite;
 }
 SpriteComponent::SpriteComponent(const SpriteComponent &other) {
     std::cout << "[SpriteComponent] Copy Constructor"
@@ -21,13 +19,11 @@ SpriteComponent::SpriteComponent(const SpriteComponent &other) {
     name = other.name;
     transform = other.transform;
     sprite = other.sprite;
-    type = other.type;
 }
 SpriteComponent::SpriteComponent(SpriteComponent &&other) {
     std::cout << "[SpriteComponent] Move Constructor"
               << "\n";
     name = other.name;
-    type = other.type;
 
     transform = other.transform;
     sprite = std::move(other.sprite);
@@ -48,7 +44,6 @@ SpriteComponent &SpriteComponent::operator=(const SpriteComponent &other) {
         name = other.name;
         transform = other.transform;
         sprite = other.sprite;
-        type = other.type;
     }
 
     return *this;
@@ -62,7 +57,6 @@ SpriteComponent &SpriteComponent::operator=(SpriteComponent &&other) {
         name = other.name;
         transform = other.transform;
         sprite = std::move(other.sprite);
-        type = other.type;
 
         other.transform = nullptr;
     }

@@ -42,7 +42,6 @@ namespace YAML {
     struct convert<nim::AnimationComponent *> {
         static YAML::Node encode(const nim::AnimationComponent *component) {
             YAML::Node node;
-            node["type"] = component->type;
             node["name"] = component->name;
             node["atlas"] = component->sprite.id;
             node["animateOnInit"] = component->animateOnInit;

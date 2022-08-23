@@ -26,7 +26,6 @@ namespace YAML {
     struct convert<nim::CharacterController *> {
         static YAML::Node encode(const nim::CharacterController *component) {
             YAML::Node node;
-            node["type"] = component->type;
             node["name"] = component->name;
             return node;
         }

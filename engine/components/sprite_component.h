@@ -30,7 +30,6 @@ namespace YAML {
     struct convert<nim::SpriteComponent *> {
         static YAML::Node encode(const nim::SpriteComponent *component) {
             YAML::Node node;
-            node["type"] = (int) component->type;
             node["name"] = component->name;
             node["asset"] = component->sprite.id;
             return node;

@@ -5,21 +5,18 @@ using namespace nim;
 CharacterController::CharacterController() {
     name = "CharacterController";
     transform = nullptr;
-    type = ComponentType::Controller;
     input = InputLocator::GetInput();
 }
 
 CharacterController::CharacterController(const CharacterController &controller) {
     name = controller.name;
     transform = controller.transform;
-    type = controller.type;
     input = controller.input;
 }
 
 CharacterController::CharacterController(CharacterController &&controller) {
     name = std::move(controller.name);
     transform = std::move(controller.transform);
-    type = controller.type;
     input = controller.input;
 
     controller.transform = nullptr;
@@ -33,7 +30,6 @@ CharacterController &CharacterController::operator=(const CharacterController &c
 
         name = controller.name;
         transform = controller.transform;
-        type = controller.type;
         input = controller.input;
     }
     return *this;
@@ -47,7 +43,6 @@ CharacterController &CharacterController::operator=(CharacterController &&contro
 
         name = std::move(controller.name);
         transform = std::move(controller.transform);
-        type = controller.type;
         input = controller.input;
 
         controller.transform = nullptr;

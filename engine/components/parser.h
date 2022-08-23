@@ -7,6 +7,20 @@
 #include "game_object.h"
 #include "sprite_component.h"
 
+namespace nim {
+    class CustomComponentHelper {
+    public:
+        static CustomComponentHelper &Instance() {
+            static std::unique_ptr<CustomComponentHelper> instance{new CustomComponentHelper()};
+            return *instance;
+        }
+        Action<std::string, GameObject &, const YAML::Node &> DeserializeCustom;
+
+    private:
+        CustomComponentHelper() {}
+    };
+}// namespace nim
+
 namespace YAML {
     template<>
     struct convert<nim::GameObject> {
@@ -16,22 +30,15 @@ namespace YAML {
             node["name"] = go.name;
             node["transform"] = go.transform.get();
             for (auto &component: go.Components()) {
-                switch (component->type) {
-                    case nim::ComponentType::Sprite: {
-                        node["components"].push_back(dynamic_cast<nim::SpriteComponent *>(component.get()));
-                    } break;
-                    case nim::ComponentType::Controller: {
-                        node["components"].push_back(dynamic_cast<nim::CharacterController *>(component.get()));
-                    } break;
-                    case nim::ComponentType::Animation: {
-                        node["components"].push_back(dynamic_cast<nim::AnimationComponent *>(component.get()));
-                    } break;
-                    case nim::ComponentType::Custom:
-                        // TODO: open for custom components from game implementation side. As C++ doesn't have reflection,
-                        // I'll handled that feature later, it's out of my current scope.
-
-                    default:
-                        break;
+                if (component->name == "SpriteComponent") {
+                    node["components"].push_back(dynamic_cast<nim::SpriteComponent *>(component.get()));
+                } else if (component->name == "CharacterController") {
+                    node["components"].push_back(dynamic_cast<nim::CharacterController *>(component.get()));
+                } else if (component->name == "AnimationComponent") {
+                    node["components"].push_back(dynamic_cast<nim::AnimationComponent *>(component.get()));
+                } else {
+                    // TODO:  Create some kind of serializer for custom components
+                    // nim::DeserializeCustom.Invoke(go);
                 }
             }
             return node;
@@ -47,21 +54,16 @@ namespace YAML {
 
             if (node["components"].IsSequence()) {
                 for (int i = 0; i < node["components"].size(); i++) {
-                    switch (node["components"][i]["type"].as<nim::ComponentType>()) {
-                        case nim::ComponentType::Sprite: {
-                            go.AddComponent(std::make_shared<nim::SpriteComponent>(node["components"][i].as<nim::SpriteComponent>()));
-                        } break;
-                        case nim::ComponentType::Controller: {
-                            auto sc = std::move(node["components"][i].as<nim::CharacterController>());
-                            go.AddComponent(std::make_shared<nim::CharacterController>(sc));
-                        } break;
-                        case nim::ComponentType::Animation: {
-                            go.AddComponent(std::make_shared<nim::AnimationComponent>(node["components"][i].as<nim::AnimationComponent>()));
-                        } break;
-                        case nim::ComponentType::Custom:
-                            go.AddComponent(std::make_shared<nim::DebugComponent>());
-                        default:
-                            break;
+                    std::string goName = node["components"][i]["name"].as<std::string>();
+                    if (goName == "SpriteComponent") {
+                        go.AddComponent(std::make_shared<nim::SpriteComponent>(node["components"][i].as<nim::SpriteComponent>()));
+                    } else if (goName == "CharacterController") {
+                        auto sc = std::move(node["components"][i].as<nim::CharacterController>());
+                        go.AddComponent(std::make_shared<nim::CharacterController>(sc));
+                    } else if (goName == "AnimationComponent") {
+                        go.AddComponent(std::make_shared<nim::AnimationComponent>(node["components"][i].as<nim::AnimationComponent>()));
+                    } else {
+                        nim::CustomComponentHelper::Instance().DeserializeCustom.Invoke(goName, go, node["components"][i]);
                     }
                 }
             }

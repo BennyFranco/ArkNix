@@ -8,7 +8,6 @@ namespace nim {
     class DebugComponent : public Component {
     public:
         void Awake() {
-            type = ComponentType::Custom;
             name = "DebugComponent";
             input = InputLocator::GetInput();
         }

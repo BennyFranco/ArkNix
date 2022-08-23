@@ -6,14 +6,12 @@ AnimationComponent::AnimationComponent() : animateOnInit(false), animate(false),
                                            xOffset(0), yOffset(0), frames(0) {
     transform = nullptr;
     name = "AnimationComponent";
-    type = ComponentType::Animation;
 }
 
 AnimationComponent::AnimationComponent(std::string atlasName, bool animateOnInit) : animate(false) {
     transform = nullptr;
     name = "AnimationComponent";
     sprite = nim::AssetManager::Instance().Get<Sprite>(atlasName);
-    type = ComponentType::Animation;
     xOffset = 0;
     yOffset = 0;
     frames = 0;
@@ -26,7 +24,6 @@ AnimationComponent::AnimationComponent(const AnimationComponent &other) {
     name = other.name;
     transform = other.transform;
     sprite = other.sprite;
-    type = other.type;
     animateOnInit = other.animateOnInit;
     xOffset = other.xOffset;
     yOffset = other.yOffset;
@@ -37,7 +34,6 @@ AnimationComponent::AnimationComponent(AnimationComponent &&other) {
     std::cout << "[AnimationComponent] Move Constructor"
               << "\n";
     name = other.name;
-    type = other.type;
     animateOnInit = other.animateOnInit;
     xOffset = other.xOffset;
     yOffset = other.yOffset;
@@ -64,7 +60,6 @@ AnimationComponent &AnimationComponent::operator=(const AnimationComponent &othe
         name = other.name;
         transform = other.transform;
         sprite = std::move(other.sprite);
-        type = other.type;
         animateOnInit = other.animateOnInit;
         xOffset = other.xOffset;
         yOffset = other.yOffset;
@@ -81,7 +76,6 @@ AnimationComponent &AnimationComponent::operator=(AnimationComponent &&other) {
         name = other.name;
         transform = other.transform;
         sprite = std::move(other.sprite);
-        type = other.type;
         animateOnInit = other.animateOnInit;
         xOffset = other.xOffset;
         yOffset = other.yOffset;
