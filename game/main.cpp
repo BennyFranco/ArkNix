@@ -1,5 +1,9 @@
 #include "galaga.h"
 
+#ifdef main
+#undef main
+#endif
+
 int main(int argc, char **args) {
     Galaga newGame;
     newGame.Awake();
