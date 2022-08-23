@@ -5,6 +5,7 @@
 
 #include "color.h"
 #include "entity.h"
+#include "types.h"
 #include "vector2d.h"
 
 namespace nim {
