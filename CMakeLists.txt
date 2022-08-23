@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# add_definitions(-std=c++17)
-
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DEDITOR_DEBUG")
 
@@ -20,6 +18,14 @@ set(SDL2IMAGE_TESTS OFF)
 set(SDL2IMAGE_INSTALL OFF)
 
 set(YAML_BUILD_SHARED_LIBS ON)
+
+set(OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_DIRECTORY}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIRECTORY}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_DIRECTORY}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIRECTORY}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_DIRECTORY}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIRECTORY}")
 
 add_subdirectory(thirdparty/SDL)
 add_subdirectory(thirdparty/SDL_image)
@@ -41,18 +47,21 @@ set(INCLUDE_DIRS
 )
 include_directories(${INCLUDE_DIRS})
 
-file(GLOB SOURCE_FILES 
+file(GLOB ENGINE_SOURCE_FILES 
         engine/*.cpp
         engine/**/*.cpp
         engine/**/**/*.cpp
         engine/**/**/**/*.cpp
+    )
+
+file(GLOB GAME_SOURCE_FILES
         game/*.cpp
     )
 
-add_library(NimEngine ${SOURCE_FILES})
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
+add_library(NimEngine ${ENGINE_SOURCE_FILES})
 
-add_executable(Galaga game/main.cpp)
-#target_include_directories(Galaga PUBLIC ${INCLUDE_DIRS})
+add_executable(Galaga ${GAME_SOURCE_FILES})
 
 target_link_libraries(NimEngine
                       PUBLIC SDL2

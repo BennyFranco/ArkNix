@@ -37,5 +37,9 @@ namespace nim {
         const uint kTargetFps = 60;
         const uint kDelayTime = 1000.f / kTargetFps;
     };
+
+#ifdef _MSC_VER
+    int main() { return 0; }
+#endif
 }// namespace nim
 #endif// GAME_H
