@@ -26,7 +26,7 @@ namespace nim {
         void Stop();
 
     public:
-        Sprite *sprite;// owned by AssetManager
+        Sprite sprite;
         bool animateOnInit;
         int xOffset;
         int yOffset;
@@ -44,7 +44,7 @@ namespace YAML {
             YAML::Node node;
             node["type"] = component->type;
             node["name"] = component->name;
-            node["atlas"] = component->sprite->id;
+            node["atlas"] = component->sprite.id;
             node["animateOnInit"] = component->animateOnInit;
             node["offset"].push_back(component->xOffset);
             node["offset"].push_back(component->yOffset);

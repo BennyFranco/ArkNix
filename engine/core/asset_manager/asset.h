@@ -7,8 +7,8 @@
 namespace nim {
     class Asset {
     public:
-        virtual bool Load(const char *filename) = 0;
         virtual ~Asset() = default;
+        virtual bool Load(const char *filename) = 0;
 
     public:
         std::string filename;

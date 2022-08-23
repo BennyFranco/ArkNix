@@ -20,6 +20,7 @@ namespace nim {
         virtual void Quit();
 
         virtual void LoadScene(std::string sceneName);
+        virtual void ReloadScene();
 
     private:
         void Update();

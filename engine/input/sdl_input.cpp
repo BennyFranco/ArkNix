@@ -36,15 +36,26 @@ void SDLInput::Update() {
 void SDLInput::Quit() {}
 
 bool SDLInput::GetKey(Key key) {
-    return lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
+    bool result = lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
+    if (result) {
+        lastKeyEvent.isKeyDown = false;
+        lastKeyEvent.key = SDL_KeyCode::SDLK_UNKNOWN;
+    }
+    return result;
 }
 
 bool SDLInput::GetKeyUp(Key key) {
-    return !lastKeyEvent.isKeyDown && lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
+    bool result = !lastKeyEvent.isKeyDown && lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
+    if (result) {
+        lastKeyEvent.isKeyDown = false;
+        lastKeyEvent.key = SDL_KeyCode::SDLK_UNKNOWN;
+    }
+    return result;
 }
 
 bool SDLInput::GetKeyDown(Key key) {
-    return lastKeyEvent.isKeyDown && lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
+    bool result = lastKeyEvent.isKeyDown && lastKeyEvent.key == ConvertNimKeyToSDLKey(key);
+    return result;
 }
 
 SDL_KeyCode SDLInput::ConvertNimKeyToSDLKey(Key key) {

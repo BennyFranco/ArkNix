@@ -2,6 +2,7 @@
 #include "asset_manager.h"
 #include "input_locator.h"
 #include "renderer_locator.h"
+#include <filesystem>
 #include <functional>
 
 using namespace nim;
@@ -38,6 +39,12 @@ void Game::Update() {
         InputLocator::GetInput()->Update();
         RendererLocator::GetRenderer()->Clear();
 
+#ifdef EDITOR_DEBUG
+        if (InputLocator::GetInput()->GetKey(Key::R)) {
+            ReloadScene();
+        }
+#endif
+
         if (currentScene != nullptr)
             currentScene->Update();
 
@@ -64,5 +71,17 @@ void Game::ExitGameListener(bool stop) {
 
 void Game::LoadScene(std::string sceneName) {
     currentScene = std::move(Scene::LoadScene(sceneName));
-    currentScene->Init();
+    if (currentScene != nullptr)
+        currentScene->Init();
+}
+
+void Game::ReloadScene() {
+    std::string currentName = currentScene->Name();
+    const std::filesystem::path path = currentName;
+    if (!path.has_extension()) {
+        currentName.append(".yaml");
+    }
+
+    currentScene.reset();
+    LoadScene(currentName);
 }

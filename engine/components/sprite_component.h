@@ -21,7 +21,7 @@ namespace nim {
         void SetTransform(Transform *transform) override;
 
     public:
-        Sprite *sprite;// owned by AssetManager
+        Sprite sprite;
     };
 }// namespace nim
 
@@ -32,7 +32,7 @@ namespace YAML {
             YAML::Node node;
             node["type"] = (int) component->type;
             node["name"] = component->name;
-            node["asset"] = component->sprite->id;
+            node["asset"] = component->sprite.id;
             return node;
         }
     };

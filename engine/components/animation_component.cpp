@@ -2,7 +2,7 @@
 
 using namespace nim;
 
-AnimationComponent::AnimationComponent() : sprite(nullptr), animateOnInit(false), animate(false) {
+AnimationComponent::AnimationComponent() : animateOnInit(false), animate(false) {
     transform = nullptr;
     name = "AnimationComponent";
     type = ComponentType::Animation;
@@ -14,7 +14,7 @@ AnimationComponent::AnimationComponent() : sprite(nullptr), animateOnInit(false)
 AnimationComponent::AnimationComponent(std::string atlasName, bool animateOnInit) : animateOnInit(animateOnInit), animate(false) {
     transform = nullptr;
     name = "AnimationComponent";
-    sprite = nim::AssetManager::Instance().Get<nim::Sprite>(atlasName);
+    sprite = nim::AssetManager::Instance().Get<Sprite>(atlasName);
     type = ComponentType::Animation;
     xOffset = 0;
     yOffset = 0;
@@ -47,10 +47,9 @@ AnimationComponent::AnimationComponent(AnimationComponent &&other) {
     frames = other.frames;
 
     transform = other.transform;
-    sprite = other.sprite;
+    sprite = std::move(other.sprite);
 
     other.transform = nullptr;
-    other.sprite = nullptr;
     other.animate = false;
     other.animateOnInit = false;
     other.xOffset = 0;
@@ -60,17 +59,15 @@ AnimationComponent::AnimationComponent(AnimationComponent &&other) {
 
 AnimationComponent::~AnimationComponent() {
     transform = nullptr;
-    sprite = nullptr;
 }
 
 AnimationComponent &AnimationComponent::operator=(const AnimationComponent &other) {
     if (&other != this) {
         transform = nullptr;
-        sprite = nullptr;
 
         name = other.name;
         transform = other.transform;
-        sprite = other.sprite;
+        sprite = std::move(other.sprite);
         type = other.type;
         animate = other.animate;
         animateOnInit = other.animateOnInit;
@@ -85,11 +82,10 @@ AnimationComponent &AnimationComponent::operator=(const AnimationComponent &othe
 AnimationComponent &AnimationComponent::operator=(AnimationComponent &&other) {
     if (&other != this) {
         transform = nullptr;
-        sprite = nullptr;
 
         name = other.name;
         transform = other.transform;
-        sprite = other.sprite;
+        sprite = std::move(other.sprite);
         type = other.type;
         animate = other.animate;
         animateOnInit = other.animateOnInit;
@@ -98,7 +94,6 @@ AnimationComponent &AnimationComponent::operator=(AnimationComponent &&other) {
         frames = other.frames;
 
         other.transform = nullptr;
-        other.sprite = nullptr;
         other.animate = false;
         other.animateOnInit = false;
         other.xOffset = 0;
@@ -114,9 +109,9 @@ void AnimationComponent::Init() {
 }
 
 void AnimationComponent::Update() {
-    if (sprite == nullptr) return;
+    if (sprite.filename.empty()) return;
     Animate();
-    sprite->Draw();
+    sprite.Draw();
 }
 
 void AnimationComponent::Quit() {
@@ -128,9 +123,9 @@ void AnimationComponent::Animate() {
     // TODO: Expose tick time.
     if (!animate) return;
     if (xOffset != 0 && frames > 0)
-        sprite->srcCanvas->x = xOffset * (int) ((SDL_GetTicks() / 100) % frames);
+        sprite.srcCanvas->x = xOffset * (int) ((SDL_GetTicks() / 100) % frames);
     if (yOffset != 0 && frames > 0)
-        sprite->srcCanvas->y = yOffset * (int) ((SDL_GetTicks() / 100) % frames);
+        sprite.srcCanvas->y = yOffset * (int) ((SDL_GetTicks() / 100) % frames);
 }
 
 void AnimationComponent::Play() {
@@ -143,10 +138,10 @@ void AnimationComponent::Stop() {
 
 void AnimationComponent::SetTransform(Transform *transform) {
     Component::SetTransform(transform);
-    if (sprite != nullptr) {
-        sprite->SetCanvas(this->transform->GetRect());
-        auto spriteSize = sprite->GetSpriteSize();
-        sprite->srcCanvas->w = xOffset != 0 ? xOffset : spriteSize.x;
-        sprite->srcCanvas->h = yOffset != 0 ? yOffset : spriteSize.y;
+    if (!sprite.filename.empty()) {
+        sprite.SetCanvas(this->transform->GetRect());
+        auto spriteSize = sprite.GetSpriteSize();
+        sprite.srcCanvas->w = xOffset != 0 ? xOffset : spriteSize.x;
+        sprite.srcCanvas->h = yOffset != 0 ? yOffset : spriteSize.y;
     }
 }
