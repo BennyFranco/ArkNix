@@ -61,8 +61,8 @@ target_link_libraries(NimEngine
                       )
 
 if(MSVC)
-target_compile_options(NimEngine PUBLIC /std=c++17)
-target_compile_options(Galaga PUBLIC /std=c++17)
+target_compile_options(NimEngine PUBLIC /std:c++17)
+target_compile_options(Galaga PUBLIC /std:c++17)
 else()
 target_compile_options(NimEngine PUBLIC -std=c++17)
 target_compile_options(Galaga PUBLIC -std=c++17)
