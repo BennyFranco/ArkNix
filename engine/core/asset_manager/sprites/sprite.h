@@ -32,7 +32,9 @@ namespace nim {
         Vector2int GetSpriteSize();
 
     public:
-        std::shared_ptr<SDL_Rect> srcCanvas;
+        // std::shared_ptr<SDL_Rect> srcCanvas;
+        SDL_Rect srcCanvas;
+        // SDL_Rect srcCanvas;
 
     private:
         std::shared_ptr<SDL_Texture> texture;

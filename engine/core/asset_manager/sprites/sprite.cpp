@@ -6,7 +6,7 @@ using namespace nim;
 Sprite::Sprite() {
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
-    srcCanvas = std::make_shared<SDL_Rect>();
+    // srcCanvas = std::make_shared<SDL_Rect>();
 }
 
 Sprite::Sprite(const char *id, const char *filename) {
@@ -14,7 +14,7 @@ Sprite::Sprite(const char *id, const char *filename) {
     renderer = rend->Renderer();
     this->id = id;
     Load(filename);
-    srcCanvas = std::make_shared<SDL_Rect>();
+    // srcCanvas = std::make_shared<SDL_Rect>();
 }
 
 Sprite::~Sprite() {
@@ -40,7 +40,7 @@ Sprite &Sprite::operator=(const Sprite &other) {
     if (&other == this) return *this;
     filename = other.filename;
     texture = other.texture;
-    srcCanvas.reset();
+    // srcCanvas.reset();
     srcCanvas = other.srcCanvas;
 
     return *this;
@@ -50,7 +50,8 @@ Sprite &Sprite::operator=(Sprite &&other) {
     if (&other == this) return *this;
     filename = other.filename;
     texture = std::move(other.texture);
-    srcCanvas = std::move(other.srcCanvas);
+    // srcCanvas = std::move(other.srcCanvas);
+    srcCanvas = other.srcCanvas;
     other.texture = NULL;
     return *this;
 }
@@ -67,14 +68,14 @@ bool Sprite::Load(const char *filename) {
 void Sprite::Draw() {
     // SDL_RenderCopyF(renderer, texture, srcCanvas.get(), canvas);
     // SDL_RenderCopyF(renderer, texture, NULL, NULL);
-    SDL_RenderCopyExF(renderer, texture.get(), srcCanvas.get(), canvas, 0, 0, SDL_FLIP_NONE);
+    SDL_RenderCopyExF(renderer, texture.get(), &srcCanvas, canvas, 0, 0, SDL_FLIP_NONE);
 }
 
 void Sprite::SetCanvas(SDL_FRect *rect) {
-    srcCanvas->x = 0;
-    srcCanvas->y = 0;
-    srcCanvas->w = rect->w;
-    srcCanvas->h = rect->h;
+    srcCanvas.x = 0;
+    srcCanvas.y = 0;
+    srcCanvas.w = rect->w;
+    srcCanvas.h = rect->h;
     canvas = rect;
 }
 

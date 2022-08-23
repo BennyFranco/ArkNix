@@ -2,16 +2,14 @@
 
 using namespace nim;
 
-AnimationComponent::AnimationComponent() : animateOnInit(false), animate(false) {
+AnimationComponent::AnimationComponent() : animateOnInit(false), animate(false),
+                                           xOffset(0), yOffset(0), frames(0) {
     transform = nullptr;
     name = "AnimationComponent";
     type = ComponentType::Animation;
-    xOffset = 0;
-    yOffset = 0;
-    frames = 0;
 }
 
-AnimationComponent::AnimationComponent(std::string atlasName, bool animateOnInit) : animateOnInit(animateOnInit), animate(false) {
+AnimationComponent::AnimationComponent(std::string atlasName, bool animateOnInit) : animate(false) {
     transform = nullptr;
     name = "AnimationComponent";
     sprite = nim::AssetManager::Instance().Get<Sprite>(atlasName);
@@ -19,6 +17,7 @@ AnimationComponent::AnimationComponent(std::string atlasName, bool animateOnInit
     xOffset = 0;
     yOffset = 0;
     frames = 0;
+    this->animateOnInit = animateOnInit;
 }
 
 AnimationComponent::AnimationComponent(const AnimationComponent &other) {
@@ -28,7 +27,6 @@ AnimationComponent::AnimationComponent(const AnimationComponent &other) {
     transform = other.transform;
     sprite = other.sprite;
     type = other.type;
-    animate = other.animate;
     animateOnInit = other.animateOnInit;
     xOffset = other.xOffset;
     yOffset = other.yOffset;
@@ -40,7 +38,6 @@ AnimationComponent::AnimationComponent(AnimationComponent &&other) {
               << "\n";
     name = other.name;
     type = other.type;
-    animate = other.animate;
     animateOnInit = other.animateOnInit;
     xOffset = other.xOffset;
     yOffset = other.yOffset;
@@ -50,7 +47,6 @@ AnimationComponent::AnimationComponent(AnimationComponent &&other) {
     sprite = std::move(other.sprite);
 
     other.transform = nullptr;
-    other.animate = false;
     other.animateOnInit = false;
     other.xOffset = 0;
     other.yOffset = 0;
@@ -69,7 +65,6 @@ AnimationComponent &AnimationComponent::operator=(const AnimationComponent &othe
         transform = other.transform;
         sprite = std::move(other.sprite);
         type = other.type;
-        animate = other.animate;
         animateOnInit = other.animateOnInit;
         xOffset = other.xOffset;
         yOffset = other.yOffset;
@@ -87,14 +82,12 @@ AnimationComponent &AnimationComponent::operator=(AnimationComponent &&other) {
         transform = other.transform;
         sprite = std::move(other.sprite);
         type = other.type;
-        animate = other.animate;
         animateOnInit = other.animateOnInit;
         xOffset = other.xOffset;
         yOffset = other.yOffset;
         frames = other.frames;
 
         other.transform = nullptr;
-        other.animate = false;
         other.animateOnInit = false;
         other.xOffset = 0;
         other.yOffset = 0;
@@ -122,10 +115,12 @@ void AnimationComponent::Animate() {
     // TODO: Encapsulate SDL_GetTicks() in a time variable.
     // TODO: Expose tick time.
     if (!animate) return;
+
+    auto spriteNum = (int) ((SDL_GetTicks() / 100) % frames);
     if (xOffset != 0 && frames > 0)
-        sprite.srcCanvas->x = xOffset * (int) ((SDL_GetTicks() / 100) % frames);
+        sprite.srcCanvas.x = xOffset * spriteNum;
     if (yOffset != 0 && frames > 0)
-        sprite.srcCanvas->y = yOffset * (int) ((SDL_GetTicks() / 100) % frames);
+        sprite.srcCanvas.y = yOffset * spriteNum;
 }
 
 void AnimationComponent::Play() {
@@ -141,7 +136,7 @@ void AnimationComponent::SetTransform(Transform *transform) {
     if (!sprite.filename.empty()) {
         sprite.SetCanvas(this->transform->GetRect());
         auto spriteSize = sprite.GetSpriteSize();
-        sprite.srcCanvas->w = xOffset != 0 ? xOffset : spriteSize.x;
-        sprite.srcCanvas->h = yOffset != 0 ? yOffset : spriteSize.y;
+        sprite.srcCanvas.w = xOffset != 0 ? xOffset : spriteSize.x;
+        sprite.srcCanvas.h = yOffset != 0 ? yOffset : spriteSize.y;
     }
 }
