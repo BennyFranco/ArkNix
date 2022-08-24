@@ -16,7 +16,7 @@ CharacterController::CharacterController(const CharacterController &controller) 
 
 CharacterController::CharacterController(CharacterController &&controller) {
     name = std::move(controller.name);
-    transform = std::move(controller.transform);
+    transform = controller.transform;
     input = controller.input;
 
     controller.transform = nullptr;

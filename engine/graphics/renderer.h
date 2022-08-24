@@ -19,7 +19,7 @@ namespace nim {
         virtual void Clear() = 0;
         virtual int Width() = 0;
         virtual int Height() = 0;
-        virtual Vector2 WindowSize() = 0;
+        virtual Vector2int WindowSize() = 0;
     };
 }// namespace nim
 #endif// RENDERER_H

@@ -19,7 +19,7 @@ namespace nim {
         void Quit() override;
         int Width() override;
         int Height() override;
-        Vector2 WindowSize() override;
+        Vector2int WindowSize() override;
 
     public:
         SDL_Renderer *Renderer() const { return renderer; }

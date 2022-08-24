@@ -59,8 +59,8 @@ int SDLRenderer::Height() {
     SDL_GetWindowSize(window, NULL, &h);
     return h;
 }
-Vector2 SDLRenderer::WindowSize() {
-    int w, h;
-    SDL_GetRendererOutputSize(renderer, &w, &h);
-    return Vector2(w, h);
+Vector2int SDLRenderer::WindowSize() {
+    Vector2int size;
+    SDL_GetRendererOutputSize(renderer, &size.x, &size.y);
+    return size;
 }
