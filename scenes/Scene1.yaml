@@ -52,14 +52,14 @@ gameObjects:
         offset: [16, 0]
         frames: 4
   - type: GameObject
-    name: PositionMark
+    name: Player
     transform:
       size: [64, 64]
       position: [339, 864]
     components:
       - name: SpriteComponent
         asset: ship_6
-      - name: CharacterController
+      - name: PlayerController
       - name: DebugComponent
 ---
 version: 1
