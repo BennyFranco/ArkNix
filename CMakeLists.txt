@@ -59,7 +59,11 @@ file(GLOB GAME_SOURCE_FILES
     )
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
-add_library(NimEngine ${ENGINE_SOURCE_FILES})
+if(MSVC)
+add_library(NimEngine STATIC ${ENGINE_SOURCE_FILES})
+else()
+add_library(NimEngine SHARED ${ENGINE_SOURCE_FILES})
+endif()
 
 add_executable(Galaga ${GAME_SOURCE_FILES})
 
