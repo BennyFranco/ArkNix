@@ -3,7 +3,6 @@
 
 #include "animation_component.h"
 #include "character_controller.h"
-#include "debug_component.h"
 #include "game_object.h"
 #include "sprite_component.h"
 

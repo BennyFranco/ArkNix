@@ -1,6 +1,7 @@
 #include "game.h"
 #include "asset_manager.h"
 #include "input_locator.h"
+#include "ntime.h"
 #include "renderer_locator.h"
 #include <filesystem>
 #include <functional>
@@ -32,10 +33,10 @@ void Game::Quit() {
 void Game::Update() {
     int fps = 0;
 
-    uint timestamp = SDL_GetTicks();
+    uint timestamp = NimTime::Instance().GetTicks();
 
     while (running) {
-        uint frameStart = SDL_GetTicks();
+        uint frameStart = NimTime::Instance().GetTicks();
         InputLocator::GetInput()->Update();
         RendererLocator::GetRenderer()->Clear();
 
@@ -49,7 +50,7 @@ void Game::Update() {
             currentScene->Update();
 
         RendererLocator::GetRenderer()->Update();
-        uint frameEnd = SDL_GetTicks();
+        uint frameEnd = NimTime::Instance().GetTicks();
         uint frameDuration = frameEnd - frameStart;
 
         if ((frameEnd - timestamp) >= 1000) {

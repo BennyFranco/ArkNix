@@ -1,4 +1,5 @@
 #include "animation_component.h"
+#include "ntime.h"
 
 using namespace nim;
 
@@ -110,7 +111,7 @@ void AnimationComponent::Animate() {
     // TODO: Expose tick time.
     if (!animate) return;
 
-    auto spriteNum = (int) ((SDL_GetTicks() / 100) % frames);
+    auto spriteNum = (uint) ((NimTime::Instance().GetTicks() / 100) % frames);
     if (xOffset != 0 && frames > 0)
         sprite.srcCanvas.x = xOffset * spriteNum;
     if (yOffset != 0 && frames > 0)

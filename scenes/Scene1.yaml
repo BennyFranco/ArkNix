@@ -60,6 +60,7 @@ gameObjects:
       - name: SpriteComponent
         asset: ship_6
       - name: PlayerController
-      - name: DebugComponent
+        velocity: 5
+      # - name: DebugComponent
 ---
 version: 1
