@@ -10,7 +10,7 @@ namespace nim {
         CharacterController();
         CharacterController(const CharacterController &controller);
         CharacterController(CharacterController &&controller);
-        ~CharacterController() {}
+        ~CharacterController();
 
         CharacterController &operator=(const CharacterController &controller);
         CharacterController &operator=(CharacterController &&controller);

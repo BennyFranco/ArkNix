@@ -51,6 +51,11 @@ CharacterController &CharacterController::operator=(CharacterController &&contro
     return *this;
 }
 
+CharacterController::~CharacterController() {
+    transform = nullptr;
+    input = nullptr;
+}
+
 void CharacterController::Update() {
     if (input->GetKeyDown(Key::UP)) {
         transform->position.y -= 1.0f;
