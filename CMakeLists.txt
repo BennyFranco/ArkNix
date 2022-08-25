@@ -31,20 +31,12 @@ add_subdirectory(thirdparty/SDL)
 add_subdirectory(thirdparty/SDL_image)
 add_subdirectory(thirdparty/yaml-cpp)
 
-set(INCLUDE_DIRS
-    engine/components
-    engine/core
-    engine/core/asset_manager
-    engine/core/asset_manager/sprites
-    engine/core/events
-    engine/game
-    engine/graphics
-    engine/graphics/sprites
-    engine/input
-    engine/math
-    game/
-    game/components
-)
+# set(INCLUDE_DIRS
+    
+#     game/
+#     game/components
+# )
+
 include_directories(${INCLUDE_DIRS})
 
 file(GLOB ENGINE_SOURCE_FILES 
@@ -74,6 +66,19 @@ target_link_libraries(NimEngine
                       yaml-cpp
                       )
 
+target_include_directories (NimEngine PUBLIC
+    engine/components
+    engine/core
+    engine/core/asset_manager
+    engine/core/asset_manager/sprites
+    engine/core/events
+    engine/game
+    engine/graphics
+    engine/graphics/sprites
+    engine/input
+    engine/math
+)
+
 if(MSVC)
 target_compile_options(NimEngine PUBLIC /std:c++17)
 target_compile_options(Galaga PUBLIC /std:c++17)
@@ -88,3 +93,18 @@ target_link_libraries(Galaga
                       yaml-cpp
                       NimEngine
                       )
+
+target_include_directories (Galaga PUBLIC
+    engine/components
+    engine/core
+    engine/core/asset_manager
+    engine/core/asset_manager/sprites
+    engine/core/events
+    engine/game
+    engine/graphics
+    engine/graphics/sprites
+    engine/input
+    engine/math
+    game/
+    game/components
+)
