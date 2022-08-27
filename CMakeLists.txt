@@ -48,7 +48,7 @@ file(GLOB ENGINE_SOURCE_FILES
 
 file(GLOB GAME_SOURCE_FILES
         game/*.cpp
-        game/components/*.cpp
+        game/**/*.cpp
     )
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
