@@ -1,5 +1,8 @@
 #include "game_object.h"
+#include "game.h"
+#include <future>
 #include <iostream>
+#include <thread>
 
 using namespace nim;
 
@@ -8,9 +11,13 @@ GameObject::GameObject() : name("GameObject") {
     transform = std::make_unique<Transform>();
 }
 
-GameObject::GameObject(const char *name) : name(name) {
+GameObject::GameObject(std::string name) : name(name) {
     std::cout << "[" << name << "] Created!" << std::endl;
     transform = std::make_unique<Transform>();
+}
+
+GameObject::GameObject(std::string name, Transform transform) : name(name) {
+    this->transform = std::make_unique<Transform>(transform);
 }
 
 // GameObject::GameObject(const char *name, std::initializer_list<Component *> components) : name(name) {
@@ -63,6 +70,24 @@ GameObject &GameObject::operator=(GameObject &&other) {
 void GameObject::AddComponent(std::shared_ptr<Component> component) {
     component->SetTransform(transform.get());
     components.emplace_back(component);
+}
+
+GameObject *GameObject::Instantiate(std::string name, Transform transform, std::shared_ptr<Component> component) {
+    GameObject newGo(name, transform);
+    newGo.AddComponent(component);
+    return Game::currentScene->AddGameObject(std::move(newGo));
+}
+
+void GameObject::Destroy(const GameObject *go) {
+    Game::currentScene->RemoveGameObject(go);
+}
+
+void GameObject::Destroy(const GameObject *go, const uint msToDestroyIt) {
+    std::thread programDestroyInvocation([go, msToDestroyIt]() {
+        std::this_thread::sleep_for(std::chrono::milliseconds(msToDestroyIt));
+        Game::currentScene->RemoveGameObject(go);
+    });
+    programDestroyInvocation.detach();
 }
 
 // Component *GameObject::GetComponent(const char *id) {

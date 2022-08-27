@@ -59,6 +59,22 @@ void Scene::Quit() {
     }
 }
 
+GameObject *Scene::AddGameObject(GameObject &&gameObject) {
+    sceneData->gameObjects.emplace_back(std::move(gameObject));
+    auto lastGo = &sceneData->gameObjects.back();
+    lastGo->Init();
+    return lastGo;
+}
+
+void Scene::RemoveGameObject(const GameObject *gameObject) {
+    for (auto it = sceneData->gameObjects.begin(); it != sceneData->gameObjects.end(); it++) {
+        if (gameObject->name == it->name) {
+            sceneData->gameObjects.erase(it);
+            break;
+        }
+    }
+}
+
 std::unique_ptr<Scene> Scene::LoadScene(std::string sceneName) {
     try {
         YAML::Node sceneNode = YAML::LoadFile(kScenesPath + sceneName);

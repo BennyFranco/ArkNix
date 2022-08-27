@@ -27,7 +27,7 @@ namespace nim {
         void ExitGameListener(bool);
 
     public:
-        std::unique_ptr<Scene> currentScene;
+        static std::unique_ptr<Scene> currentScene;
 
     protected:
         WindowProperties windowProperties;

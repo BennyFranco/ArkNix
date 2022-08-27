@@ -1,5 +1,6 @@
 #ifndef PARSE_COMPONENTS_H
 #define PARSE_COMPONENTS_H
+#include "bullet_controller.h"
 #include "debug_component.h"
 #include "parser.h"
 #include "player_controller.h"
@@ -11,6 +12,8 @@ namespace nim {
         } else if (goName == "PlayerController") {
             auto playerController = std::move(node.as<galaga::PlayerController>());
             go.AddComponent(std::make_shared<galaga::PlayerController>(playerController));
+        } else if (goName == "BulletController") {
+            go.AddComponent(std::make_shared<galaga::BulletController>());
         }
     }
     static void RegisterCustomComponents() {

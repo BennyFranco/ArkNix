@@ -38,6 +38,8 @@ namespace nim {
         void Save(std::string filename = "");
         std::string Name() const { return sceneData->name; }
         SceneData *GetData() const { return sceneData.get(); }
+        GameObject *AddGameObject(GameObject &&gameObject);
+        void RemoveGameObject(const GameObject *gameObject);
 
         static std::unique_ptr<Scene> LoadScene(std::string sceneName);
 

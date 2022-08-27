@@ -61,6 +61,7 @@ gameObjects:
         asset: ship_6
       - name: PlayerController
         velocity: 5
+      - name: BulletController
       # - name: DebugComponent
 ---
 version: 1

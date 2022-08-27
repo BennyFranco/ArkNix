@@ -8,6 +8,8 @@
 
 using namespace nim;
 
+std::unique_ptr<Scene> Game::currentScene;
+
 void Game::Awake() {
     RendererLocator::Initialize();
     auto renderer = RendererLocator::GetRenderer();

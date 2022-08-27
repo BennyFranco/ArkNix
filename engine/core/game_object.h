@@ -12,7 +12,8 @@ namespace nim {
     class GameObject : public Entity {
     public:
         GameObject();
-        GameObject(const char *name);
+        GameObject(std::string name);
+        GameObject(std::string name, Transform transform);
         // GameObject(const char *name, std::initializer_list<Component *> components);
         GameObject(const GameObject &other);
         GameObject(GameObject &&other);
@@ -28,6 +29,10 @@ namespace nim {
         void AddComponent(std::shared_ptr<Component> component);
         // Component *GetComponent(const char *id);
         std::vector<std::shared_ptr<Component>> Components() const { return components; }
+
+        static GameObject *Instantiate(std::string name, Transform transform, std::shared_ptr<Component> component);
+        static void Destroy(const GameObject *go);
+        static void Destroy(const GameObject *go, const uint msToDestroyIt);
 
     public:
         std::string name;
