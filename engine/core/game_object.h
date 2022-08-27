@@ -30,9 +30,12 @@ namespace nim {
         // Component *GetComponent(const char *id);
         std::vector<std::shared_ptr<Component>> Components() const { return components; }
 
-        static GameObject *Instantiate(std::string name, Transform transform, std::shared_ptr<Component> component);
         static void Destroy(const GameObject *go);
         static void Destroy(const GameObject *go, const uint msToDestroyIt);
+        static GameObject *Instantiate(std::string name, Transform transform, std::shared_ptr<Component> component);
+        static GameObject *Instantiate(GameObject &&go);
+        static GameObject *Instantiate(std::string name, Transform transform,
+                                       std::initializer_list<std::shared_ptr<Component>> newComponents);
 
     public:
         std::string name;

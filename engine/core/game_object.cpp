@@ -1,6 +1,5 @@
 #include "game_object.h"
 #include "game.h"
-#include <future>
 #include <iostream>
 #include <thread>
 
@@ -56,7 +55,6 @@ GameObject &GameObject::operator=(const GameObject &other) {
 
 GameObject &GameObject::operator=(GameObject &&other) {
     if (&other != this) {
-        name = nullptr;
         transform = nullptr;
         components.clear();
 
@@ -78,14 +76,27 @@ GameObject *GameObject::Instantiate(std::string name, Transform transform, std::
     return Game::currentScene->AddGameObject(std::move(newGo));
 }
 
+GameObject *GameObject::Instantiate(std::string name, Transform transform,
+                                    std::initializer_list<std::shared_ptr<Component>> newComponents) {
+    GameObject newGo(name, transform);
+    for (auto component: newComponents)
+        newGo.AddComponent(component);
+    return Game::currentScene->AddGameObject(std::move(newGo));
+}
+
+GameObject *GameObject::Instantiate(GameObject &&go) {
+    return Game::currentScene->AddGameObject(std::move(go));
+}
+
 void GameObject::Destroy(const GameObject *go) {
-    Game::currentScene->RemoveGameObject(go);
+    Game::currentScene->RemoveGameObject(go->name);
 }
 
 void GameObject::Destroy(const GameObject *go, const uint msToDestroyIt) {
-    std::thread programDestroyInvocation([go, msToDestroyIt]() {
+    auto name = go->name;
+    std::thread programDestroyInvocation([name, msToDestroyIt]() {
         std::this_thread::sleep_for(std::chrono::milliseconds(msToDestroyIt));
-        Game::currentScene->RemoveGameObject(go);
+        Game::currentScene->RemoveGameObject(name);
     });
     programDestroyInvocation.detach();
 }

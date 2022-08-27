@@ -6,6 +6,7 @@
 #include "game_object.h"
 #include "parser.h"
 
+#include <condition_variable>
 #include <memory>
 #include <string>
 #include <vector>
@@ -39,13 +40,18 @@ namespace nim {
         std::string Name() const { return sceneData->name; }
         SceneData *GetData() const { return sceneData.get(); }
         GameObject *AddGameObject(GameObject &&gameObject);
-        void RemoveGameObject(const GameObject *gameObject);
+        void RemoveGameObject(const std::string name);
 
         static std::unique_ptr<Scene> LoadScene(std::string sceneName);
+
+    public:
+        bool canDelete = true;
 
     private:
         std::unique_ptr<SceneData> sceneData;
         const uint fileVersion = 1;
+        std::mutex mtx;
+        std::condition_variable mtxCondition;
     };
 }// namespace nim
 

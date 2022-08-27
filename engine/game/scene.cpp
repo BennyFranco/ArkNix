@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <mutex>
 #include <time.h>
 
 using namespace nim;
@@ -66,13 +67,17 @@ GameObject *Scene::AddGameObject(GameObject &&gameObject) {
     return lastGo;
 }
 
-void Scene::RemoveGameObject(const GameObject *gameObject) {
+void Scene::RemoveGameObject(const std::string name) {
+    std::unique_lock<std::mutex> lck(mtx);
+    mtxCondition.wait(lck, [this] { return this->canDelete; });
+    canDelete = false;
     for (auto it = sceneData->gameObjects.begin(); it != sceneData->gameObjects.end(); it++) {
-        if (gameObject->name == it->name) {
+        if (name == it->name) {
             sceneData->gameObjects.erase(it);
             break;
         }
     }
+    canDelete = true;
 }
 
 std::unique_ptr<Scene> Scene::LoadScene(std::string sceneName) {

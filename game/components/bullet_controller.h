@@ -2,7 +2,6 @@
 #define BULLET_CONTROLLER_H
 
 #include "component.h"
-#include "game_object.h"
 #include "input_locator.h"
 
 namespace galaga {
@@ -22,9 +21,6 @@ namespace galaga {
 
     private:
         nim::Input *input;// owned by input locator;
-
-        // private:
-        //     nim::GameObject bullet;
     };
 }// namespace galaga
 #endif//BULLET_CONTROLLER_H
