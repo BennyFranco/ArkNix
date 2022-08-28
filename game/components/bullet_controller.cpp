@@ -83,5 +83,6 @@ void BulletController::Fire() {
     Transform t(*transform);
     t.position.y -= (t.size.y / 2.f) + 24;
     auto go = GameObject::Instantiate("bullet_" + std::to_string(distr(gen)), std::move(t), {graphicComponent, bullet});
+    go->collisionLayer = Layer::Bullet;
     GameObject::Destroy(go, 2000);
 }

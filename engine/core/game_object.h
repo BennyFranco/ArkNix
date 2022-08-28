@@ -1,6 +1,7 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
+#include "collision_layer.h"
 #include "component.h"
 #include "entity.h"
 #include <initializer_list>
@@ -40,6 +41,7 @@ namespace nim {
     public:
         std::string name;
         std::shared_ptr<Transform> transform;
+        Layer collisionLayer;
 
     private:
         std::vector<std::shared_ptr<Component>> components;

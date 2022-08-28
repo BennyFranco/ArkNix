@@ -6,17 +6,18 @@
 using namespace nim;
 
 GameObject::GameObject() : name("GameObject") {
-    std::cout << "[" << name << "] Created!" << std::endl;
     transform = std::make_unique<Transform>();
+    collisionLayer = Layer::None;
 }
 
 GameObject::GameObject(std::string name) : name(name) {
-    std::cout << "[" << name << "] Created!" << std::endl;
     transform = std::make_unique<Transform>();
+    collisionLayer = Layer::None;
 }
 
 GameObject::GameObject(std::string name, Transform transform) : name(name) {
     this->transform = std::make_unique<Transform>(transform);
+    collisionLayer = Layer::None;
 }
 
 // GameObject::GameObject(const char *name, std::initializer_list<Component *> components) : name(name) {
@@ -31,12 +32,16 @@ GameObject::GameObject(const GameObject &other) {
     name = other.name;
     transform = other.transform;
     components = other.components;
+    collisionLayer = other.collisionLayer;
 }
 
 GameObject::GameObject(GameObject &&other) {
     name = std::move(other.name);
     transform = std::move(other.transform);
     components = std::move(other.components);
+    collisionLayer = other.collisionLayer;
+
+    other.collisionLayer = Layer::None;
 }
 
 GameObject::~GameObject() {
@@ -49,6 +54,7 @@ GameObject &GameObject::operator=(const GameObject &other) {
         name = other.name;
         transform.reset(new Transform(*other.transform.get()));
         components = other.components;
+        collisionLayer = other.collisionLayer;
     }
     return *this;
 }
@@ -61,6 +67,9 @@ GameObject &GameObject::operator=(GameObject &&other) {
         name = std::move(other.name);
         transform = std::move(other.transform);
         components = std::move(other.components);
+        collisionLayer = other.collisionLayer;
+
+        other.collisionLayer = Layer::None;
     }
     return *this;
 }

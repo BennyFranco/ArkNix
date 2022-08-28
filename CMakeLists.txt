@@ -77,6 +77,7 @@ target_include_directories (NimEngine PUBLIC
     engine/graphics/sprites
     engine/input
     engine/math
+    engine/physics2d
 )
 
 if(MSVC)
@@ -105,6 +106,7 @@ target_include_directories (Galaga PUBLIC
     engine/graphics/sprites
     engine/input
     engine/math
+    engine/physics2d
     game/
     game/components
 )

@@ -3,6 +3,7 @@
 
 #include "animation_component.h"
 #include "character_controller.h"
+#include "collision_layer.h"
 #include "game_object.h"
 #include "sprite_component.h"
 
@@ -50,6 +51,7 @@ namespace YAML {
             nim::Transform t = node["transform"].as<nim::Transform>();
             go.transform->size = t.size;
             go.transform->position = t.position;
+            go.collisionLayer = (nim::Layer) node["layer"].as<uint>();
 
             if (node["components"].IsSequence()) {
                 for (int i = 0; i < node["components"].size(); i++) {

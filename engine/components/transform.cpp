@@ -35,10 +35,7 @@ Transform::Transform(Transform &&other) {
     other.size = 0;
 }
 
-Transform::~Transform() {
-    // delete rect;
-    //rect = nullptr;
-}
+Transform::~Transform() {}
 
 Transform &Transform::operator=(const Transform &other) {
     if (&other != this) {
@@ -101,4 +98,13 @@ void Transform::SetRect() {
     rect->y = position.y;
     rect->w = size.x;
     rect->h = size.y;
+}
+
+Bounds Transform::GetBounds() {
+    Bounds bounds;
+    bounds.left = position.x;
+    bounds.right = position.x + size.w();
+    bounds.top = position.y;
+    bounds.bottom = position.y + size.h();
+    return bounds;
 }

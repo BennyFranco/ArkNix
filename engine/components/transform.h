@@ -7,6 +7,27 @@
 #include <memory>
 
 namespace nim {
+    struct Bounds {
+        float left;
+        float right;
+        float top;
+        float bottom;
+
+        Bounds() {
+            this->left = 0;
+            this->right = 0;
+            this->top = 0;
+            this->bottom = 0;
+        }
+
+        Bounds(float left, float right, float top, float bottom) {
+            this->left = left;
+            this->right = right;
+            this->top = top;
+            this->bottom = bottom;
+        }
+    };
+
     class Transform {
     public:
         Transform();
@@ -26,6 +47,7 @@ namespace nim {
         void Position(float x, float y);
 
         SDL_FRect *GetRect();
+        Bounds GetBounds();
 
     private:
         void SetRect();
