@@ -4,6 +4,7 @@
 #include "collision_layer.h"
 #include "game_object.h"
 #include "transform.h"
+#include <unordered_map>
 
 namespace nim {
     class CollisionDetector {
@@ -13,12 +14,10 @@ namespace nim {
         bool TestCollision(const Bounds &a, const Bounds &b);
 
     public:
-        Layer player = Layer::Enemy;
-        uint enemies = Layer::Bullet | Layer::Player;
-        Layer bullet = Layer::Enemy;
+        std::unordered_map<Layer, uint> collisionMatrix;
 
     private:
-        CollisionDetector() {}
+        CollisionDetector();
     };
 }// namespace nim
 #endif//COLLISION_DETECTOR_H
