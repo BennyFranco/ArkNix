@@ -1,6 +1,7 @@
 #include "bullet.h"
+#include "game_object.h"
+#include <iostream>
 
-using namespace nim;
 using namespace galaga;
 
 Bullet::Bullet() {
@@ -47,4 +48,9 @@ Bullet &Bullet::operator=(Bullet &&other) {
 void Bullet::Update() {
     transform->position.y -= 10;
     transform->Position(&transform->position);
+}
+
+void Bullet::OnCollisionEnter(const nim::GameObject &other) {
+    nim::GameObject::Destroy(&other, 1);
+    nim::GameObject::Destroy(Component::parent, 1);
 }

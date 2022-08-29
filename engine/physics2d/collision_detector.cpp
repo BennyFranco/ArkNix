@@ -26,6 +26,7 @@ void CollisionDetector::Update(const std::vector<GameObject> &gameObjects) {
 
             if (TestCollision(aIt->transform->GetBounds(), bIt->transform->GetBounds())) {
                 std::cout << "Collision: [" << aIt->name << "] & [" << bIt->name << "] \n";
+                bIt->OnCollisionEnter(*aIt.base());
             }
         }
     }

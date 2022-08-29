@@ -122,7 +122,7 @@ void GameObject::Destroy(const GameObject *go, const uint msToDestroyIt) {
 #pragma region entity_functions
 void GameObject::Init() {
     for (int i = 0; i < components.size(); i++) {
-        components[i]->Init();
+        components[i]->Init(this);
     }
 }
 
@@ -138,3 +138,9 @@ void GameObject::Quit() {
     }
 }
 #pragma endregion
+
+void GameObject::OnCollisionEnter(const GameObject &other) const {
+    for (int i = 0; i < components.size(); i++) {
+        components[i]->OnCollisionEnter(other);
+    }
+}

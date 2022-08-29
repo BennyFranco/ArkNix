@@ -92,7 +92,8 @@ AnimationComponent &AnimationComponent::operator=(AnimationComponent &&other) {
     return *this;
 }
 
-void AnimationComponent::Init() {
+void AnimationComponent::Init(GameObject *parent) {
+    Component::Init(parent);
     if (animateOnInit) Play();
 }
 

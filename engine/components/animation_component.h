@@ -16,7 +16,7 @@ namespace nim {
         AnimationComponent &operator=(const AnimationComponent &other);
         AnimationComponent &operator=(AnimationComponent &&other);
 
-        void Init() override;
+        void Init(GameObject* parent) override;
         void Update() override;
         void Quit() override;
         void SetTransform(Transform *transform) override;

@@ -15,6 +15,7 @@ namespace galaga {
         Bullet &operator=(Bullet &&other);
 
         virtual void Update() override;
+        virtual void OnCollisionEnter(const nim::GameObject &other) override;
     };
 }// namespace galaga
 #endif//BULLET_H

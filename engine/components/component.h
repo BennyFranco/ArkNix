@@ -6,19 +6,21 @@
 #include <string>
 
 namespace nim {
+    class GameObject;
     class Component {
     public:
         virtual ~Component() = default;
-        virtual void Init(){};
+        virtual void Init(GameObject *parent) { this->parent = parent; };
         virtual void Update(){};
         virtual void Quit(){};
+        virtual void OnCollisionEnter(const GameObject &other){};
         virtual Transform *GetTransform() const { return transform; };
-        virtual void SetTransform(Transform *transform) {
-            this->transform = transform;
-        };
+        virtual void SetTransform(Transform *transform) { this->transform = transform; };
+        void SetParent(GameObject *parent) { this->parent = parent; }
 
     public:
         std::string name;
+        GameObject *parent;
 
     protected:
         Transform *transform;// owned by Parent GameObject

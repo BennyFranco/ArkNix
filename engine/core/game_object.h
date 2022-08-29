@@ -26,6 +26,7 @@ namespace nim {
         virtual void Init() override;
         virtual void Update() override;
         virtual void Quit() override;
+        virtual void OnCollisionEnter(const GameObject &other) const;
 
         void AddComponent(std::shared_ptr<Component> component);
         // Component *GetComponent(const char *id);
