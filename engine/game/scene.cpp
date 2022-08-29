@@ -1,5 +1,4 @@
 #include "scene.h"
-#include "collision_detector.h"
 
 #include <fstream>
 #include <iostream>
@@ -49,7 +48,6 @@ void Scene::Init() {
 }
 
 void Scene::Update() {
-    CollisionDetector::Instance().Update(sceneData->gameObjects);
     for (auto gameObject: sceneData->gameObjects) {
         gameObject.Update();
     }

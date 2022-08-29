@@ -1,5 +1,6 @@
 #include "game.h"
 #include "asset_manager.h"
+#include "collision_detector.h"
 #include "input_locator.h"
 #include "ntime.h"
 #include "renderer_locator.h"
@@ -48,8 +49,10 @@ void Game::Update() {
         }
 #endif
 
-        if (currentScene != nullptr)
+        if (currentScene != nullptr) {
+            CollisionDetector::Instance().Update(currentScene->GetSceneData()->gameObjects);
             currentScene->Update();
+        }
 
         RendererLocator::GetRenderer()->Update();
         uint frameEnd = NimTime::Instance().GetTicks();
