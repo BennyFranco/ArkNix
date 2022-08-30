@@ -17,8 +17,7 @@ Sprite::Sprite(const char *id, const char *filename) {
     // srcCanvas = std::make_shared<SDL_Rect>();
 }
 
-Sprite::~Sprite() {
-}
+Sprite::~Sprite() {}
 
 Sprite::Sprite(const Sprite &other) {
     filename = other.filename;

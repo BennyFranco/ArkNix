@@ -24,6 +24,7 @@ namespace nim {
             auto value = dynamic_cast<T *>(assets[id].get());
             return *value;
         }
+        void Quit();
 
     private:
         AssetManager();
