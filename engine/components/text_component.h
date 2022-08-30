@@ -17,7 +17,7 @@ namespace nim {
         TextComponent &operator=(const TextComponent &other);
         TextComponent &operator=(TextComponent &&other);
 
-        void Init(GameObject *parent) override;
+        void Init() override;
         void Update() override;
         void Quit() override;
         void SetTransform(Transform *transform) override;

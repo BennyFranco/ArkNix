@@ -10,12 +10,13 @@ namespace nim {
     class Component {
     public:
         virtual ~Component() = default;
-        virtual void Init(GameObject *parent) { this->parent = parent; };
+        virtual void Init(){};
         virtual void Update(){};
         virtual void Quit(){};
         virtual void OnCollisionEnter(const GameObject &other){};
         virtual Transform *GetTransform() const { return transform; };
         virtual void SetTransform(Transform *transform) { this->transform = transform; };
+        void Setup(GameObject *parent) { this->parent = parent; };
         void SetParent(GameObject *parent) { this->parent = parent; }
 
     public:

@@ -15,6 +15,7 @@ namespace galaga {
         BulletController &operator=(const BulletController &other);
         BulletController &operator=(BulletController &&other);
 
+        virtual void Init() override;
         virtual void Update() override;
 
         void Fire();

@@ -110,19 +110,16 @@ void GameObject::Destroy(const GameObject *go, const uint msToDestroyIt) {
     programDestroyInvocation.detach();
 }
 
-// Component *GameObject::GetComponent(const char *id) {
-//     if (components.find(id) == components.end()) {
-//         std::cout << "[" << name << "] Component '" << id << "' doesn't exist!" << std::endl;
-//         return nullptr;
-//     }
-
-//     return components[id].get();
-// }
-
 #pragma region entity_functions
 void GameObject::Init() {
+    // I want to be sure that all components have access to parent,
+    // before call Init.
     for (int i = 0; i < components.size(); i++) {
-        components[i]->Init(this);
+        components[i]->Setup(this);
+    }
+
+    for (int i = 0; i < components.size(); i++) {
+        components[i]->Init();
     }
 }
 

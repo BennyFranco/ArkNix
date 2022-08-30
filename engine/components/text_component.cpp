@@ -85,8 +85,7 @@ TextComponent &TextComponent::operator=(TextComponent &&other) {
     return *this;
 }
 
-void TextComponent::Init(GameObject *parent) {
-    Component::Init(parent);
+void TextComponent::Init() {
     CreateTexture();
 }
 

@@ -2,6 +2,7 @@
 #include "animation_component.h"
 #include "bullet.h"
 #include "game_object.h"
+#include "text_component.h"
 #include <memory>
 #include <random>
 
@@ -61,6 +62,8 @@ BulletController &BulletController::operator=(BulletController &&other) {
 
     return *this;
 }
+
+void BulletController::Init() {}
 
 void BulletController::Update() {
     if (input->GetKeyUp(Key::LEFT_CTRL) || input->GetKeyUp(Key::RIGHT_CTRL)) {
