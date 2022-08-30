@@ -1,9 +1,11 @@
 #include "sdl_renderer.h"
-
+#include <iostream>
 using namespace nim;
 
 void SDLRenderer::Init() {
     SDL_Init(SDL_INIT_VIDEO);
+    IMG_Init(IMG_INIT_PNG);
+    TTF_Init();
 }
 
 void SDLRenderer::CreateWindow(std::string title, int x_position, int y_position, int width, int height, uint flags) {
@@ -44,8 +46,11 @@ void SDLRenderer::Update() {
 }
 
 void SDLRenderer::Quit() {
+    std::cout << "[Renderer] Quit\n";
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_Quit();
+    IMG_Quit();
     SDL_Quit();
 }
 

@@ -28,8 +28,12 @@ void Game::Run() {
 }
 
 void Game::Quit() {
-    if (currentScene != nullptr)
+    if (currentScene != nullptr) {
         currentScene->Quit();
+        currentScene.reset();
+    }
+
+    AssetManager::Instance().Quit();
     RendererLocator::GetRenderer()->Quit();
 }
 
