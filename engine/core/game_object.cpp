@@ -82,7 +82,7 @@ void GameObject::AddComponent(std::shared_ptr<Component> component) {
 GameObject *GameObject::Instantiate(std::string name, Transform transform, std::shared_ptr<Component> component) {
     GameObject newGo(name, transform);
     newGo.AddComponent(component);
-    return Game::currentScene->AddGameObject(std::move(newGo));
+    return Game::AddGameObject(std::move(newGo));
 }
 
 GameObject *GameObject::Instantiate(std::string name, Transform transform,
@@ -90,22 +90,22 @@ GameObject *GameObject::Instantiate(std::string name, Transform transform,
     GameObject newGo(name, transform);
     for (auto component: newComponents)
         newGo.AddComponent(component);
-    return Game::currentScene->AddGameObject(std::move(newGo));
+    return Game::AddGameObject(std::move(newGo));
 }
 
 GameObject *GameObject::Instantiate(GameObject &&go) {
-    return Game::currentScene->AddGameObject(std::move(go));
+    return Game::AddGameObject(std::move(go));
 }
 
 void GameObject::Destroy(const GameObject *go) {
-    Game::currentScene->RemoveGameObject(go->name);
+    Game::RemoveGameObject(go->name);
 }
 
 void GameObject::Destroy(const GameObject *go, const uint msToDestroyIt) {
     auto name = go->name;
     std::thread programDestroyInvocation([name, msToDestroyIt]() {
         std::this_thread::sleep_for(std::chrono::milliseconds(msToDestroyIt));
-        Game::currentScene->RemoveGameObject(name);
+        Game::RemoveGameObject(name);
     });
     programDestroyInvocation.detach();
 }

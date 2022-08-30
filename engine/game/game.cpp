@@ -95,3 +95,20 @@ void Game::ReloadScene() {
     currentScene.reset();
     LoadScene(currentName);
 }
+
+GameObject *Game::AddGameObject(GameObject &&gameObject) {
+    return currentScene->AddGameObject(std::move(gameObject));
+}
+
+void Game::RemoveGameObject(const std::string name) {
+    currentScene->RemoveGameObject(name);
+}
+
+GameObject *Game::Find(std::string name) {
+    auto sceneData = currentScene->GetSceneData();
+    auto result = std::find_if(sceneData->gameObjects.begin(), sceneData->gameObjects.end(), [name](GameObject go) {
+        return go.name == name;
+    });
+
+    return result.base();
+}

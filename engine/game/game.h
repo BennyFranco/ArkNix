@@ -22,15 +22,19 @@ namespace nim {
         virtual void LoadScene(std::string sceneName);
         virtual void ReloadScene();
 
+        static GameObject *AddGameObject(GameObject &&gameObject);
+        static void RemoveGameObject(const std::string name);
+        static GameObject *Find(std::string name);
+
     private:
         void Update();
         void ExitGameListener(bool);
 
     public:
-        static std::unique_ptr<Scene> currentScene;
-
     protected:
         WindowProperties windowProperties;
+        static std::unique_ptr<Scene> currentScene;
+
 
     private:
         bool running;
