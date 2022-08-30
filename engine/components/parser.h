@@ -6,6 +6,7 @@
 #include "collision_layer.h"
 #include "game_object.h"
 #include "sprite_component.h"
+#include "text_component.h"
 
 namespace nim {
     class CustomComponentHelper {
@@ -63,6 +64,8 @@ namespace YAML {
                         go.AddComponent(std::make_shared<nim::CharacterController>(sc));
                     } else if (goName == "AnimationComponent") {
                         go.AddComponent(std::make_shared<nim::AnimationComponent>(node["components"][i].as<nim::AnimationComponent>()));
+                    } else if (goName == "TextComponent") {
+                        go.AddComponent(std::make_shared<nim::TextComponent>(node["components"][i].as<nim::TextComponent>()));
                     } else {
                         nim::CustomComponentHelper::Instance().DeserializeCustom.Invoke(goName, go, node["components"][i]);
                     }

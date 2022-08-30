@@ -68,5 +68,17 @@ gameObjects:
         velocity: 5
       - name: BulletController
       # - name: DebugComponent
+  - type: GameObject
+    name: Score
+    layer: 0
+    transform:
+      size: [64, 64]
+      position: [735, 131]
+    components:
+      - name: TextComponent
+        font: GravityRegular5
+        text: Score
+        color: [255, 255, 255, 255]
+      - name: DebugComponent
 ---
 version: 1
