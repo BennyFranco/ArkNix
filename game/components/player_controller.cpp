@@ -73,8 +73,8 @@ void PlayerController::Update() {
         transform->position.x -= velocity;
         transform->Position(&transform->position);
     }
-    auto checkLeftLimit = !(transform->position.x > RendererLocator::GetRenderer()->Width() - transform->size.x);
-    if (input->GetKeyDown(Key::RIGHT) && checkLeftLimit) {
+    auto checkRightLimit = !(transform->position.x > 720 - transform->size.x);
+    if (input->GetKeyDown(Key::RIGHT) && checkRightLimit) {
         transform->position.x += velocity;
         transform->Position(&transform->position);
     }
