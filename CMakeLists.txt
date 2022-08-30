@@ -17,6 +17,9 @@ set(SDL2IMAGE_SAMPLES OFF)
 set(SDL2IMAGE_TESTS OFF)
 set(SDL2IMAGE_INSTALL OFF)
 
+set(SDL2TTF_SAMPLES OFF)
+set(SDL2TTF_INSTALL OFF)
+
 set(YAML_BUILD_SHARED_LIBS ON)
 
 set(OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -29,6 +32,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIRECTORY}")
 
 add_subdirectory(thirdparty/SDL)
 add_subdirectory(thirdparty/SDL_image)
+add_subdirectory(thirdparty/SDL_ttf)
 add_subdirectory(thirdparty/yaml-cpp)
 
 # set(INCLUDE_DIRS
@@ -63,6 +67,7 @@ add_executable(Galaga ${GAME_SOURCE_FILES})
 target_link_libraries(NimEngine
                       PUBLIC SDL2
                       PUBLIC SDL2_image
+                      PUBLIC SDL2_ttf
                       yaml-cpp
                       )
 
@@ -70,7 +75,7 @@ target_include_directories (NimEngine PUBLIC
     engine/components
     engine/core
     engine/core/asset_manager
-    engine/core/asset_manager/sprites
+    engine/core/asset_manager/assets
     engine/core/events
     engine/game
     engine/graphics
@@ -91,6 +96,7 @@ endif()
 target_link_libraries(Galaga
                       PUBLIC SDL2
                       PUBLIC SDL2_image
+                      PUBLIC SDL2_ttf
                       yaml-cpp
                       NimEngine
                       )
@@ -99,7 +105,7 @@ target_include_directories (Galaga PUBLIC
     engine/components
     engine/core
     engine/core/asset_manager
-    engine/core/asset_manager/sprites
+    engine/core/asset_manager/assets
     engine/core/events
     engine/game
     engine/graphics
