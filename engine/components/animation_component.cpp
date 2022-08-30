@@ -108,8 +108,6 @@ void AnimationComponent::Quit() {
 }
 
 void AnimationComponent::Animate() {
-    // TODO: Encapsulate SDL_GetTicks() in a time variable.
-    // TODO: Expose tick time.
     if (!animate) return;
 
     auto spriteNum = (uint) ((NimTime::Instance().GetTicks() / 100) % frames);
