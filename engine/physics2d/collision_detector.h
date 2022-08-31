@@ -10,7 +10,7 @@ namespace nim {
     class CollisionDetector {
     public:
         static CollisionDetector &Instance();
-        void Update(const std::vector<GameObject> &gameObjects);
+        void Update(const std::list<GameObject> &gameObjects);
         bool TestCollision(const Bounds &a, const Bounds &b);
 
     public:

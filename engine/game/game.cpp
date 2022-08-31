@@ -110,5 +110,5 @@ GameObject *Game::Find(std::string name) {
         return go.name == name;
     });
 
-    return result.base();
+    return &*result;
 }

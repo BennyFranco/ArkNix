@@ -15,18 +15,18 @@ CollisionDetector &CollisionDetector::Instance() {
     return *instance;
 }
 
-void CollisionDetector::Update(const std::vector<GameObject> &gameObjects) {
+void CollisionDetector::Update(const std::list<GameObject> &gameObjects) {
     for (auto aIt = gameObjects.begin(); aIt != gameObjects.end(); aIt++) {
         if (aIt->collisionLayer == Layer::None) continue;
 
         auto collisionLayers = collisionMatrix[aIt->collisionLayer];
-        for (auto bIt = aIt + 1; bIt != gameObjects.end(); bIt++) {
+        for (auto bIt = std::next(aIt); bIt != gameObjects.end(); bIt++) {
 
             if (!(bIt->collisionLayer & collisionLayers)) continue;
 
             if (TestCollision(aIt->transform->GetBounds(), bIt->transform->GetBounds())) {
                 std::cout << "Collision: [" << aIt->name << "] & [" << bIt->name << "] \n";
-                bIt->OnCollisionEnter(*aIt.base());
+                bIt->OnCollisionEnter(*aIt);
             }
         }
     }

@@ -7,9 +7,9 @@
 #include "parser.h"
 
 #include <condition_variable>
+#include <list>
 #include <memory>
 #include <string>
-#include <vector>
 
 namespace nim {
 #ifdef EDITOR_DEBUG
@@ -20,7 +20,7 @@ namespace nim {
 
     struct SceneData {
         std::string name;
-        std::vector<GameObject> gameObjects;
+        std::list<GameObject> gameObjects;
     };
 
     class Scene : public Entity {
@@ -70,7 +70,7 @@ namespace YAML {
             if (!node["name"]) return false;
             sd.name = node["name"].as<std::string>();
 
-            std::vector<nim::GameObject> gameObjects;
+            std::list<nim::GameObject> gameObjects;
             for (auto i = node["gameObjects"].begin(); i != node["gameObjects"].end(); i++) {
                 gameObjects.emplace_back(std::move(i->as<nim::GameObject>()));
             }
