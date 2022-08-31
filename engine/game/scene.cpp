@@ -73,6 +73,7 @@ void Scene::RemoveGameObject(const std::string name) {
     canDelete = false;
     for (auto it = sceneData->gameObjects.begin(); it != sceneData->gameObjects.end(); it++) {
         if (name == it->name) {
+            it->Quit();
             sceneData->gameObjects.erase(it);
             break;
         }
