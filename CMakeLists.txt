@@ -115,4 +115,5 @@ target_include_directories (Galaga PUBLIC
     engine/physics2d
     game/
     game/components
+    game/player
 )

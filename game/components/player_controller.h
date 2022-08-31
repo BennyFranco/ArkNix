@@ -3,6 +3,7 @@
 
 #include "component.h"
 #include "input_locator.h"
+#include "text_component.h"
 
 namespace galaga {
     class PlayerController : public nim::Component {
@@ -15,6 +16,7 @@ namespace galaga {
         PlayerController &operator=(const PlayerController &controller);
         PlayerController &operator=(PlayerController &&controller);
 
+        virtual void Init() override;
         virtual void Update() override;
 
     public:
@@ -22,6 +24,7 @@ namespace galaga {
 
     private:
         nim::Input *input;// owned by input locator;
+        nim::TextComponent *scoreLabel;
     };
 }// namespace galaga
 

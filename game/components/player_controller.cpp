@@ -1,5 +1,7 @@
 #include "player_controller.h"
+#include "game.h"
 #include "ntime.h"
+#include "player_data.h"
 #include "renderer_locator.h"
 #include <iostream>
 
@@ -68,6 +70,11 @@ PlayerController &PlayerController::operator=(PlayerController &&controller) {
     return *this;
 }
 
+void PlayerController::Init() {
+    auto scoreGo = Game::Find("Score");
+    scoreLabel = scoreGo->GetComponent<TextComponent>("TextComponent");
+}
+
 void PlayerController::Update() {
     if (input->GetKeyDown(Key::LEFT) && !(transform->position.x < 0)) {
         transform->position.x -= velocity;
@@ -78,4 +85,6 @@ void PlayerController::Update() {
         transform->position.x += velocity;
         transform->Position(&transform->position);
     }
+
+    scoreLabel->Text("Score: " + std::to_string(PlayerData::Instance().score));
 }

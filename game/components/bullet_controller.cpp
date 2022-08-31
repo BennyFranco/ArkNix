@@ -2,7 +2,7 @@
 #include "animation_component.h"
 #include "bullet.h"
 #include "game_object.h"
-#include "text_component.h"
+#include "player_data.h"
 #include <memory>
 #include <random>
 

@@ -1,5 +1,6 @@
 #include "bullet.h"
 #include "game_object.h"
+#include "player_data.h"
 #include <iostream>
 
 using namespace galaga;
@@ -51,6 +52,7 @@ void Bullet::Update() {
 }
 
 void Bullet::OnCollisionEnter(const nim::GameObject &other) {
+    PlayerData::Instance().score += 100;
     nim::GameObject::Destroy(&other, 1);
     nim::GameObject::Destroy(Component::parent, 1);
 }
