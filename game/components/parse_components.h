@@ -2,6 +2,7 @@
 #define PARSE_COMPONENTS_H
 #include "bullet_controller.h"
 #include "debug_component.h"
+#include "enemies_manager.h"
 #include "parser.h"
 #include "player_controller.h"
 
@@ -14,6 +15,8 @@ namespace nim {
             go.AddComponent(std::make_shared<galaga::PlayerController>(playerController));
         } else if (goName == "BulletController") {
             go.AddComponent(std::make_shared<galaga::BulletController>());
+        } else if (goName == "EnemiesManager") {
+            go.AddComponent(std::make_shared<galaga::EnemiesManager>());
         }
     }
     static void RegisterCustomComponents() {

@@ -1,0 +1,54 @@
+# Scene: Scene2
+# Date: Wed Aug 31 07:23:23 2022
+#
+---
+name: Scene2
+gameObjects:
+  - type: GameObject
+    name: Background
+    transform:
+      size: [720, 960]
+      position: [0, 0]
+    layer: 0
+    components:
+      - name: SpriteComponent
+        asset: background_1
+      - name: SpriteComponent
+        asset: background_2
+      - name: SpriteComponent
+        asset: background_3
+      - name: SpriteComponent
+        asset: background_4
+  - type: GameObject
+    name: Score
+    layer: 0
+    transform:
+      size: [64, 64]
+      position: [735, 131]
+    components:
+      - name: TextComponent
+        font: GravityRegular5
+        text: Score
+        color: [255, 255, 255, 255]
+  - type: GameObject
+    name: EnemiesManager
+    layer: 0
+    transform:
+      size: [1, 1]
+      position: [0, 0]
+    components:
+      - name: EnemiesManager
+  - type: GameObject
+    name: Player
+    layer: 2
+    transform:
+      size: [64, 64]
+      position: [339, 864]
+    components:
+      - name: SpriteComponent
+        asset: ship_6
+      - name: PlayerController
+        velocity: 5
+      - name: BulletController
+---
+version: 1
