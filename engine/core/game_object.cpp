@@ -5,17 +5,17 @@
 
 using namespace nim;
 
-GameObject::GameObject() : name("GameObject") {
+GameObject::GameObject() : name("GameObject"), isDirty(false) {
     transform = std::make_unique<Transform>();
     collisionLayer = Layer::None;
 }
 
-GameObject::GameObject(std::string name) : name(name) {
+GameObject::GameObject(std::string name) : name(name), isDirty(false) {
     transform = std::make_unique<Transform>();
     collisionLayer = Layer::None;
 }
 
-GameObject::GameObject(std::string name, Transform transform) : name(name) {
+GameObject::GameObject(std::string name, Transform transform) : name(name), isDirty(false) {
     this->transform = std::make_unique<Transform>(transform);
     collisionLayer = Layer::None;
 }
@@ -33,6 +33,7 @@ GameObject::GameObject(const GameObject &other) {
     transform = other.transform;
     components = other.components;
     collisionLayer = other.collisionLayer;
+    isDirty = other.isDirty;
 }
 
 GameObject::GameObject(GameObject &&other) {
@@ -40,6 +41,7 @@ GameObject::GameObject(GameObject &&other) {
     transform = std::move(other.transform);
     components = std::move(other.components);
     collisionLayer = other.collisionLayer;
+    isDirty = other.isDirty;
 
     other.collisionLayer = Layer::None;
 }
@@ -55,6 +57,7 @@ GameObject &GameObject::operator=(const GameObject &other) {
         transform.reset(new Transform(*other.transform.get()));
         components = other.components;
         collisionLayer = other.collisionLayer;
+        isDirty = other.isDirty;
     }
     return *this;
 }
@@ -68,6 +71,7 @@ GameObject &GameObject::operator=(GameObject &&other) {
         transform = std::move(other.transform);
         components = std::move(other.components);
         collisionLayer = other.collisionLayer;
+        isDirty = other.isDirty;
 
         other.collisionLayer = Layer::None;
     }
@@ -102,10 +106,10 @@ void GameObject::Destroy(const GameObject *go) {
 }
 
 void GameObject::Destroy(const GameObject *go, const uint msToDestroyIt) {
-    auto name = go->name;
-    std::thread programDestroyInvocation([name, msToDestroyIt]() {
+    auto goName = go->name;
+    std::thread programDestroyInvocation([goName, msToDestroyIt]() {
         std::this_thread::sleep_for(std::chrono::milliseconds(msToDestroyIt));
-        Game::RemoveGameObject(name);
+        Game::RemoveGameObject(goName);
     });
     programDestroyInvocation.detach();
 }

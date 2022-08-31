@@ -54,11 +54,13 @@ void Game::Update() {
 #endif
 
         if (currentScene != nullptr) {
+            currentScene->RemoveDirtyObjects();
             CollisionDetector::Instance().Update(currentScene->GetSceneData()->gameObjects);
             currentScene->Update();
         }
 
         RendererLocator::GetRenderer()->Update();
+
         uint frameEnd = NimTime::Instance().GetTicks();
         uint frameDuration = frameEnd - frameStart;
 
@@ -100,7 +102,7 @@ GameObject *Game::AddGameObject(GameObject &&gameObject) {
     return currentScene->AddGameObject(std::move(gameObject));
 }
 
-void Game::RemoveGameObject(const std::string name) {
+void Game::RemoveGameObject(const std::string &name) {
     currentScene->RemoveGameObject(name);
 }
 

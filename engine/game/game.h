@@ -23,7 +23,7 @@ namespace nim {
         virtual void ReloadScene();
 
         static GameObject *AddGameObject(GameObject &&gameObject);
-        static void RemoveGameObject(const std::string name);
+        static void RemoveGameObject(const std::string& name);
         static GameObject *Find(std::string name);
 
     private:

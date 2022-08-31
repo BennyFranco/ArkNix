@@ -29,6 +29,9 @@ namespace nim {
         virtual void Quit() override;
         virtual void OnCollisionEnter(const GameObject &other) const;
 
+        void SetDirty(){isDirty = true;}
+        bool IsDirty() const {return isDirty;}
+
         void AddComponent(std::shared_ptr<Component> component);
         std::vector<std::shared_ptr<Component>> Components() const { return components; }
 
@@ -40,8 +43,8 @@ namespace nim {
                                        std::initializer_list<std::shared_ptr<Component>> newComponents);
 
         template<typename T>
-        T *GetComponent(std::string name) {
-            auto result = std::find_if(components.begin(), components.end(), [name](std::shared_ptr<Component> comp) {
+        T *GetComponent(const std::string& name) {
+            auto result = std::find_if(components.begin(), components.end(), [name](std::shared_ptr<Component>& comp) {
                 return comp->name == name;
             });
 
@@ -56,6 +59,7 @@ namespace nim {
 
     private:
         std::vector<std::shared_ptr<Component>> components;
+        bool isDirty{false};
     };
 }// namespace nim
 #endif//GAME_OBJECT_H
