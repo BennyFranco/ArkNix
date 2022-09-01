@@ -20,6 +20,14 @@ set(SDL2IMAGE_INSTALL OFF)
 set(SDL2TTF_SAMPLES OFF)
 set(SDL2TTF_INSTALL OFF)
 
+set(SDL2MIXER_INSTALL OFF)
+set(SDL2MIXER_SAMPLES OFF)
+set(SDL2MIXER_OPUS OFF)
+set(SDL2MIXER_FLAC OFF)
+set(SDL2MIXER_MOD OFF)
+set(SDL2MIXER_MOD_MODPLUG OFF)
+set(SDL2MIXER_MIDI_FLUIDSYNTH OFF)
+
 set(YAML_BUILD_SHARED_LIBS ON)
 
 set(OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -33,6 +41,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIRECTORY}")
 add_subdirectory(thirdparty/SDL)
 add_subdirectory(thirdparty/SDL_image)
 add_subdirectory(thirdparty/SDL_ttf)
+add_subdirectory(thirdparty/SDL_mixer)
 add_subdirectory(thirdparty/yaml-cpp)
 
 # set(INCLUDE_DIRS
