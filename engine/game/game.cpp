@@ -1,5 +1,6 @@
 #include "game.h"
 #include "asset_manager.h"
+#include "audio_locator.h"
 #include "collision_detector.h"
 #include "input_locator.h"
 #include "ntime.h"
@@ -13,6 +14,7 @@ std::unique_ptr<Scene> Game::currentScene;
 
 void Game::Awake() {
     RendererLocator::Initialize();
+    AudioLocator::Initialize();
     auto renderer = RendererLocator::GetRenderer();
     renderer->CreateWindow(windowProperties.title, windowProperties.width, windowProperties.height);
     renderer->CreateRenderer(Color(0, 0, 0));
@@ -34,6 +36,7 @@ void Game::Quit() {
     }
 
     AssetManager::Instance().Quit();
+    AudioLocator::GetAudio()->Quit();
     RendererLocator::GetRenderer()->Quit();
 }
 

@@ -77,10 +77,12 @@ target_link_libraries(NimEngine
                       PUBLIC SDL2
                       PUBLIC SDL2_image
                       PUBLIC SDL2_ttf
+                      PUBLIC SDL2_mixer
                       yaml-cpp
                       )
 
 target_include_directories (NimEngine PUBLIC
+    engine/audio
     engine/components
     engine/core
     engine/core/asset_manager
@@ -106,11 +108,13 @@ target_link_libraries(Galaga
                       PUBLIC SDL2
                       PUBLIC SDL2_image
                       PUBLIC SDL2_ttf
+                      PUBLIC SDL2_mixer
                       yaml-cpp
                       NimEngine
                       )
 
 target_include_directories (Galaga PUBLIC
+    engine/audio
     engine/components
     engine/core
     engine/core/asset_manager
