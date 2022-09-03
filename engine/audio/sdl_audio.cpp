@@ -19,3 +19,24 @@ void SDLAudio::Quit() {
     Mix_Quit();
     SDL_QuitSubSystem(SDL_INIT_AUDIO);
 }
+
+
+void SDLAudio::Play(Mix_Chunk &sound, int channel, int loops) {
+    Mix_PlayChannel(channel, &sound, loops);
+}
+
+void SDLAudio::Play(Mix_Music &music, int loops) {
+    Mix_PlayMusic(&music, loops);
+}
+
+void SDLAudio::Pause() {
+    Mix_PauseMusic();
+}
+
+void SDLAudio::ResumeMusic() {
+    Mix_ResumeMusic();
+}
+
+void SDLAudio::Stop() {
+    Mix_HaltMusic();
+}
