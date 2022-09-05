@@ -13,13 +13,17 @@ Sprite::Sprite(const char *id, const char *filename) {
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
     this->id = id;
-    Load(filename);
-    // srcCanvas = std::make_shared<SDL_Rect>();
+    SDL_Surface *loadingSurface = IMG_Load(filename);
+    auto tex = SDL_CreateTextureFromSurface(renderer, loadingSurface);
+    texture.reset(tex, [](SDL_Texture *tex) { SDL_DestroyTexture(tex); });
+    SDL_FreeSurface(loadingSurface);
+    this->filename = filename;
 }
 
-Sprite::~Sprite() {}
+Sprite::~Sprite() = default;
 
 Sprite::Sprite(const Sprite &other) {
+    id = other.id;
     filename = other.filename;
     texture = other.texture;
     srcCanvas = other.srcCanvas;
@@ -53,15 +57,6 @@ Sprite &Sprite::operator=(Sprite &&other) {
     srcCanvas = other.srcCanvas;
     other.texture = NULL;
     return *this;
-}
-
-bool Sprite::Load(const char *filename) {
-    SDL_Surface *loadingSurface = IMG_Load(filename);
-    auto tex = SDL_CreateTextureFromSurface(renderer, loadingSurface);
-    texture.reset(tex, [](SDL_Texture *tex) { SDL_DestroyTexture(tex); });
-    SDL_FreeSurface(loadingSurface);
-    this->filename = filename;
-    return true;
 }
 
 void Sprite::Draw() {

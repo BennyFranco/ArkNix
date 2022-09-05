@@ -8,6 +8,7 @@
 
 namespace nim {
     class Sound : public Asset {
+    public:
         Sound();
         Sound(const char *id, const char *filename);
         Sound(const Sound &other);

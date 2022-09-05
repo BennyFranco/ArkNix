@@ -18,7 +18,6 @@ namespace nim {
         Font &operator=(const Font &other);
         Font &operator=(Font &&other);
 
-        bool Load(const char *filename) override;
         void Draw(SDL_Texture *texture, SDL_Rect source, SDL_Rect destination);
         TTF_Font *Get() { return font.get(); }
 

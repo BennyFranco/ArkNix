@@ -26,7 +26,6 @@ namespace nim {
         Sprite &operator=(const Sprite &other);
         Sprite &operator=(Sprite &&other);
 
-        bool Load(const char *filename) override;
         void Draw();
         void SetCanvas(SDL_FRect *rect);
         Vector2int GetSpriteSize();

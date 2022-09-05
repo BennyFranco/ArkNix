@@ -1,5 +1,5 @@
 #include "asset_manager.h"
-#include "color.h"
+#include "sound.h"
 #include "font.h"
 #include "sprite.h"
 
@@ -15,8 +15,8 @@ AssetManager &AssetManager::Instance() {
     return *instance;
 }
 
-void AssetManager::LoadAssets(std::string&& directory) {
-    for (auto item: std::filesystem::directory_iterator(directory)) {
+void AssetManager::LoadAssets(std::string &&directory) {
+    for (auto& item: std::filesystem::directory_iterator(directory)) {
         if (item.is_directory())
             LoadAssets(item.path().string());
 
@@ -32,6 +32,9 @@ void AssetManager::LoadAssets(std::string&& directory) {
             std::cout << "[AssetManager] Asset loaded with id = " << id << "\n";
         } else if (extension == ".ttf") {
             assets.emplace(id, std::make_shared<nim::Font>(id.c_str(), filename.c_str()));
+            std::cout << "[AssetManager] Asset loaded with id = " << id << "\n";
+        } else if (extension == ".wav") {
+            assets.emplace(id, std::make_shared<nim::Sound>(id.c_str(), filename.c_str()));
             std::cout << "[AssetManager] Asset loaded with id = " << id << "\n";
         }
     }
