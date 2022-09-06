@@ -2,54 +2,128 @@
 #define SOUND_COMPONENT_H
 
 #include "component.h"
+#include "music.h"
 #include "sound.h"
 
 namespace nim {
-
+    template<typename T>
     class SoundComponent : public Component {
     public:
-        SoundComponent();
-        SoundComponent(std::string soundName);
-        SoundComponent(const SoundComponent &other);
-        SoundComponent(SoundComponent &&other);
-        ~SoundComponent();
+        SoundComponent() {
+            transform = nullptr;
+            name = "SoundComponent";
+        }
 
-        SoundComponent &operator=(const SoundComponent &other);
-        SoundComponent &operator=(SoundComponent &&other);
+        SoundComponent(std::string assetName, bool play = false) {
+            transform = nullptr;
+            name = "SoundComponent";
+            sound = AssetManager::Instance().Get<T>(assetName);
+            autoplay = play;
+        }
 
-        //        void Init() override;
-        //        void Update() override;
-        //        void Quit() override;
+        SoundComponent(const SoundComponent &other) {
+            name = other.name;
+            transform = other.transform;
+            sound = other.sound;
+            autoplay = other.autoplay;
+        }
 
-        void Play();
+        SoundComponent(SoundComponent &&other) {
+            name = other.name;
+            transform = other.transform;
+            sound = std::move(other.sound);
+            autoplay = other.autoplay;
+
+            other.transform = nullptr;
+            other.autoplay = false;
+        }
+
+        ~SoundComponent() {
+            transform = nullptr;
+        }
+
+        SoundComponent &operator=(const SoundComponent &other) {
+            if (&other != this) {
+                transform = nullptr;
+
+                name = other.name;
+                transform = other.transform;
+                sound = other.sound;
+                autoplay = other.autoplay;
+            }
+
+            return *this;
+        }
+
+        SoundComponent &operator=(SoundComponent &&other) {
+            if (&other != this) {
+                transform = nullptr;
+
+                name = other.name;
+                transform = other.transform;
+                sound = std::move(other.sound);
+                autoplay = other.autoplay;
+
+                other.transform = nullptr;
+                other.autoplay = false;
+            }
+
+            return *this;
+        }
+
+        void Init() override {
+            if (autoplay) Play();
+        }
+
+        void Play() {
+            sound.Play();
+        }
 
     public:
-        Sound sound;
+        T sound;
+        bool autoplay = false;
     };
 
 }// namespace nim
 
 namespace YAML {
     template<>
-    struct convert<nim::SoundComponent *> {
-        static YAML::Node encode(const nim::SoundComponent *component) {
+    struct convert<nim::SoundComponent<nim::Sound> *> {
+        static YAML::Node encode(const nim::SoundComponent<nim::Sound> *component) {
             YAML::Node node;
-            //            node["name"] = component->name;
-            //            node["atlas"] = component->sprite.id;
-            //            node["animateOnInit"] = component->animateOnInit;
-            //            node["offset"].push_back(component->xOffset);
-            //            node["offset"].push_back(component->yOffset);
-            //            node["frames"] = component->frames;
+            // TODO: Implement nim::SoundComponent<nim::Sound> Encoder
+            return node;
+        }
+    };
+
+    template<>
+    struct convert<nim::SoundComponent<nim::Music> *> {
+        static YAML::Node encode(const nim::SoundComponent<nim::Music> *component) {
+            YAML::Node node;
+            // TODO: Implement nim::SoundComponent<nim::Music> Encoder
             return node;
         }
     };
     template<>
-    struct convert<nim::SoundComponent> {
-        static bool decode(const YAML::Node &node, nim::SoundComponent &component) {
-            if (!node["name"] && !node["sound"]) return false;
+    struct convert<nim::SoundComponent<nim::Sound>> {
+        static bool decode(const YAML::Node &node, nim::SoundComponent<nim::Sound> &component) {
+            if (!node["name"] || !node["sound"]) return false;
 
-            std::string soundName = node["sound"].as<std::string>();
-            nim::SoundComponent sc(soundName);
+            auto soundName = node["sound"].as<std::string>();
+            nim::SoundComponent<nim::Sound> sc(soundName);
+            component = std::move(sc);
+
+            return true;
+        }
+    };
+    template<>
+    struct convert<nim::SoundComponent<nim::Music>> {
+        static bool decode(const YAML::Node &node, nim::SoundComponent<nim::Music> &component) {
+            if (!node["name"] || !node["music"]) return false;
+
+            auto soundName = node["music"].as<std::string>();
+            bool autoplay = node["autoplay"].as<bool>();
+            nim::SoundComponent<nim::Music> sc(soundName, autoplay);
             component = std::move(sc);
 
             return true;

@@ -23,7 +23,7 @@ namespace galaga {
 
     private:
         nim::Input *input;// owned by input locator;
-        nim::SoundComponent *shoot;
+        nim::SoundComponent<nim::Sound> *shoot;
     };
 }// namespace galaga
 #endif//BULLET_CONTROLLER_H

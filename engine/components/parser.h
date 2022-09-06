@@ -68,7 +68,12 @@ namespace YAML {
                     } else if (goName == "TextComponent") {
                         go.AddComponent(std::make_shared<nim::TextComponent>(node["components"][i].as<nim::TextComponent>()));
                     } else if (goName == "SoundComponent") {
-                        go.AddComponent(std::make_shared<nim::SoundComponent>(node["components"][i].as<nim::SoundComponent>()));
+                        //                        auto soc = node["components"][i].as<nim::SoundComponent<nim::Sound>>();
+                        nim::SoundComponent<nim::Sound> sSoundComponent;
+                        if (convert<nim::SoundComponent<nim::Sound>>::decode(node["components"][i], sSoundComponent))
+                            go.AddComponent(std::make_shared<nim::SoundComponent<nim::Sound>>(sSoundComponent));
+                        else
+                            go.AddComponent(std::make_shared<nim::SoundComponent<nim::Music>>(node["components"][i].as<nim::SoundComponent<nim::Music>>()));
                     } else {
                         nim::CustomComponentHelper::Instance().DeserializeCustom.Invoke(goName, go, node["components"][i]);
                     }

@@ -64,7 +64,7 @@ BulletController &BulletController::operator=(BulletController &&other) {
 }
 
 void BulletController::Init() {
-    shoot = parent->GetComponent<nim::SoundComponent>("SoundComponent");
+    shoot = parent->GetComponent<nim::SoundComponent<nim::Sound>>("SoundComponent");
 }
 
 void BulletController::Update() {
