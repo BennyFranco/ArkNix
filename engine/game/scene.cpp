@@ -67,11 +67,11 @@ GameObject *Scene::AddGameObject(GameObject &&gameObject) {
     return lastGo;
 }
 
-void Scene::RemoveGameObject(const std::string& name) {
+void Scene::RemoveGameObject(const std::string &name) {
     std::unique_lock<std::mutex> lck(mtx);
     mtxCondition.wait(lck, [this] { return this->canDelete; });
     canDelete = false;
-    for (auto & gameObject : sceneData->gameObjects) {
+    for (auto &gameObject: sceneData->gameObjects) {
         if (name == gameObject.name) {
             gameObject.SetDirty();
             break;
@@ -85,6 +85,8 @@ void Scene::RemoveDirtyObjects() {
         if (it->IsDirty()) {
             it->Quit();
             it = sceneData->gameObjects.erase(it);
+
+            if (it == sceneData->gameObjects.end()) break;
         }
     }
 }
