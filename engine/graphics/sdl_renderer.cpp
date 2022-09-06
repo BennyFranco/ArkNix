@@ -21,8 +21,8 @@ void SDLRenderer::CreateWindow(std::string title, int x_position, int y_position
 void SDLRenderer::CreateWindow(std::string title, int width, int height) {
     window = SDL_CreateWindow(
             title.c_str(),
-            SDL_WINDOWPOS_CENTERED,
-            SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_UNDEFINED,
+            SDL_WINDOWPOS_UNDEFINED,
             width,
             height,
             SDL_WINDOW_SHOWN);
@@ -43,6 +43,10 @@ void SDLRenderer::Clear() {
 
 void SDLRenderer::Update() {
     SDL_RenderPresent(renderer);
+    // Only to debug window size
+    //    int w, h;
+    //    SDL_GetWindowSize(window, &w, &h);
+    //    std::cout << "Window W: " << w << " H: " << h << "\n";
 }
 
 void SDLRenderer::Quit() {

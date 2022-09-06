@@ -86,5 +86,15 @@ void PlayerController::Update() {
         transform->Position(&transform->position);
     }
 
+//    if (input->GetKeyDown(Key::UP)) {
+//        transform->position.y -= velocity;
+//        transform->Position(&transform->position);
+//    }
+//
+//    if (input->GetKeyDown(Key::DOWN)) {
+//        transform->position.y += velocity;
+//        transform->Position(&transform->position);
+//    }
+
     scoreLabel->Text("Score: " + std::to_string(PlayerData::Instance().score));
 }
