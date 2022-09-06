@@ -97,8 +97,8 @@ target_include_directories (NimEngine PUBLIC
 )
 
 if(MSVC)
-target_compile_options(NimEngine PUBLIC /std:c++17)
-target_compile_options(Galaga PUBLIC /std:c++17)
+target_compile_options(NimEngine PUBLIC /std:c++17 /MDd)
+target_compile_options(Galaga PUBLIC /std:c++17 /MDd)
 else()
 target_compile_options(NimEngine PUBLIC -std=c++17 -pthread)
 target_compile_options(Galaga PUBLIC -std=c++17 -pthread)
