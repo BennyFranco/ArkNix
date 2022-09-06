@@ -15,6 +15,9 @@ namespace nim {
         void Pause();
         void ResumeMusic();
         void Stop();
+
+    private:
+        bool initialized = true;
     };
 }// namespace nim
 #endif// SDL_AUDIO_H
