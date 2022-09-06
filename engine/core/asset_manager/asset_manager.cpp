@@ -22,7 +22,7 @@ void AssetManager::LoadAssets(std::string &&directory) {
 
         if (!item.is_regular_file()) continue;
 
-        std::string extension = item.path().extension();
+        std::string extension = item.path().extension().string();
         std::string filename = item.path().string();
         std::string id = item.path().filename().replace_extension("").string();
 
