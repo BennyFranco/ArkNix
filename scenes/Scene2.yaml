@@ -50,5 +50,7 @@ gameObjects:
       - name: PlayerController
         velocity: 5
       - name: BulletController
+      - name: SoundComponent
+        sound: shoot_fx
 ---
 version: 1

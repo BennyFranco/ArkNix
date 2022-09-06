@@ -60,7 +60,7 @@ AnimationComponent &AnimationComponent::operator=(const AnimationComponent &othe
 
         name = other.name;
         transform = other.transform;
-        sprite = std::move(other.sprite);
+        sprite = other.sprite;
         animateOnInit = other.animateOnInit;
         xOffset = other.xOffset;
         yOffset = other.yOffset;

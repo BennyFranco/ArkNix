@@ -3,6 +3,7 @@
 
 #include "component.h"
 #include "input_locator.h"
+#include "sound_component.h"
 
 namespace galaga {
     class BulletController : public nim::Component {
@@ -22,6 +23,7 @@ namespace galaga {
 
     private:
         nim::Input *input;// owned by input locator;
+        nim::SoundComponent *shoot;
     };
 }// namespace galaga
 #endif//BULLET_CONTROLLER_H

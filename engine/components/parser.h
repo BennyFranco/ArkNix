@@ -5,6 +5,7 @@
 #include "character_controller.h"
 #include "collision_layer.h"
 #include "game_object.h"
+#include "sound_component.h"
 #include "sprite_component.h"
 #include "text_component.h"
 
@@ -66,6 +67,8 @@ namespace YAML {
                         go.AddComponent(std::make_shared<nim::AnimationComponent>(node["components"][i].as<nim::AnimationComponent>()));
                     } else if (goName == "TextComponent") {
                         go.AddComponent(std::make_shared<nim::TextComponent>(node["components"][i].as<nim::TextComponent>()));
+                    } else if (goName == "SoundComponent") {
+                        go.AddComponent(std::make_shared<nim::SoundComponent>(node["components"][i].as<nim::SoundComponent>()));
                     } else {
                         nim::CustomComponentHelper::Instance().DeserializeCustom.Invoke(goName, go, node["components"][i]);
                     }

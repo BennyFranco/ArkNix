@@ -63,7 +63,9 @@ BulletController &BulletController::operator=(BulletController &&other) {
     return *this;
 }
 
-void BulletController::Init() {}
+void BulletController::Init() {
+    shoot = parent->GetComponent<nim::SoundComponent>("SoundComponent");
+}
 
 void BulletController::Update() {
     if (input->GetKeyUp(Key::LEFT_CTRL) || input->GetKeyUp(Key::RIGHT_CTRL)) {
@@ -87,4 +89,5 @@ void BulletController::Fire() {
     t.position.y -= (t.size.y / 2.f) + 24;
     auto go = GameObject::Instantiate("bullet_" + std::to_string(distr(gen)), std::move(t), {graphicComponent, bullet});
     go->collisionLayer = Layer::Bullet;
+    shoot->Play();
 }
