@@ -77,7 +77,7 @@ void BulletController::Update() {
 void BulletController::Fire() {
     std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>();
     std::shared_ptr<AnimationComponent> graphicComponent = std::make_shared<AnimationComponent>("shot", true);
-    graphicComponent->xOffset = 48;
+    graphicComponent->xOffset = 12;
     graphicComponent->yOffset = 0;
     graphicComponent->frames = 2;
 
@@ -86,7 +86,11 @@ void BulletController::Fire() {
     std::uniform_int_distribution<> distr(0, 1000000);
 
     Transform t(*transform);
+    t.position.x += 24;
     t.position.y -= (t.size.y / 2.f) + 24;
+    t.size.x = 12;
+    t.size.y = 24;
+
     auto go = GameObject::Instantiate("bullet_" + std::to_string(distr(gen)), std::move(t), {graphicComponent, bullet});
     go->collisionLayer = Layer::Bullet;
 
