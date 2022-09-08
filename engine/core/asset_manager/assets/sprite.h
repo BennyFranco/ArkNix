@@ -15,6 +15,11 @@
 
 // TODO: Create macro for enable only SDL dependencies
 namespace nim {
+    enum class SpriteFlip {
+        None = 0,
+        Horizontal,
+        Vertical,
+    };
     class Sprite : public Asset {
     public:
         Sprite();
@@ -27,6 +32,7 @@ namespace nim {
         Sprite &operator=(Sprite &&other);
 
         void Draw();
+        void SetFlip(SpriteFlip newFlip);
         void SetCanvas(SDL_FRect *rect);
         Vector2int GetSpriteSize();
 
@@ -39,6 +45,7 @@ namespace nim {
         std::shared_ptr<SDL_Texture> texture;
         SDL_FRect *canvas;
         SDL_Renderer *renderer;
+        SDL_RendererFlip flip;
     };
 }// namespace nim
 

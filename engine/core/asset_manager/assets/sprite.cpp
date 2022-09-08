@@ -6,18 +6,19 @@ using namespace nim;
 Sprite::Sprite() {
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
-    // srcCanvas = std::make_shared<SDL_Rect>();
+    flip = SDL_RendererFlip::SDL_FLIP_NONE;
 }
 
 Sprite::Sprite(const char *id, const char *filename) {
     SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
     this->id = id;
+    this->filename = filename;
     SDL_Surface *loadingSurface = IMG_Load(filename);
     auto tex = SDL_CreateTextureFromSurface(renderer, loadingSurface);
     texture.reset(tex, [](SDL_Texture *tex) { SDL_DestroyTexture(tex); });
     SDL_FreeSurface(loadingSurface);
-    this->filename = filename;
+    flip = SDL_RendererFlip::SDL_FLIP_NONE;
 }
 
 Sprite::~Sprite() = default;
@@ -27,13 +28,15 @@ Sprite::Sprite(const Sprite &other) {
     filename = other.filename;
     texture = other.texture;
     srcCanvas = other.srcCanvas;
+    flip = other.flip;
 }
 
 Sprite::Sprite(Sprite &&other) {
     filename = other.filename;
     texture = std::move(other.texture);
 
-    srcCanvas = std::move(other.srcCanvas);
+    srcCanvas = other.srcCanvas;
+    flip = other.flip;
 
     other.filename = nullptr;
     other.texture = NULL;
@@ -43,8 +46,8 @@ Sprite &Sprite::operator=(const Sprite &other) {
     if (&other == this) return *this;
     filename = other.filename;
     texture = other.texture;
-    // srcCanvas.reset();
     srcCanvas = other.srcCanvas;
+    flip = other.flip;
 
     return *this;
 }
@@ -53,16 +56,15 @@ Sprite &Sprite::operator=(Sprite &&other) {
     if (&other == this) return *this;
     filename = other.filename;
     texture = std::move(other.texture);
-    // srcCanvas = std::move(other.srcCanvas);
     srcCanvas = other.srcCanvas;
+    flip = other.flip;
+
     other.texture = NULL;
     return *this;
 }
 
 void Sprite::Draw() {
-    // SDL_RenderCopyF(renderer, texture, srcCanvas.get(), canvas);
-    // SDL_RenderCopyF(renderer, texture, NULL, NULL);
-    SDL_RenderCopyExF(renderer, texture.get(), &srcCanvas, canvas, 0, 0, SDL_FLIP_NONE);
+    SDL_RenderCopyExF(renderer, texture.get(), &srcCanvas, canvas, 0, 0, flip);
 }
 
 void Sprite::SetCanvas(SDL_FRect *rect) {
@@ -79,4 +81,7 @@ Vector2int Sprite::GetSpriteSize() {
     if (texture == nullptr) return spriteSize;
     SDL_QueryTexture(texture.get(), NULL, NULL, &spriteSize.x, &spriteSize.y);
     return spriteSize;
+}
+void Sprite::SetFlip(SpriteFlip newFlip) {
+    flip = static_cast<SDL_RendererFlip>(newFlip);
 }

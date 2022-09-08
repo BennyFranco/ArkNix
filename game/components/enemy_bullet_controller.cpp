@@ -67,6 +67,7 @@ void EnemyBulletController::Fire() {
     graphicComponent->xOffset = 12;
     graphicComponent->yOffset = 0;
     graphicComponent->frames = 2;
+    graphicComponent->sprite.SetFlip(SpriteFlip::Vertical);
 
     std::random_device rd;
     std::mt19937 gen(rd());
