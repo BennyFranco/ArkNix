@@ -14,6 +14,15 @@ namespace nim {
         static AssetManager &Instance();
         void LoadAssets(std::string &&directory = kAssetsPath);
         template<typename T>
+        T LoadAsset(const std::string &filename, const std::string &id) {
+            if (assets.find(id) != assets.end()) {
+                return *dynamic_cast<T *>(assets[id].get());
+            }
+            auto asset = std::make_shared<T>(id.c_str(), filename.c_str());
+            assets.emplace(id, asset);
+            return *asset;
+        }
+        template<typename T>
         T Get(std::string id) {
             if (assets.find(id) == assets.end()) {
                 // TODO: Create a logger
@@ -24,6 +33,7 @@ namespace nim {
             auto value = dynamic_cast<T *>(assets[id].get());
             return *value;
         }
+        std::string GetFilename(const std::string &id);
         void Quit();
 
     private:

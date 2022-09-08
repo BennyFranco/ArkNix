@@ -20,6 +20,18 @@ TextComponent::TextComponent(std::string fontName) {
     renderer = rend->Renderer();
 }
 
+TextComponent::TextComponent(const std::string &fontName, int size) {
+    auto baseFontName = AssetManager::Instance().GetFilename(fontName);
+    auto assetId = fontName + "_" + std::to_string(size);
+    font = AssetManager::Instance().LoadAsset<Font>(baseFontName, assetId);
+    font.SetSize(size);
+    name = "TextComponent";
+    transform = nullptr;
+    fontColor = Black;
+    auto *rend = dynamic_cast<SDLRenderer *>(RendererLocator::GetRenderer());
+    renderer = rend->Renderer();
+}
+
 TextComponent::TextComponent(const TextComponent &other) {
     name = other.name;
     transform = other.transform;

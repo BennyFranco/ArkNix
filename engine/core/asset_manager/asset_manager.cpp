@@ -47,3 +47,11 @@ void AssetManager::LoadAssets(std::string &&directory) {
 void AssetManager::Quit() {
     assets.clear();
 }
+std::string AssetManager::GetFilename(const std::string &id) {
+    if (assets.find(id) == assets.end()) {
+        std::cout << "[AssetManager] The asset with id: '" + id + "' doesn't exist!" << std::endl;
+        return {};
+    }
+    auto result = assets[id].get();
+    return result->filename;
+}

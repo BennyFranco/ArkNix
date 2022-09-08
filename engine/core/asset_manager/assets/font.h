@@ -19,11 +19,13 @@ namespace nim {
         Font &operator=(Font &&other);
 
         void Draw(SDL_Texture *texture, SDL_Rect source, SDL_Rect destination);
+        void SetSize(int size);
         TTF_Font *Get() { return font.get(); }
 
     private:
         std::shared_ptr<TTF_Font> font;
         SDL_Renderer *renderer;
+        const int defaultSize = 16;
     };
 }// namespace nim
 #endif//FONT_H

@@ -10,6 +10,7 @@ namespace nim {
     public:
         TextComponent();
         TextComponent(std::string fontName);
+        TextComponent(const std::string &fontName, int size);
         TextComponent(const TextComponent &other);
         TextComponent(TextComponent &&other);
         ~TextComponent();
@@ -63,10 +64,18 @@ namespace YAML {
             std::string text = node["text"].as<std::string>();
             auto color = node["color"].as<nim::Color>();
 
-            nim::TextComponent sc(fontName);
-            sc.SetColor(color);
-            sc.Text(text);
-            component = std::move(sc);
+            if (node["size"]) {
+                auto size = node["size"].as<int>();
+                nim::TextComponent sc(fontName, size);
+                sc.SetColor(color);
+                sc.Text(text);
+                component = std::move(sc);
+            } else {
+                nim::TextComponent sc(fontName);
+                sc.SetColor(color);
+                sc.Text(text);
+                component = std::move(sc);
+            }
 
             return true;
         }
