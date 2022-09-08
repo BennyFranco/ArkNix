@@ -11,6 +11,7 @@ using namespace galaga;
 PlayerController::PlayerController() {
     name = "PlayerController";
     transform = nullptr;
+    scoreLabel = nullptr;
     input = InputLocator::GetInput();
     velocity = 1;
 }
@@ -20,6 +21,7 @@ PlayerController::PlayerController(const PlayerController &controller) {
     transform = controller.transform;
     input = controller.input;
     velocity = controller.velocity;
+    scoreLabel = controller.scoreLabel;
 }
 
 PlayerController::PlayerController(PlayerController &&controller) {
@@ -27,14 +29,17 @@ PlayerController::PlayerController(PlayerController &&controller) {
     transform = controller.transform;
     input = controller.input;
     velocity = controller.velocity;
+    scoreLabel = controller.scoreLabel;
 
     controller.transform = nullptr;
     controller.input = nullptr;
     controller.velocity = 0;
+    controller.scoreLabel = nullptr;
 }
 
 PlayerController::~PlayerController() {
     transform = nullptr;
+    scoreLabel = nullptr;
     input = nullptr;
 }
 
@@ -72,7 +77,8 @@ PlayerController &PlayerController::operator=(PlayerController &&controller) {
 
 void PlayerController::Init() {
     auto scoreGo = Game::Find("Score");
-    scoreLabel = scoreGo->GetComponent<TextComponent>("TextComponent");
+    if (scoreGo != nullptr)
+        scoreLabel = scoreGo->GetComponent<TextComponent>("TextComponent");
 }
 
 void PlayerController::Update() {
@@ -99,5 +105,6 @@ void PlayerController::Quit() {
     reloadScene.detach();
 }
 void PlayerController::SetScoreLabel(long score) {
+    if (scoreLabel == nullptr) return;
     scoreLabel->Text("Score: " + std::to_string(score));
 }

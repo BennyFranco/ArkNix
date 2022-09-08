@@ -117,5 +117,7 @@ GameObject *Game::Find(std::string name) {
         return go.name == name;
     });
 
+    if (result == sceneData->gameObjects.end()) return nullptr;
+
     return &*result;
 }
