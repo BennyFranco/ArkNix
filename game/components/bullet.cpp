@@ -8,16 +8,25 @@ using namespace galaga;
 Bullet::Bullet() {
     name = "Bullet";
     transform = nullptr;
+    direction = nim::Direction::Down;
+}
+
+Bullet::Bullet(nim::Direction dir) {
+    name = "Bullet";
+    transform = nullptr;
+    direction = dir;
 }
 
 Bullet::Bullet(const Bullet &other) {
     name = other.name;
     transform = other.transform;
+    direction = other.direction;
 }
 
 Bullet::Bullet(Bullet &&other) {
     name = std::move(other.name);
     transform = other.transform;
+    direction = other.direction;
 
     other.transform = nullptr;
 }
@@ -31,6 +40,7 @@ Bullet &Bullet::operator=(const Bullet &other) {
         transform = nullptr;
         name = other.name;
         transform = other.transform;
+        direction = other.direction;
     }
     return *this;
 }
@@ -40,6 +50,7 @@ Bullet &Bullet::operator=(Bullet &&other) {
         transform = nullptr;
         name = std::move(other.name);
         transform = other.transform;
+        direction = other.direction;
 
         other.transform = nullptr;
     }
@@ -47,7 +58,7 @@ Bullet &Bullet::operator=(Bullet &&other) {
 }
 
 void Bullet::Update() {
-    transform->position.y -= 10;
+    transform->position.y += 10 * (float) direction;
     transform->Position(&transform->position);
 }
 

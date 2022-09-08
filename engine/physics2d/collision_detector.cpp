@@ -7,7 +7,7 @@ CollisionDetector::CollisionDetector() {
     collisionMatrix[Layer::None] = 0;
     collisionMatrix[Layer::Player] = Layer::Enemy;
     collisionMatrix[Layer::Enemy] = Layer::Bullet | Layer::Player;
-    collisionMatrix[Layer::Bullet] = Layer::Player;
+    collisionMatrix[Layer::EnemyBullet] = Layer::Player;
 }
 
 CollisionDetector &CollisionDetector::Instance() {

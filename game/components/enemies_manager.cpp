@@ -1,4 +1,5 @@
 #include "enemies_manager.h"
+#include "enemy_bullet_controller.h"
 #include "game_object.h"
 #include <random>
 
@@ -50,12 +51,13 @@ void EnemiesManager::CreateGrid() {
     for (uint row = 0; row < rows; row++) {
         for (uint column = 0; column < columns; column++) {
             std::shared_ptr<AnimationComponent> graphicComponent = std::make_shared<AnimationComponent>(GenerateEnemy());
+            std::shared_ptr<EnemyBulletController> weapon = std::make_shared<EnemyBulletController>();
 
             Transform t;
             t.Position(x, y);
             t.Size(spriteSize, spriteSize);
 
-            auto go = GameObject::Instantiate(GenerateEnemyName(), t, graphicComponent);
+            auto go = GameObject::Instantiate(GenerateEnemyName(), t, {graphicComponent, weapon});
             go->collisionLayer = Layer::Enemy;
 
             x += offsetX;

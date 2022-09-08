@@ -7,7 +7,8 @@ namespace nim {
         None = 0u,
         Enemy = 1 << 0,
         Player = 1 << 1,
-        Bullet = 1 << 2
+        Bullet = 1 << 2,
+        EnemyBullet = 1 << 4
     };
 }
 #endif

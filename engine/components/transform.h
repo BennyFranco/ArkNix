@@ -7,6 +7,11 @@
 #include <memory>
 
 namespace nim {
+    enum class Direction {
+        Up = -1,
+        Down = 1
+    };
+
     struct Bounds {
         float left;
         float right;
