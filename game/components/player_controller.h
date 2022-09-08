@@ -16,8 +16,11 @@ namespace galaga {
         PlayerController &operator=(const PlayerController &controller);
         PlayerController &operator=(PlayerController &&controller);
 
-        virtual void Init() override;
-        virtual void Update() override;
+        void Init() override;
+        void Update() override;
+        void Quit() override;
+
+        void SetScoreLabel(long score);
 
     public:
         float velocity;

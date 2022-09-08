@@ -3,8 +3,14 @@
 
 #include "game.h"
 
-class Galaga : public nim::Game {
-public:
-    void Awake() override;
-};
+namespace galaga {
+    class Galaga : public nim::Game {
+    public:
+        static Galaga &Instance();
+        void Awake() override;
+
+    private:
+        Galaga() = default;
+    };
+}// namespace galaga
 #endif//GALAGA_H

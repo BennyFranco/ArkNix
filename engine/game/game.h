@@ -22,8 +22,11 @@ namespace nim {
         virtual void LoadScene(std::string sceneName);
         virtual void ReloadScene();
 
+        inline void Pause() { pause = true; };
+        inline void Resume() { pause = false; };
+
         static GameObject *AddGameObject(GameObject &&gameObject);
-        static void RemoveGameObject(const std::string& name);
+        static void RemoveGameObject(const std::string &name);
         static GameObject *Find(std::string name);
 
     private:
@@ -38,6 +41,7 @@ namespace nim {
 
     private:
         bool running;
+        bool pause = false;
         const uint kTargetFps = 60;
         const uint kDelayTime = 1000.f / kTargetFps;
     };

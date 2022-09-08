@@ -5,11 +5,9 @@
 #endif
 
 int main(int argc, char **args) {
-    Galaga newGame;
-    newGame.Awake();
-    newGame.LoadScene("Scene2.yaml");
-    // newGame.currentScene->Save("test.yaml");
-    newGame.Run();
-    newGame.Quit();
+    galaga::Galaga::Instance().Awake();
+    galaga::Galaga::Instance().LoadScene("Scene2.yaml");
+    galaga::Galaga::Instance().Run();
+    galaga::Galaga::Instance().Quit();
     return 0;
 }

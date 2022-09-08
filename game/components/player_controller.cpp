@@ -1,6 +1,6 @@
 #include "player_controller.h"
+#include "galaga.h"
 #include "game.h"
-#include "ntime.h"
 #include "player_data.h"
 #include "renderer_locator.h"
 #include <iostream>
@@ -86,15 +86,18 @@ void PlayerController::Update() {
         transform->Position(&transform->position);
     }
 
-//    if (input->GetKeyDown(Key::UP)) {
-//        transform->position.y -= velocity;
-//        transform->Position(&transform->position);
-//    }
-//
-//    if (input->GetKeyDown(Key::DOWN)) {
-//        transform->position.y += velocity;
-//        transform->Position(&transform->position);
-//    }
+    SetScoreLabel(PlayerData::Instance().score);
+}
 
-    scoreLabel->Text("Score: " + std::to_string(PlayerData::Instance().score));
+void PlayerController::Quit() {
+    Galaga::Instance().Pause();
+    PlayerData::Instance().score = 0;
+    std::thread reloadScene([]() {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        Galaga::Instance().ReloadScene();
+    });
+    reloadScene.detach();
+}
+void PlayerController::SetScoreLabel(long score) {
+    scoreLabel->Text("Score: " + std::to_string(score));
 }

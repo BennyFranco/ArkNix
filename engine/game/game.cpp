@@ -46,6 +46,7 @@ void Game::Update() {
     uint timestamp = NimTime::Instance().GetTicks();
 
     while (running) {
+        if (pause) continue;
         uint frameStart = NimTime::Instance().GetTicks();
         InputLocator::GetInput()->Update();
         RendererLocator::GetRenderer()->Clear();
@@ -99,6 +100,7 @@ void Game::ReloadScene() {
 
     currentScene.reset();
     LoadScene(currentName);
+    Resume();
 }
 
 GameObject *Game::AddGameObject(GameObject &&gameObject) {
