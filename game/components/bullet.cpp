@@ -8,7 +8,7 @@ using namespace galaga;
 Bullet::Bullet() {
     name = "Bullet";
     transform = nullptr;
-    direction = nim::Direction::Down;
+    direction = nim::Direction::Up;
 }
 
 Bullet::Bullet(nim::Direction dir) {
