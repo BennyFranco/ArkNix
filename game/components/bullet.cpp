@@ -63,7 +63,8 @@ void Bullet::Update() {
 }
 
 void Bullet::OnCollisionEnter(const nim::GameObject &other) {
-    PlayerData::Instance().score += 100;
+    if (other.collisionLayer == nim::Layer::Enemy)
+        PlayerData::Instance().score += 100;
     nim::GameObject::Destroy(&other, 1);
     nim::GameObject::Destroy(Component::parent, 1);
 }
