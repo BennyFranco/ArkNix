@@ -27,12 +27,16 @@ namespace galaga {
         nim::AnimationComponent GenerateBonBon();
         nim::AnimationComponent GenerateLips();
 
+    public:
+        static uint enemiesLeft;
+
     private:
         const uint columns = 12;
         const uint rows = 4;
         const float spriteSize = 48;
         const float offsetX = 48;
         const float offsetY = 48;
+        //uint enemiesLeft = 0;
     };
 }// namespace galaga
 #endif// ENEMIES_MANAGER_H

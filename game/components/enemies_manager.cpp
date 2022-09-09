@@ -1,10 +1,13 @@
 #include "enemies_manager.h"
 #include "enemy_bullet_controller.h"
+#include "galaga.h"
 #include "game_object.h"
 #include <random>
 
 using namespace galaga;
 using namespace nim;
+
+uint EnemiesManager::enemiesLeft = 0;
 
 EnemiesManager::EnemiesManager() {
     name = "EnemiesManager";
@@ -43,11 +46,22 @@ void EnemiesManager::Init() {
     CreateGrid();
 }
 
-void EnemiesManager::Update() {}
+void EnemiesManager::Update() {
+    if (enemiesLeft <= 0) {
+        std::thread reloadScene([]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            Galaga::Instance().Pause();
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            Galaga::Instance().ReloadScene();
+        });
+        reloadScene.detach();
+    }
+}
 
 void EnemiesManager::CreateGrid() {
     float x = offsetX;
     float y = offsetY;
+    enemiesLeft = rows * columns;
     for (uint row = 0; row < rows; row++) {
         for (uint column = 0; column < columns; column++) {
             std::shared_ptr<AnimationComponent> graphicComponent = std::make_shared<AnimationComponent>(GenerateEnemy());

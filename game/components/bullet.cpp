@@ -1,4 +1,5 @@
 #include "bullet.h"
+#include "enemies_manager.h"
 #include "game_object.h"
 #include "player_data.h"
 #include <iostream>
@@ -63,8 +64,11 @@ void Bullet::Update() {
 }
 
 void Bullet::OnCollisionEnter(const nim::GameObject &other) {
-    if (other.collisionLayer == nim::Layer::Enemy)
+    if (other.collisionLayer == nim::Layer::Enemy) {
         PlayerData::Instance().score += 100;
+        EnemiesManager::enemiesLeft -= 1;
+        std::cout << "Enemies Left: " << EnemiesManager::enemiesLeft << "\n";
+    }
     nim::GameObject::Destroy(&other, 1);
     nim::GameObject::Destroy(Component::parent, 1);
 }
