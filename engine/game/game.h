@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "scene.h"
+#include "scene_manager.h"
 
 #include <iostream>
 #include <memory>

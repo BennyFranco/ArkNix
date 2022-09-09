@@ -67,7 +67,6 @@ void Bullet::OnCollisionEnter(const nim::GameObject &other) {
     if (other.collisionLayer == nim::Layer::Enemy) {
         PlayerData::Instance().score += 100;
         EnemiesManager::enemiesLeft -= 1;
-        std::cout << "Enemies Left: " << EnemiesManager::enemiesLeft << "\n";
     }
     nim::GameObject::Destroy(&other, 1);
     nim::GameObject::Destroy(Component::parent, 1);

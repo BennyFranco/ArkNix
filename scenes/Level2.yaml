@@ -1,8 +1,8 @@
-# Scene: Scene2
-# Date: Wed Aug 31 07:23:23 2022
+# Scene: Level1
+# Date: Fri Sep 09 10:28:27 2022
 #
 ---
-name: Scene2
+name: Level1
 gameObjects:
   - type: GameObject
     name: Background
@@ -41,6 +41,7 @@ gameObjects:
       position: [ 0, 0 ]
     components:
       - name: EnemiesManager
+        rows: 2
   - type: GameObject
     name: Player
     layer: 2

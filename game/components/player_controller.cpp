@@ -3,6 +3,7 @@
 #include "game.h"
 #include "player_data.h"
 #include "renderer_locator.h"
+#include "sound_component.h"
 #include <iostream>
 
 using namespace nim;
@@ -98,6 +99,12 @@ void PlayerController::Update() {
 void PlayerController::Quit() {
     Galaga::Instance().Pause();
     PlayerData::Instance().score = 0;
+
+    auto backgroundMs = Game::Find("Background");
+    if (backgroundMs != nullptr) {
+        auto sc = backgroundMs->GetComponent<nim::SoundComponent<nim::Music>>("SoundComponent");
+        sc->sound.Stop();
+    }
     std::thread reloadScene([]() {
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         Galaga::Instance().ReloadScene();

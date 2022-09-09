@@ -23,9 +23,13 @@ void Game::Awake() {
     running = true;
     std::function<void(bool)> callback = [=](bool stop) { ExitGameListener(stop); };
     InputLocator::GetInput()->onExitGameEvent.AddListener(std::move(callback));
+
+    SceneManager::LoadSceneOrder();
 }
 
 void Game::Run() {
+    if (!SceneManager::scenes.empty())
+        LoadScene(SceneManager::NextScene());
     Update();
 }
 

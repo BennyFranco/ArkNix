@@ -120,7 +120,7 @@ void SelectionCursor::Update() {
     }
 
     if (prepareForTransition && !select->sound.IsPlaying()) {
-        Galaga::Instance().LoadScene("Scene2.yaml");
+        Galaga::Instance().LoadScene(SceneManager::NextScene());
     }
 }
 void SelectionCursor::NextElement(int newIndex) {

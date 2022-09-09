@@ -2,6 +2,7 @@
 #include "enemy_bullet_controller.h"
 #include "galaga.h"
 #include "game_object.h"
+#include "sound_component.h"
 #include <random>
 
 using namespace galaga;
@@ -9,17 +10,21 @@ using namespace nim;
 
 uint EnemiesManager::enemiesLeft = 0;
 
-EnemiesManager::EnemiesManager() {
+EnemiesManager::EnemiesManager() : columns{12}, rows{4} {
     name = "EnemiesManager";
     transform = nullptr;
 }
 EnemiesManager::EnemiesManager(const EnemiesManager &other) {
     name = other.name;
     transform = other.transform;
+    columns = other.columns;
+    rows = other.rows;
 }
-EnemiesManager::EnemiesManager(EnemiesManager &&other) {
+EnemiesManager::EnemiesManager(EnemiesManager &&other) noexcept {
     name = std::move(other.name);
     transform = other.transform;
+    columns = other.columns;
+    rows = other.rows;
 
     other.transform = nullptr;
 }
@@ -28,14 +33,18 @@ EnemiesManager &EnemiesManager::operator=(const EnemiesManager &other) {
         transform = nullptr;
         name = other.name;
         transform = other.transform;
+        columns = other.columns;
+        rows = other.rows;
     }
     return *this;
 }
-EnemiesManager &EnemiesManager::operator=(EnemiesManager &&other) {
+EnemiesManager &EnemiesManager::operator=(EnemiesManager &&other) noexcept {
     if (&other != this) {
         transform = nullptr;
         name = std::move(other.name);
         transform = other.transform;
+        columns = other.columns;
+        rows = other.rows;
 
         other.transform = nullptr;
     }
@@ -47,14 +56,16 @@ void EnemiesManager::Init() {
 }
 
 void EnemiesManager::Update() {
-    if (enemiesLeft <= 0) {
-        std::thread reloadScene([]() {
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-            Galaga::Instance().Pause();
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-            Galaga::Instance().ReloadScene();
-        });
-        reloadScene.detach();
+    if (prepareForTransition) {
+        Galaga::Instance().LoadScene(SceneManager::NextScene());
+    }
+    if (enemiesLeft <= 0 && !prepareForTransition) {
+        prepareForTransition = true;
+        auto backgroundMs = Game::Find("Background");
+        if (backgroundMs != nullptr) {
+            auto sc = backgroundMs->GetComponent<nim::SoundComponent<nim::Music>>("SoundComponent");
+            sc->sound.Stop();
+        }
     }
 }
 

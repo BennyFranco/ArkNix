@@ -12,18 +12,6 @@ namespace nim {
             input = InputLocator::GetInput();
         }
         void Update() override {
-            // if (input->GetKeyDown(Key::UP)) {
-            //     std::cout << "Position: " << transform->position.x << "\n";
-            // }
-            // if (input->GetKeyDown(Key::DOWN)) {
-            //     std::cout << "Position: " << transform->position << "\n";
-            // }
-            // if (input->GetKeyDown(Key::LEFT)) {
-            //     std::cout << "Position: " << transform->position << "\n";
-            // }
-            // if (input->GetKeyDown(Key::RIGHT)) {
-            //     std::cout << "Position: " << transform->position << "\n";
-            // }
             std::cout << "Position: X:" << transform->position.x << " Y: " << transform->position.y << "\n";
         }
 

@@ -17,7 +17,8 @@ namespace nim {
         } else if (goName == "BulletController") {
             go.AddComponent(std::make_shared<galaga::BulletController>());
         } else if (goName == "EnemiesManager") {
-            go.AddComponent(std::make_shared<galaga::EnemiesManager>());
+            auto component = std::move(node.as<galaga::EnemiesManager>());
+            go.AddComponent(std::make_shared<galaga::EnemiesManager>(component));
         } else if (goName == "SelectionCursor") {
             auto component = std::move(node.as<galaga::SelectionCursor>());
             go.AddComponent(std::make_shared<galaga::SelectionCursor>(component));
