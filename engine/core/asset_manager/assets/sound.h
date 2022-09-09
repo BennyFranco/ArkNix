@@ -19,6 +19,7 @@ namespace nim {
         Sound &operator=(Sound &&other);
 
         void Play();
+        bool IsPlaying();
 
     private:
         std::shared_ptr<Mix_Chunk> sound;

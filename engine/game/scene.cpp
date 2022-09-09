@@ -48,7 +48,7 @@ void Scene::Init() {
 }
 
 void Scene::Update() {
-    for (auto gameObject: sceneData->gameObjects) {
+    for (auto &gameObject: sceneData->gameObjects) {
         gameObject.Update();
     }
 }
@@ -94,9 +94,10 @@ void Scene::RemoveDirtyObjects() {
 std::unique_ptr<Scene> Scene::LoadScene(std::string sceneName) {
     try {
         YAML::Node sceneNode = YAML::LoadFile(kScenesPath + sceneName);
-        SceneData sceneData = sceneNode.as<SceneData>();
+        auto sceneData = sceneNode.as<SceneData>();
         auto currentScene = std::make_unique<Scene>();
         currentScene->GetData()->name = std::move(sceneData.name);
+        currentScene->GetData()->gameObjects.clear();
         currentScene->GetData()->gameObjects = std::move(sceneData.gameObjects);
         return currentScene;
     } catch (YAML::BadFile ex) {

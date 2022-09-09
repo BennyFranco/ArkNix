@@ -56,5 +56,7 @@ gameObjects:
       - name: BulletController
       - name: SoundComponent
         sound: shoot_fx
+#      - name: SoundComponent
+#        sound: shoot_fx
 ---
 version: 1

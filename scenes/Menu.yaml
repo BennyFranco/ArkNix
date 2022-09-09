@@ -1,0 +1,48 @@
+# Scene: Menu
+# Date: Thu Sep 08 12:04:23 2022
+#
+---
+name: Menu
+gameObjects:
+  - type: GameObject
+    name: StartButton
+    layer: 0
+    transform:
+      size: [ 64, 64 ]
+      position: [ 438, 482 ]
+    components:
+      #      - name: CharacterController
+      #      - name: DebugComponent
+      #      - name: SpriteComponent
+      #        asset: default
+      - name: TextComponent
+        font: GravityRegular5
+        text: Start
+        size: 25
+        color: [ 255, 255, 255, 255 ]
+  - type: GameObject
+    name: QuitButton
+    layer: 0
+    transform:
+      size: [ 64, 64 ]
+      position: [ 470, 532 ]
+    components:
+      - name: TextComponent
+        font: GravityRegular5
+        text: Quit
+        #size: 25
+        color: [ 255, 255, 255, 255 ]
+  - type: GameObject
+    name: Cursor
+    layer: 0
+    transform:
+      size: [ 64, 64 ]
+      position: [ 0, 0 ]
+    components:
+      - name: SelectionCursor
+        items: [ "StartButton", "QuitButton" ]
+      - name: SoundComponent
+        sound: blow2
+
+---
+version: 1

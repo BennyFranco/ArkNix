@@ -25,7 +25,7 @@ namespace nim {
 
         void Text(std::string text);
         inline std::string Text() const { return text; }
-        inline void SetColor(Color color) { this->fontColor = color; }
+        void SetColor(const Color& newColor);
         inline Color GetColor() const { return fontColor; }
 
     private:

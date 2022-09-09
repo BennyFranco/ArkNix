@@ -5,6 +5,7 @@
 #include "enemies_manager.h"
 #include "parser.h"
 #include "player_controller.h"
+#include "selection_cursor.h"
 
 namespace nim {
     static void DeserializeCustomComponent(std::string goName, GameObject &go, const YAML::Node &node) {
@@ -17,6 +18,9 @@ namespace nim {
             go.AddComponent(std::make_shared<galaga::BulletController>());
         } else if (goName == "EnemiesManager") {
             go.AddComponent(std::make_shared<galaga::EnemiesManager>());
+        } else if (goName == "SelectionCursor") {
+            auto component = std::move(node.as<galaga::SelectionCursor>());
+            go.AddComponent(std::make_shared<galaga::SelectionCursor>(component));
         }
     }
     static void RegisterCustomComponents() {

@@ -79,6 +79,10 @@ namespace nim {
             sound.Play();
         }
 
+        void Load(const std::string &id) {
+            sound = AssetManager::Instance().Get<T>(id);
+        }
+
     public:
         T sound;
         bool autoplay = false;

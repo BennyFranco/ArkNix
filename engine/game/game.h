@@ -21,6 +21,7 @@ namespace nim {
 
         virtual void LoadScene(std::string sceneName);
         virtual void ReloadScene();
+        virtual void ReloadScene(const std::string &sceneName);
 
         inline void Pause() { pause = true; };
         inline void Resume() { pause = false; };
@@ -44,6 +45,7 @@ namespace nim {
         bool pause = false;
         const uint kTargetFps = 60;
         const uint kDelayTime = 1000.f / kTargetFps;
+        std::string newSceneToLoad{"no_scene"};
     };
 }// namespace nim
 #endif// GAME_H

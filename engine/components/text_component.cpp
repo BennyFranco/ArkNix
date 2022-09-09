@@ -3,7 +3,7 @@
 
 using namespace nim;
 
-TextComponent::TextComponent() {
+TextComponent::TextComponent() : text{"no_text"} {
     name = "TextComponent";
     transform = nullptr;
     fontColor = Black;
@@ -11,7 +11,7 @@ TextComponent::TextComponent() {
     renderer = rend->Renderer();
 }
 
-TextComponent::TextComponent(std::string fontName) {
+TextComponent::TextComponent(std::string fontName) : text{"no_text"} {
     font = AssetManager::Instance().Get<Font>(fontName);
     name = "TextComponent";
     transform = nullptr;
@@ -20,7 +20,7 @@ TextComponent::TextComponent(std::string fontName) {
     renderer = rend->Renderer();
 }
 
-TextComponent::TextComponent(const std::string &fontName, int size) {
+TextComponent::TextComponent(const std::string &fontName, int size) : text{"no_text"} {
     auto baseFontName = AssetManager::Instance().GetFilename(fontName);
     auto assetId = fontName + "_" + std::to_string(size);
     font = AssetManager::Instance().LoadAsset<Font>(baseFontName, assetId);
@@ -128,7 +128,7 @@ void TextComponent::Text(std::string text) {
 }
 
 void TextComponent::CreateTexture() {
-    SDL_Surface *surface = TTF_RenderText_Solid(font.Get(), text.c_str(), fontColor.ToSDLColor());
+    SDL_Surface *surface = TTF_RenderText_Blended(font.Get(), text.c_str(), fontColor.ToSDLColor());
 
     srcCanvas.w = surface->w;
     srcCanvas.h = surface->h;
@@ -137,4 +137,8 @@ void TextComponent::CreateTexture() {
 
     texture.reset(SDL_CreateTextureFromSurface(renderer, surface), [](SDL_Texture *tex) { SDL_DestroyTexture(tex); });
     SDL_FreeSurface(surface);
+}
+void TextComponent::SetColor(const Color &newColor) {
+    this->fontColor = newColor;
+    CreateTexture();
 }

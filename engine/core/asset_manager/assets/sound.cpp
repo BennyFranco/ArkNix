@@ -56,3 +56,6 @@ Sound &Sound::operator=(Sound &&other) {
 void Sound::Play() {
     audioSystem->Play(*sound);
 }
+bool Sound::IsPlaying() {
+    return Mix_Playing(-1) != 0;
+}

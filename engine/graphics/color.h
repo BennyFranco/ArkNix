@@ -64,8 +64,13 @@ namespace nim {
         }
     };
 
-    const Color Black(0, 0, 0);
-    const Color White(1, 1, 1);
+    static int ToIntColorChannel(float value) {
+        return static_cast<int>(value * 255);
+    }
+
+    static Color Black(0, 0, 0);
+    static Color White(1, 1, 1);
+    static Color Red{255, 0, 0, 255};
 }// namespace nim
 namespace YAML {
     template<>
