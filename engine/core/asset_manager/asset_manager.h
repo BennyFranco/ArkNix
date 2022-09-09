@@ -39,11 +39,7 @@ namespace nim {
     private:
         AssetManager();
         std::map<std::string, std::shared_ptr<nim::Asset>> assets;
-#ifdef EDITOR_DEBUG
         inline static const char *kAssetsPath = "../assets/";
-#else
-        inline static const char *kAssetsPath = "assets/";
-#endif
     };
 }// namespace nim
 #endif//ASSET_MANAGER_H
