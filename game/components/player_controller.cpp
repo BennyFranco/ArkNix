@@ -5,6 +5,7 @@
 #include "renderer_locator.h"
 #include "sound_component.h"
 #include <iostream>
+#include <thread>
 
 using namespace nim;
 using namespace galaga;
