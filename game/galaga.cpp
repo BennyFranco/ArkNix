@@ -11,7 +11,7 @@ Galaga &Galaga::Instance() {
 void Galaga::Awake() {
     windowProperties.width = 1024;
     windowProperties.height = 784;
-    windowProperties.title = "Galaga";
+    windowProperties.title = "ArkNix";
     nim::RegisterCustomComponents();
     nim::Game::Awake();
 }
