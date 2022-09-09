@@ -136,4 +136,9 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,visualstudiocode,windows,macos,linux
 
+# Start of Custom Rules
+
 [Bb]uild/
+[Bb]uild-*/
+
+# End of Custom Rules
