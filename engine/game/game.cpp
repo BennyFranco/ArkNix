@@ -60,6 +60,10 @@ void Game::Update() {
         }
 #endif
 
+        if (InputLocator::GetInput()->GetKeyDown(Key::ESCAPE)) {
+            ReloadScene(SceneManager::FirstScene());
+        }
+
         if (newSceneToLoad != "no_scene") {
             ReloadScene(newSceneToLoad);
             newSceneToLoad = "no_scene";

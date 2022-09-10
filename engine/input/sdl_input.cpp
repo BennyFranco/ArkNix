@@ -188,6 +188,8 @@ SDL_KeyCode SDLInput::ConvertNimKeyToSDLKey(Key key) {
             return SDL_KeyCode::SDLK_RIGHT;
         case Key::INTRO:
             return SDL_KeyCode::SDLK_KP_ENTER;
+        case Key::ESCAPE:
+            return SDL_KeyCode::SDLK_ESCAPE;
         default:
             return SDL_KeyCode::SDLK_UNKNOWN;
     }
@@ -323,16 +325,18 @@ SDL_Scancode SDLInput::ConvertNimKeyToSDLScanCode(Key key) {
             return SDL_SCANCODE_RIGHT;
         case Key::INTRO:
             return SDL_SCANCODE_KP_ENTER;
+        case Key::ESCAPE:
+            return SDL_SCANCODE_ESCAPE;
         default:
             return SDL_SCANCODE_UNKNOWN;
     }
 }
 
-    void SDLInput::PrintDebugKey(SDL_Event * event) {
-        std::cout << "{" << std::endl;
-        std::cout << "\tscancode=" << event->key.keysym.scancode << std::endl;
-        std::cout << "\tsym=" << event->key.keysym.sym << std::endl;
-        std::cout << "\tmod=" << event->key.keysym.mod << std::endl;
-        std::cout << "\tKEY=" << SDL_GetKeyName(event->key.keysym.sym) << std::endl;
-        std::cout << "}" << std::endl;
-    }
+void SDLInput::PrintDebugKey(SDL_Event *event) {
+    std::cout << "{" << std::endl;
+    std::cout << "\tscancode=" << event->key.keysym.scancode << std::endl;
+    std::cout << "\tsym=" << event->key.keysym.sym << std::endl;
+    std::cout << "\tmod=" << event->key.keysym.mod << std::endl;
+    std::cout << "\tKEY=" << SDL_GetKeyName(event->key.keysym.sym) << std::endl;
+    std::cout << "}" << std::endl;
+}

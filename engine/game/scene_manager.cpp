@@ -22,16 +22,19 @@ void SceneManager::LoadSceneOrder() {
     }
 }
 std::string &SceneManager::NextScene() {
+    if (scenes.empty()) return (std::string &) "";
     auto &next = scenes[currentIndex];
     currentIndex = std::clamp(++currentIndex, 0, static_cast<int>(scenes.size() - 1));
     return next;
 }
 std::string &SceneManager::FirstScene() {
+    if (scenes.empty()) return (std::string &) "";
     currentIndex = 0;
     return scenes[currentIndex];
 }
 
 std::string &SceneManager::GetSceneByIndex(int index) {
+    if (scenes.empty()) return (std::string &) "";
     currentIndex = index;
     return scenes[currentIndex];
 }
