@@ -69,7 +69,8 @@ namespace nim {
         UP,
         DOWN,
         LEFT,
-        RIGHT
+        RIGHT,
+        INTRO
     };
 
     struct KeyEvent {

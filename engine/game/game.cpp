@@ -52,7 +52,6 @@ void Game::Update() {
     while (running) {
         if (pause) continue;
         uint frameStart = NimTime::Instance().GetTicks();
-        InputLocator::GetInput()->Update();
         RendererLocator::GetRenderer()->Clear();
 
 #ifdef EDITOR_DEBUG
@@ -71,6 +70,8 @@ void Game::Update() {
             CollisionDetector::Instance().Update(currentScene->GetSceneData()->gameObjects);
             currentScene->Update();
         }
+
+        InputLocator::GetInput()->Update();
 
         RendererLocator::GetRenderer()->Update();
 

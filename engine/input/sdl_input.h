@@ -17,6 +17,7 @@ namespace nim {
     private:
         void PrintDebugKey(SDL_Event *event);
         SDL_KeyCode ConvertNimKeyToSDLKey(Key key);
+        SDL_Scancode ConvertNimKeyToSDLScanCode(Key key);
 
     private:
         // https://wiki.libsdl.org/SDL_Event

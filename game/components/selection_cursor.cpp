@@ -98,6 +98,12 @@ void SelectionCursor::Update() {
     tc->SetColor(newColor);
     if (channelValue > 0.95) channelValue = 0;
 
+    if (prepareForTransition && !select->sound.IsPlaying()) {
+        Galaga::Instance().LoadScene(SceneManager::NextScene());
+    }
+
+    if (prepareForTransition) return;
+
     if (input->GetKeyUp(Key::UP)) {
         NextElement(-1);
     }
@@ -106,7 +112,7 @@ void SelectionCursor::Update() {
         NextElement(1);
     }
 
-    if (input->GetKeyUp(Key::ENTER)) {
+    if (input->GetKeyUp(Key::ENTER) || input->GetKeyUp(Key::INTRO)) {
         if (currentIndex == 0) {
             if (select != nullptr) {
                 select->Load("start_level");
@@ -117,10 +123,6 @@ void SelectionCursor::Update() {
         }
         if (currentIndex == elementReferences.size() - 1)
             InputLocator::GetInput()->onExitGameEvent.Invoke(false);
-    }
-
-    if (prepareForTransition && !select->sound.IsPlaying()) {
-        Galaga::Instance().LoadScene(SceneManager::NextScene());
     }
 }
 void SelectionCursor::NextElement(int newIndex) {
