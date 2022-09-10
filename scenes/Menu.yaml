@@ -13,6 +13,9 @@ gameObjects:
     components:
       - name: SpriteComponent
         asset: menu_bg
+      - name: SoundComponent
+        music: menu
+        autoplay: true
   - type: GameObject
     name: Title_b1
     layer: 0

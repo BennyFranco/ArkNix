@@ -3,7 +3,6 @@
 #include "game.h"
 #include "input_locator.h"
 #include "nMath.h"
-#include "ntime.h"
 #include "text_component.h"
 #include <cmath>
 #include <utility>
@@ -119,6 +118,11 @@ void SelectionCursor::Update() {
                 select->Play();
                 prepareForTransition = true;
                 t = 0.5f;
+            }
+            auto bgMusic = Game::Find("Background");
+            if (bgMusic != nullptr) {
+                auto bgComponent = bgMusic->GetComponent<nim::SoundComponent<nim::Music>>("SoundComponent");
+                if (bgComponent != nullptr) bgComponent->sound.Stop();
             }
         }
         if (currentIndex == elementReferences.size() - 1)

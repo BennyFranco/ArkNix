@@ -108,7 +108,7 @@ void PlayerController::Quit() {
     }
     std::thread reloadScene([]() {
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        Galaga::Instance().ReloadScene();
+        Galaga::Instance().ReloadScene(SceneManager::GetSceneByIndex(1));
     });
     reloadScene.detach();
 }

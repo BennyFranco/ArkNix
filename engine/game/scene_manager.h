@@ -10,6 +10,8 @@ namespace nim {
     public:
         static void LoadSceneOrder();
         static std::string &NextScene();
+        static std::string &FirstScene();
+        static std::string &GetSceneByIndex(int index);
 
         static std::vector<std::string> scenes;
         static int currentIndex;

@@ -34,7 +34,7 @@ namespace nim {
         void Quit() override;
         void Save(std::string filename = "");
 
-        void RemoveGameObject(const std::string& name);
+        void RemoveGameObject(const std::string &name);
         void RemoveDirtyObjects();
 
         std::string Name() const { return sceneData->name; }
@@ -60,8 +60,7 @@ namespace YAML {
     struct convert<nim::SceneData> {
         static YAML::Node encode(const nim::SceneData &sd) {
             YAML::Node node;
-            node["name"] = sd.name;
-            node["gameObjects"] = sd.gameObjects;
+            // TODO: implement encoder for nim::SceneData
             return node;
         }
 

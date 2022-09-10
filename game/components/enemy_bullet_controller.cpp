@@ -2,6 +2,7 @@
 #include "animation_component.h"
 #include "bullet.h"
 #include "game_object.h"
+#include "scene_manager.h"
 #include <memory>
 #include <random>
 
@@ -56,7 +57,13 @@ void EnemyBulletController::Update() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distr(0, 10000);
-    if (distr(gen) >= 9999) {
+    std::uniform_int_distribution<> conditionDist(9990, 9999);
+    int condition = 9999;
+    if (SceneManager::currentIndex > 3) {
+        condition = conditionDist(gen);
+    }
+
+    if (distr(gen) >= condition) {
         Fire();
     }
 }

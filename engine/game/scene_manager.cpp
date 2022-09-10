@@ -17,7 +17,7 @@ void SceneManager::LoadSceneOrder() {
     try {
         YAML::Node sceneOrder = YAML::LoadFile(kConfigPath + kScenesOrder);
         scenes = sceneOrder["order"].as<std::vector<std::string>>();
-    } catch (YAML::BadFile& ex) {
+    } catch (YAML::BadFile &ex) {
         std::cout << "[SceneManager] " << ex.what() << std::endl;
     }
 }
@@ -25,4 +25,13 @@ std::string &SceneManager::NextScene() {
     auto &next = scenes[currentIndex];
     currentIndex = std::clamp(++currentIndex, 0, static_cast<int>(scenes.size() - 1));
     return next;
+}
+std::string &SceneManager::FirstScene() {
+    currentIndex = 0;
+    return scenes[currentIndex];
+}
+
+std::string &SceneManager::GetSceneByIndex(int index) {
+    currentIndex = index;
+    return scenes[currentIndex];
 }
