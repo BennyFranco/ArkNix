@@ -6,6 +6,11 @@ This repo contains my Udacity Capstone project, called ArkNix, it is a mix betwe
 
 I selected the **Capstone Option 1** and I made a Video game.
 
+### Demo
+![Menu](./docs/img/menu.png) ![Gameplay](./docs/img/gameplay.png)
+
+![Demo](./docs/demo.mp4)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing
