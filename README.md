@@ -4,6 +4,8 @@
 
 This repo contains my Udacity Capstone project, called ArkNix, it is a mix between Galaga and Space Invaders.
 
+I selected the **Capstone Option 1** and I made a Video game.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing
