@@ -8,6 +8,10 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DEDITOR_DEBUG")
 
 project(ArkNix VERSION 0.0.1)
 
+if (APPLE)
+    enable_language(OBJC)
+endif ()
+
 set(BUILD_SHARED_LIBS ON)
 set(SDL_STATIC ON)
 set(SDL2_DISABLE_SDL2MAIN OFF)
