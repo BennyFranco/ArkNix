@@ -9,7 +9,7 @@ I selected the **Capstone Option 1** and I made a Video game.
 ### Demo
 ![Menu](./docs/img/menu.png) ![Gameplay](./docs/img/gameplay.png)
 
-![Demo](./docs/demo.mp4)
+https://user-images.githubusercontent.com/4169949/189512999-838427f3-3354-4f94-b1ee-2ad550113da7.mp4
 
 ## Getting Started
 
