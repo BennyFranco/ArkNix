@@ -29,6 +29,7 @@ namespace nim {
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
+        bool initialized = true;
     };
 }// namespace nim
 #endif//SDL_RENDERER_H

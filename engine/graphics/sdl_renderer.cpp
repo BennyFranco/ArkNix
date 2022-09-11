@@ -16,6 +16,10 @@ void SDLRenderer::CreateWindow(std::string title, int x_position, int y_position
             width,
             height,
             flags);
+    if (window == nullptr) {
+        initialized = false;
+        std::cout << "[SDLRenderer] Window cannot be created. Error: " << SDL_GetError() << "\n";
+    }
 }
 
 void SDLRenderer::CreateWindow(std::string title, int width, int height) {
@@ -26,6 +30,10 @@ void SDLRenderer::CreateWindow(std::string title, int width, int height) {
             width,
             height,
             SDL_WINDOW_SHOWN);
+    if (window == nullptr) {
+        initialized = false;
+        std::cout << "[SDLRenderer] Window cannot be created. Error: " << SDL_GetError() << "\n";
+    }
 }
 
 void SDLRenderer::SetWindowTitle(std::string title) {
@@ -34,14 +42,20 @@ void SDLRenderer::SetWindowTitle(std::string title) {
 
 void SDLRenderer::CreateRenderer(Color color) {
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == nullptr) {
+        initialized = false;
+        std::cout << "[SDLRenderer] Renderer cannot be created. Error: " << SDL_GetError() << "\n";
+    }
     SDL_SetRenderDrawColor(renderer, color.R, color.G, color.B, color.A);
 }
 
 void SDLRenderer::Clear() {
+    if (!initialized) return;
     SDL_RenderClear(renderer);
 }
 
 void SDLRenderer::Update() {
+    if (!initialized) return;
     SDL_RenderPresent(renderer);
     // Only to debug window size
     //    int w, h;
