@@ -79,8 +79,14 @@ namespace nim {
         SDL_Keycode key;
     };
 
-    class Input : public Entity {
+    class Input {
     public:
+        virtual ~Input() = default;
+
+        virtual void Init() = 0;
+        virtual void Update() = 0;
+        virtual void Quit() = 0;
+
         virtual bool GetKey(Key key) = 0;
         virtual bool GetKeyDown(Key key) = 0;
         virtual bool GetKeyUp(Key key) = 0;
@@ -89,7 +95,7 @@ namespace nim {
         Action<bool> onExitGameEvent;
 
     protected:
-        KeyEvent lastKeyEvent;
+        KeyEvent lastKeyEvent{};
     };
 }// namespace nim
 #endif
