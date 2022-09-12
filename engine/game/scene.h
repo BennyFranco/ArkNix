@@ -19,19 +19,19 @@ namespace nim {
         std::list<GameObject> gameObjects;
     };
 
-    class Scene : public Entity {
+    class Scene {
     public:
         Scene();
         Scene(const Scene &otherScene);
-        Scene(Scene &&otherScene);
+        Scene(Scene &&otherScene) noexcept;
         ~Scene();
 
         Scene &operator=(const Scene &otherScene);
-        Scene &operator=(Scene &&otherScene);
+        Scene &operator=(Scene &&otherScene) noexcept;
 
-        void Init() override;
-        void Update() override;
-        void Quit() override;
+        void Init();
+        void Update();
+        void Quit();
         void Save(std::string filename = "");
 
         void RemoveGameObject(const std::string &name);
@@ -42,7 +42,7 @@ namespace nim {
         GameObject *AddGameObject(GameObject &&gameObject);
         SceneData *GetSceneData() { return sceneData.get(); }
 
-        static std::unique_ptr<Scene> LoadScene(std::string sceneName);
+        static std::unique_ptr<Scene> LoadScene(const std::string &sceneName);
 
     public:
         bool canDelete = true;

@@ -1,9 +1,10 @@
 #include "scene.h"
 
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <mutex>
-#include <time.h>
+#include <utility>
 
 using namespace nim;
 
@@ -19,7 +20,7 @@ Scene::Scene(const Scene &otherScene) {
     sceneData = std::make_unique<SceneData>(data);
 }
 
-Scene::Scene(Scene &&otherScene) {
+Scene::Scene(Scene &&otherScene) noexcept {
     sceneData = std::move(otherScene.sceneData);
 }
 Scene::~Scene() {}
@@ -34,9 +35,9 @@ Scene &Scene::operator=(const Scene &otherScene) {
 
     return *this;
 }
-Scene &Scene::operator=(Scene &&otherScene) {
+Scene &Scene::operator=(Scene &&otherScene) noexcept {
     if (this != &otherScene)
-        sceneData.reset(otherScene.sceneData.release());
+        sceneData = std::move(otherScene.sceneData);
     return *this;
 }
 
@@ -91,7 +92,7 @@ void Scene::RemoveDirtyObjects() {
     }
 }
 
-std::unique_ptr<Scene> Scene::LoadScene(std::string sceneName) {
+std::unique_ptr<Scene> Scene::LoadScene(const std::string &sceneName) {
     try {
         YAML::Node sceneNode = YAML::LoadFile(kScenesPath + sceneName);
         auto sceneData = sceneNode.as<SceneData>();
@@ -100,7 +101,7 @@ std::unique_ptr<Scene> Scene::LoadScene(std::string sceneName) {
         currentScene->GetData()->gameObjects.clear();
         currentScene->GetData()->gameObjects = std::move(sceneData.gameObjects);
         return currentScene;
-    } catch (YAML::BadFile ex) {
+    } catch (YAML::BadFile &ex) {
         std::cout << "[Scene] " << ex.what() << std::endl;
     }
     return nullptr;
@@ -120,7 +121,7 @@ void Scene::Save(std::string filename) {
     document << YAML::Newline;
     document << YAML::Comment("Date: " + std::string(ctime(&now)));
     document << YAML::BeginDoc;
-    document << YAML::convert<SceneData>::encode(*sceneData.get());
+    document << YAML::convert<SceneData>::encode(*sceneData);
     document << common;
     document << YAML::EndDoc;
 
