@@ -7,6 +7,7 @@ This repo contains my Udacity Capstone project, called ArkNix, it is a mix betwe
 I selected the **Capstone Option 1** and I made a Video game.
 
 ### Demo
+
 ![Menu](./docs/img/menu.png) ![Gameplay](./docs/img/gameplay.png)
 
 https://user-images.githubusercontent.com/4169949/189512999-838427f3-3354-4f94-b1ee-2ad550113da7.mp4
@@ -52,7 +53,7 @@ The project includes the following submodules:
 
 ### macOS
 
-- Not tested yet.
+- Xcode command line tools
 
 ## Compiling and Running
 
@@ -125,3 +126,70 @@ sudo apt-get install libasound2-dev libpulse-dev
 
 more information about this issue in
 this [link](http://forums.libsdl.org/viewtopic.php?t=7609&sid=40fdb9756b8e22e1b8253cda3338845f).
+
+## Udacity Rubric
+
+## [TODO] Files and class structure
+
+## Rubric points addressed
+
+### Loops, Functions, I/O
+
+- The project demonstrates an understanding of C++ functions and control structures.
+    - A variety of control structures are used in the project: Yes, and some examples in code
+      can be found in the following classes and lines of code \<classname:line_number>:
+        - Asset reading in: **asset_manager.cpp:29**
+        - Update Loop pattern in **game.cpp:47**
+        - Collision Test in **collision_detector.cpp:35**
+    - The project code is clearly organized into functions: Yes any component in the project is organized as a class
+      Check the following classes as examples:
+        - **game.cpp**
+        - **game_object.cpp**
+        - **sprite_component.cpp**
+- The project reads data from a file and process the data, or the program writes data to a file.
+    - Yes, the game reads scenes from `yaml` files, all scenes are saved in the scenes folder and the reader is located
+      in,
+      `scene.cpp:95`. I use yaml-cpp library to read this type of files.
+    - Also, the game reads images, sounds, fonts using SDL.
+- The project accepts user input and processes the input.
+    - Yes, the game accepts keyboard input, the keys are described above.
+
+### Object Oriented Programming
+
+- The project uses Object-Oriented Programming techniques.
+    - Yes, as I mention before, the project is organized in classes, check any component in `Components` folder, for
+      example
+      `sprite_component.cpp`, `sound_component.cpp`, `text_component.cpp`, etc.
+- Classes use appropriate access specifiers for class members.
+    - Yes, please check the classes mentioned before, or any other component.
+- [TODO] Class constructors utilize member initialization lists.
+- Classes abstract implementation details from their interfaces.
+    - Yes, please check any component, they use `component.h` as interface.
+- Classes encapsulate behavior.
+- Classes follow an appropriate inheritance hierarchy.
+- Overloaded functions allow the same function to operate on different parameters.
+- Derived class functions override virtual base class functions.
+    - Feel free to check components folder inside engine, `engine/components`
+- Templates generalize functions in the project.
+    - Please, check the following class: `asset_manager.h:26`
+
+### Memory Management
+
+- The project makes use of references in function declarations.
+    - Yes, Transform is owned by `GameObject` and it's passed as reference to components to sync positions with its
+      parent.
+      Check any component in `engine/components`.
+- The project uses scope / Resource Acquisition Is Initialization (RAII) where appropriate.
+- The project follows the Rule of 5.
+    - All components were created thinking on this last points, feel free to review any of them.
+- The project uses move semantics to move data, instead of copying it, where possible.
+    - Check `bullet_controller.cpp:94` as an example.
+- The project uses smart pointers instead of raw pointers.
+    - Please check: `transform.h:65` and `game_object.h:60`.
+
+### Concurrency
+
+- The project uses multithreading.
+    - Check `game_object.cpp:104`
+- A mutex or lock is used in the project.
+    - Check `scene.cpp:72`
