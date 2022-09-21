@@ -23,7 +23,7 @@ namespace nim {
             return *asset;
         }
         template<typename T>
-        T Get(std::string id) {
+        T Get(const std::string &id) {
             if (assets.find(id) == assets.end()) {
                 // TODO: Create a logger
                 std::cout << "[AssetManager] The asset with id: '" + id + "' doesn't exist!" << std::endl;
@@ -37,7 +37,7 @@ namespace nim {
         void Quit();
 
     private:
-        AssetManager();
+        AssetManager() = default;
         std::map<std::string, std::shared_ptr<nim::Asset>> assets;
         inline static const char *kAssetsPath = "../assets/";
     };

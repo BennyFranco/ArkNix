@@ -9,8 +9,6 @@
 
 using namespace nim;
 
-AssetManager::AssetManager() {}
-
 AssetManager &AssetManager::Instance() {
     static std::unique_ptr<AssetManager> instance{new AssetManager()};
     return *instance;

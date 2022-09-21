@@ -25,11 +25,11 @@ namespace nim {
         Sprite();
         Sprite(const char *id, const char *filename);
         Sprite(const Sprite &other);
-        Sprite(Sprite &&other);
+        Sprite(Sprite &&other) noexcept;
         ~Sprite();
 
         Sprite &operator=(const Sprite &other);
-        Sprite &operator=(Sprite &&other);
+        Sprite &operator=(Sprite &&other) noexcept;
 
         void Draw();
         void SetFlip(SpriteFlip newFlip);
@@ -37,13 +37,11 @@ namespace nim {
         Vector2int GetSpriteSize();
 
     public:
-        // std::shared_ptr<SDL_Rect> srcCanvas;
-        SDL_Rect srcCanvas;
-        // SDL_Rect srcCanvas;
+        SDL_Rect srcCanvas{};
 
     private:
         std::shared_ptr<SDL_Texture> texture;
-        SDL_FRect *canvas;
+        SDL_FRect *canvas{};
         SDL_Renderer *renderer;
         SDL_RendererFlip flip;
     };

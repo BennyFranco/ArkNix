@@ -20,7 +20,7 @@ Sound::Sound(const Sound &other) {
     audioSystem = other.audioSystem;
 }
 
-Sound::Sound(Sound &&other) {
+Sound::Sound(Sound &&other) noexcept {
     id = std::move(other.id);
     filename = std::move(other.filename);
     sound = std::move(other.sound);
@@ -42,7 +42,7 @@ Sound &Sound::operator=(const Sound &other) {
     return *this;
 }
 
-Sound &Sound::operator=(Sound &&other) {
+Sound &Sound::operator=(Sound &&other) noexcept {
     if (&other != this) {
         id = std::move(other.id);
         filename = std::move(other.filename);

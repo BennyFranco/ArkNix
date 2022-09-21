@@ -12,11 +12,11 @@ namespace nim {
         Font();
         Font(const char *id, const char *filename);
         Font(const Font &other);
-        Font(Font &&other);
+        Font(Font &&other) noexcept;
         ~Font();
 
         Font &operator=(const Font &other);
-        Font &operator=(Font &&other);
+        Font &operator=(Font &&other) noexcept;
 
         void Draw(SDL_Texture *texture, SDL_Rect source, SDL_Rect destination);
         void SetSize(int size);
