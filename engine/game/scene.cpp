@@ -23,11 +23,11 @@ Scene::Scene(const Scene &otherScene) {
 Scene::Scene(Scene &&otherScene) noexcept {
     sceneData = std::move(otherScene.sceneData);
 }
-Scene::~Scene() {}
+Scene::~Scene() = default;
 
 Scene &Scene::operator=(const Scene &otherScene) {
     if (this != &otherScene) {
-        SceneData *data = new SceneData();
+        auto *data = new SceneData();
         data->name = otherScene.sceneData->name;
         data->gameObjects = otherScene.sceneData->gameObjects;
         sceneData.reset(data);

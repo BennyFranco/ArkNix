@@ -20,7 +20,7 @@ namespace nim {
         virtual void Run();
         virtual void Quit();
 
-        virtual void LoadScene(std::string sceneName);
+        virtual void LoadScene(std::string &sceneName);
         virtual void ReloadScene();
         virtual void ReloadScene(const std::string &sceneName);
 
@@ -45,7 +45,7 @@ namespace nim {
         bool running;
         bool pause = false;
         const uint kTargetFps = 60;
-        const uint kDelayTime = 1000.f / kTargetFps;
+        const uint kDelayTime = 1000 / kTargetFps;
         std::string newSceneToLoad{"no_scene"};
     };
 }// namespace nim

@@ -40,7 +40,7 @@ namespace nim {
             A = color.A;
         }
 
-        SDL_Color ToSDLColor() {
+        SDL_Color ToSDLColor() const {
             auto color = SDL_Color();
             color.r = R;
             color.g = G;
@@ -59,7 +59,7 @@ namespace nim {
             return *this;
         }
 
-        bool operator==(const Color other) {
+        bool operator==(const Color &other) const {
             return other.R == R && other.B == B && other.G == G && other.A == A;
         }
     };

@@ -99,7 +99,7 @@ void Game::ExitGameListener(bool stop) {
     running = stop;
 }
 
-void Game::LoadScene(std::string sceneName) {
+void Game::LoadScene(std::string &sceneName) {
     if (currentScene != nullptr) {
         newSceneToLoad = sceneName;
         return;

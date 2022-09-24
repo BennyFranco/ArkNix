@@ -7,8 +7,6 @@ using namespace ::nim;
 void SDLInput::Init() {
 }
 
-// TODO: Implement some kind of agnostic event system to notify
-// other systems that a key or event was thrown.
 void SDLInput::Update() {
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
