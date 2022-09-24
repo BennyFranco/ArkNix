@@ -4,7 +4,12 @@
 #include "sound.h"
 #include "sprite.h"
 
+#if __GNUC__ >= 8 || _MSC_VER >= 1920 || __APPLE__
 #include <filesystem>
+#else
+#include <dirent.h>
+#include <unistd.h>
+#endif
 #include <iostream>
 
 using namespace nim;
@@ -15,6 +20,8 @@ AssetManager &AssetManager::Instance() {
 }
 
 void AssetManager::LoadAssets(std::string &&directory) {
+#if __GNUC__ >= 8 || _MSC_VER >= 1920 || __APPLE__
+
     for (auto &item: std::filesystem::directory_iterator(directory)) {
         if (item.is_directory())
             LoadAssets(item.path().string());
@@ -40,6 +47,9 @@ void AssetManager::LoadAssets(std::string &&directory) {
             std::cout << "[AssetManager] Asset loaded with id = " << id << "\n";
         }
     }
+#else
+    // TODO: Add workaround here.
+#endif
 }
 
 void AssetManager::Quit() {
