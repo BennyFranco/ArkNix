@@ -5,7 +5,7 @@
 #include "input_locator.h"
 #include "ntime.h"
 #include "renderer_locator.h"
-#include <filesystem>
+//#include <filesystem>
 #include <functional>
 
 using namespace nim;
@@ -112,11 +112,6 @@ void Game::LoadScene(std::string &sceneName) {
 
 void Game::ReloadScene() {
     std::string currentName = currentScene->Name();
-    const std::filesystem::path path = currentName;
-    if (!path.has_extension()) {
-        currentName.append(".yaml");
-    }
-
     currentScene.reset();
     LoadScene(currentName);
     Resume();
@@ -126,11 +121,6 @@ void Game::ReloadScene(const std::string &sceneName) {
     std::string currentName = sceneName;
     if (sceneName.empty())
         currentName = currentScene->Name();
-    const std::filesystem::path path = currentName;
-    if (!path.has_extension()) {
-        currentName.append(".yaml");
-    }
-
     currentScene.reset();
     LoadScene(currentName);
     Resume();
