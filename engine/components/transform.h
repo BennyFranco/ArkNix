@@ -38,11 +38,11 @@ namespace nim {
         Transform();
         Transform(Vector2 size, Vector2 position);
         Transform(const Transform &other);
-        Transform(Transform &&other);
+        Transform(Transform &&other) noexcept;
         ~Transform();
 
         Transform &operator=(const Transform &other);
-        Transform &operator=(Transform &&other);
+        Transform &operator=(Transform &&other) noexcept;
 
         void Size(Vector2 *size);
         void Size(Vector2 &&size);

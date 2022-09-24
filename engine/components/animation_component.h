@@ -8,13 +8,13 @@ namespace nim {
     class AnimationComponent : public Component {
     public:
         AnimationComponent();
-        AnimationComponent(std::string atlasName, bool animateOnInit);
+        AnimationComponent(const std::string &atlasName, bool animateOnInit);
         AnimationComponent(const AnimationComponent &other);
-        AnimationComponent(AnimationComponent &&other);
-        ~AnimationComponent();
+        AnimationComponent(AnimationComponent &&other) noexcept;
+        ~AnimationComponent() override;
 
         AnimationComponent &operator=(const AnimationComponent &other);
-        AnimationComponent &operator=(AnimationComponent &&other);
+        AnimationComponent &operator=(AnimationComponent &&other) noexcept;
 
         void Init() override;
         void Update() override;

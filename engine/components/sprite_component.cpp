@@ -20,7 +20,7 @@ SpriteComponent::SpriteComponent(const SpriteComponent &other) {
     transform = other.transform;
     sprite = other.sprite;
 }
-SpriteComponent::SpriteComponent(SpriteComponent &&other) {
+SpriteComponent::SpriteComponent(SpriteComponent &&other) noexcept {
     std::cout << "[SpriteComponent] Move Constructor"
               << "\n";
     name = other.name;
@@ -48,7 +48,7 @@ SpriteComponent &SpriteComponent::operator=(const SpriteComponent &other) {
 
     return *this;
 }
-SpriteComponent &SpriteComponent::operator=(SpriteComponent &&other) {
+SpriteComponent &SpriteComponent::operator=(SpriteComponent &&other) noexcept {
     std::cout << "[SpriteComponent] Move operator"
               << "\n";
     if (&other != this) {

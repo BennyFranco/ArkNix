@@ -64,7 +64,6 @@ Sprite &Sprite::operator=(Sprite &&other) noexcept {
     flip = other.flip;
     renderer = other.renderer;
 
-    other.filename = nullptr;
     other.renderer = nullptr;
     other.texture = NULL;
     return *this;

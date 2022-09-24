@@ -9,14 +9,14 @@ namespace nim {
     class TextComponent : public Component {
     public:
         TextComponent();
-        TextComponent(std::string fontName);
+        TextComponent(const std::string& fontName);
         TextComponent(const std::string &fontName, int size);
         TextComponent(const TextComponent &other);
-        TextComponent(TextComponent &&other);
-        ~TextComponent();
+        TextComponent(TextComponent &&other) noexcept;
+        ~TextComponent() override;
 
         TextComponent &operator=(const TextComponent &other);
-        TextComponent &operator=(TextComponent &&other);
+        TextComponent &operator=(TextComponent &&other) noexcept;
 
         void Init() override;
         void Update() override;
@@ -25,7 +25,7 @@ namespace nim {
 
         void Text(std::string text);
         inline std::string Text() const { return text; }
-        void SetColor(const Color& newColor);
+        void SetColor(const Color &newColor);
         inline Color GetColor() const { return fontColor; }
 
     private:
@@ -34,8 +34,8 @@ namespace nim {
     private:
         Font font;
         std::shared_ptr<SDL_Texture> texture;
-        SDL_Rect srcCanvas;
-        SDL_Rect destCanvas;
+        SDL_Rect srcCanvas{};
+        SDL_Rect destCanvas{};
         SDL_Renderer *renderer;
         std::string text;
         Color fontColor;
@@ -60,8 +60,8 @@ namespace YAML {
         static bool decode(const YAML::Node &node, nim::TextComponent &component) {
             if (!node["name"] && !node["font"]) return false;
 
-            std::string fontName = node["font"].as<std::string>();
-            std::string text = node["text"].as<std::string>();
+            auto fontName = node["font"].as<std::string>();
+            auto text = node["text"].as<std::string>();
             auto color = node["color"].as<nim::Color>();
 
             if (node["size"]) {

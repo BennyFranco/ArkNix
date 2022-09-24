@@ -24,7 +24,7 @@ Transform::Transform(const Transform &other) {
     SetRect();
 }
 
-Transform::Transform(Transform &&other) {
+Transform::Transform(Transform &&other) noexcept {
     std::cout << "[Transform] Move Constructor"
               << "\n";
     size = other.size;
@@ -35,7 +35,7 @@ Transform::Transform(Transform &&other) {
     other.size = 0;
 }
 
-Transform::~Transform() {}
+Transform::~Transform() = default;
 
 Transform &Transform::operator=(const Transform &other) {
     if (&other != this) {
@@ -45,7 +45,7 @@ Transform &Transform::operator=(const Transform &other) {
     }
     return *this;
 }
-Transform &Transform::operator=(Transform &&other) {
+Transform &Transform::operator=(Transform &&other) noexcept {
     if (&other != this) {
         size = other.size;
         position = other.position;

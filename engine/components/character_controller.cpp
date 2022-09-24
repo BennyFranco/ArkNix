@@ -14,7 +14,7 @@ CharacterController::CharacterController(const CharacterController &controller) 
     input = controller.input;
 }
 
-CharacterController::CharacterController(CharacterController &&controller) {
+CharacterController::CharacterController(CharacterController &&controller) noexcept {
     name = std::move(controller.name);
     transform = controller.transform;
     input = controller.input;
@@ -35,14 +35,14 @@ CharacterController &CharacterController::operator=(const CharacterController &c
     return *this;
 }
 
-CharacterController &CharacterController::operator=(CharacterController &&controller) {
+CharacterController &CharacterController::operator=(CharacterController &&controller) noexcept {
     if (&controller != this) {
 
         transform = nullptr;
         input = nullptr;
 
         name = std::move(controller.name);
-        transform = std::move(controller.transform);
+        transform = controller.transform;
         input = controller.input;
 
         controller.transform = nullptr;

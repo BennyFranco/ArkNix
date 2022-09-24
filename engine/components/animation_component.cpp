@@ -9,7 +9,7 @@ AnimationComponent::AnimationComponent() : animateOnInit(false), animate(false),
     name = "AnimationComponent";
 }
 
-AnimationComponent::AnimationComponent(std::string atlasName, bool animateOnInit) : animate(false) {
+AnimationComponent::AnimationComponent(const std::string &atlasName, bool animateOnInit) : animate(false) {
     transform = nullptr;
     name = "AnimationComponent";
     sprite = nim::AssetManager::Instance().Get<Sprite>(atlasName);
@@ -26,16 +26,18 @@ AnimationComponent::AnimationComponent(const AnimationComponent &other) {
     transform = other.transform;
     sprite = other.sprite;
     animateOnInit = other.animateOnInit;
+    animate = other.animate;
     xOffset = other.xOffset;
     yOffset = other.yOffset;
     frames = other.frames;
 }
 
-AnimationComponent::AnimationComponent(AnimationComponent &&other) {
+AnimationComponent::AnimationComponent(AnimationComponent &&other) noexcept {
     std::cout << "[AnimationComponent] Move Constructor"
               << "\n";
     name = other.name;
     animateOnInit = other.animateOnInit;
+    animate = other.animate;
     xOffset = other.xOffset;
     yOffset = other.yOffset;
     frames = other.frames;
@@ -45,6 +47,7 @@ AnimationComponent::AnimationComponent(AnimationComponent &&other) {
 
     other.transform = nullptr;
     other.animateOnInit = false;
+    other.animate = false;
     other.xOffset = 0;
     other.yOffset = 0;
     other.frames = 0;
@@ -70,7 +73,7 @@ AnimationComponent &AnimationComponent::operator=(const AnimationComponent &othe
     return *this;
 }
 
-AnimationComponent &AnimationComponent::operator=(AnimationComponent &&other) {
+AnimationComponent &AnimationComponent::operator=(AnimationComponent &&other) noexcept {
     if (&other != this) {
         transform = nullptr;
 
@@ -78,12 +81,14 @@ AnimationComponent &AnimationComponent::operator=(AnimationComponent &&other) {
         transform = other.transform;
         sprite = std::move(other.sprite);
         animateOnInit = other.animateOnInit;
+        animate = other.animate;
         xOffset = other.xOffset;
         yOffset = other.yOffset;
         frames = other.frames;
 
         other.transform = nullptr;
         other.animateOnInit = false;
+        other.animate = false;
         other.xOffset = 0;
         other.yOffset = 0;
         other.frames = 0;
@@ -111,9 +116,9 @@ void AnimationComponent::Animate() {
 
     auto spriteNum = (uint) ((NimTime::Instance().GetTicks() / 100) % frames);
     if (xOffset != 0 && frames > 0)
-        sprite.srcCanvas.x = xOffset * spriteNum;
+        sprite.srcCanvas.x = xOffset * static_cast<int>(spriteNum);
     if (yOffset != 0 && frames > 0)
-        sprite.srcCanvas.y = yOffset * spriteNum;
+        sprite.srcCanvas.y = yOffset * static_cast<int>(spriteNum);
 }
 
 void AnimationComponent::Play() {

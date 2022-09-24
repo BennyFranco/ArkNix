@@ -7,16 +7,16 @@ TextComponent::TextComponent() : text{"no_text"} {
     name = "TextComponent";
     transform = nullptr;
     fontColor = Black;
-    SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
+    auto *rend = dynamic_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
 }
 
-TextComponent::TextComponent(std::string fontName) : text{"no_text"} {
+TextComponent::TextComponent(const std::string &fontName) : text{"no_text"} {
     font = AssetManager::Instance().Get<Font>(fontName);
     name = "TextComponent";
     transform = nullptr;
     fontColor = Black;
-    SDLRenderer *rend = static_cast<SDLRenderer *>(RendererLocator::GetRenderer());
+    auto *rend = dynamic_cast<SDLRenderer *>(RendererLocator::GetRenderer());
     renderer = rend->Renderer();
 }
 
@@ -45,7 +45,7 @@ TextComponent::TextComponent(const TextComponent &other) {
     text = other.text;
 }
 
-TextComponent::TextComponent(TextComponent &&other) {
+TextComponent::TextComponent(TextComponent &&other) noexcept {
     name = std::move(other.name);
     transform = other.transform;
     fontColor = other.fontColor;
@@ -77,7 +77,7 @@ TextComponent &TextComponent::operator=(const TextComponent &other) {
     }
     return *this;
 }
-TextComponent &TextComponent::operator=(TextComponent &&other) {
+TextComponent &TextComponent::operator=(TextComponent &&other) noexcept {
     if (&other != this) {
         transform = nullptr;
 

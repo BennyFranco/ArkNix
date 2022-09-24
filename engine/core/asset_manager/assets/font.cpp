@@ -45,7 +45,6 @@ Font &Font::operator=(Font &&other) noexcept {
     filename = other.filename;
     font = std::move(other.font);
     renderer = other.renderer;
-    other.filename = nullptr;
     other.renderer = nullptr;
     return *this;
 }

@@ -9,13 +9,13 @@ namespace nim {
     public:
         CharacterController();
         CharacterController(const CharacterController &controller);
-        CharacterController(CharacterController &&controller);
-        ~CharacterController();
+        CharacterController(CharacterController &&controller) noexcept;
+        ~CharacterController() override;
 
         CharacterController &operator=(const CharacterController &controller);
-        CharacterController &operator=(CharacterController &&controller);
+        CharacterController &operator=(CharacterController &&controller) noexcept;
 
-        virtual void Update() override;
+        void Update() override;
 
     private:
         Input *input;// owned by input locator;

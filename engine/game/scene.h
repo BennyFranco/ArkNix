@@ -2,7 +2,6 @@
 #define SCENE_H
 
 #include "asset_manager.h"
-#include "entity.h"
 #include "game_object.h"
 #include "parser.h"
 

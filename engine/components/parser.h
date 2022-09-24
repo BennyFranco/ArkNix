@@ -19,7 +19,7 @@ namespace nim {
         Action<std::string, GameObject &, const YAML::Node &> DeserializeCustom;
 
     private:
-        CustomComponentHelper() {}
+        CustomComponentHelper() = default;
     };
 }// namespace nim
 
@@ -50,14 +50,14 @@ namespace YAML {
             if (!node["type"]) return false;
 
             go.name = node["name"].as<std::string>();
-            nim::Transform t = node["transform"].as<nim::Transform>();
+            auto t = node["transform"].as<nim::Transform>();
             go.transform->size = t.size;
             go.transform->position = t.position;
             go.collisionLayer = (nim::Layer) node["layer"].as<uint>();
 
             if (node["components"].IsSequence()) {
                 for (int i = 0; i < node["components"].size(); i++) {
-                    std::string goName = node["components"][i]["name"].as<std::string>();
+                    auto goName = node["components"][i]["name"].as<std::string>();
                     if (goName == "SpriteComponent") {
                         go.AddComponent(std::make_shared<nim::SpriteComponent>(node["components"][i].as<nim::SpriteComponent>()));
                     } else if (goName == "CharacterController") {

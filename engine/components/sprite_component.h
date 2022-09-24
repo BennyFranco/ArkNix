@@ -9,13 +9,12 @@ namespace nim {
     public:
         SpriteComponent();
         SpriteComponent(const char *assetName);
-        SpriteComponent(const char *name, Sprite *sprite);
         SpriteComponent(const SpriteComponent &other);
-        SpriteComponent(SpriteComponent &&other);
-        ~SpriteComponent();
+        SpriteComponent(SpriteComponent &&other) noexcept;
+        ~SpriteComponent() override;
 
         SpriteComponent &operator=(const SpriteComponent &other);
-        SpriteComponent &operator=(SpriteComponent &&other);
+        SpriteComponent &operator=(SpriteComponent &&other) noexcept;
 
         void Update() override;
         void SetTransform(Transform *transform) override;

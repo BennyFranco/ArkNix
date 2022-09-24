@@ -3,7 +3,6 @@
 
 #include "SDL.h"
 #include "action.h"
-#include "entity.h"
 
 namespace nim {
     enum class Key {

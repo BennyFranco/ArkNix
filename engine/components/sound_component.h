@@ -28,7 +28,7 @@ namespace nim {
             autoplay = other.autoplay;
         }
 
-        SoundComponent(SoundComponent &&other) {
+        SoundComponent(SoundComponent &&other) noexcept {
             name = other.name;
             transform = other.transform;
             sound = std::move(other.sound);
@@ -38,7 +38,7 @@ namespace nim {
             other.autoplay = false;
         }
 
-        ~SoundComponent() {
+        ~SoundComponent() override {
             transform = nullptr;
         }
 

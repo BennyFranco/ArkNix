@@ -3,7 +3,6 @@
 
 #include "collision_layer.h"
 #include "component.h"
-#include "entity.h"
 #include <algorithm>
 #include <initializer_list>
 #include <memory>
