@@ -145,7 +145,8 @@ Root folders description
 
 ### Engine Class Diagram
 
-The following diagram is a representation of the most important elements of the engine, these are designed to be generic.
+The following diagram is a representation of the most important elements of the engine, these are designed to be
+generic.
 ![engine](https://user-images.githubusercontent.com/4169949/192072384-ec0b7dbc-2306-4fdb-8718-8eeacd011a4e.jpg)
 
 ### Game Class Diagram
@@ -185,7 +186,6 @@ for this game.
       `sprite_component.cpp`, `sound_component.cpp`, `text_component.cpp`, etc.
 - Classes use appropriate access specifiers for class members.
     - Yes, please check the classes mentioned before, or any other component.
-- [TODO] Class constructors utilize member initialization lists.
 - Classes abstract implementation details from their interfaces.
     - Yes, please check any component, they use `component.h` as interface.
 - Classes encapsulate behavior.
@@ -216,3 +216,12 @@ for this game.
     - Check `game_object.cpp:104`
 - A mutex or lock is used in the project.
     - Check `scene.cpp:72`
+
+# Asset Credits
+
+- [DOS-88 Synthwave Music Library - DOS88](https://dos88.itch.io/dos-88-music-library)
+- [Gravity Font Pack - John Watson](https://jotson.itch.io/gravity-pixel-font)
+- [Mini Pixel Pack 3 - GrafxKid](https://grafxkid.itch.io/mini-pixel-pack-3)
+- [Space Music Pack - Goose Ninja](https://gooseninja.itch.io/space-music-pack)
+- [AlcWilliam Spaceship Pack - alcwilliam](https://alcwilliam.itch.io/alcwilliam-space-ship-pack)
+- [Starry Space Parallaxing Background - Enjl](https://enjl.itch.io/background-starry-space)
