@@ -5,7 +5,6 @@
 #include "input_locator.h"
 #include "ntime.h"
 #include "renderer_locator.h"
-//#include <filesystem>
 #include <functional>
 
 using namespace nim;
