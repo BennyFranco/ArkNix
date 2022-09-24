@@ -12,7 +12,7 @@ namespace nim {
     class AssetManager {
     public:
         static AssetManager &Instance();
-        void LoadAssets(std::string &&directory = kAssetsPath);
+        void LoadAssets(std::string &&directory = "../assets/");
         template<typename T>
         T LoadAsset(const std::string &filename, const std::string &id) {
             if (assets.find(id) != assets.end()) {
@@ -39,7 +39,6 @@ namespace nim {
     private:
         AssetManager() = default;
         std::map<std::string, std::shared_ptr<nim::Asset>> assets;
-        inline static const char *kAssetsPath = "../assets/";
     };
 }// namespace nim
 #endif//ASSET_MANAGER_H
