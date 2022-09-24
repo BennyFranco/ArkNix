@@ -12,6 +12,13 @@ I selected the **Capstone Option 1** and I made a Video game.
 
 https://user-images.githubusercontent.com/4169949/189512999-838427f3-3354-4f94-b1ee-2ad550113da7.mp4
 
+## Controls
+
+- Move across menu and player with `arrow keys`
+- Use `Escape` key to go back to Main Menu
+- Fire with `Ctrl-Left` or `Ctrl-Right` keys
+- Use `Enter` Key to select options
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing
