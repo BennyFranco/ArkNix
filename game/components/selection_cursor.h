@@ -13,7 +13,7 @@ namespace galaga {
         SelectionCursor(std::vector<std::string> elements);
         SelectionCursor(const SelectionCursor &other);
         SelectionCursor(SelectionCursor &&other) noexcept;
-        ~SelectionCursor();
+        ~SelectionCursor() override;
 
         SelectionCursor &operator=(const SelectionCursor &other);
         SelectionCursor &operator=(SelectionCursor &&other) noexcept;
@@ -25,8 +25,8 @@ namespace galaga {
         void NextElement(int newIndex);
 
     private:
-        nim::SoundComponent<nim::Sound> *select;
-        nim::SoundComponent<nim::Sound> *startLevel;
+        nim::SoundComponent<nim::Sound> *select{};
+        nim::SoundComponent<nim::Sound> *startLevel{};
         std::vector<std::string> elementNames;
         std::vector<nim::GameObject *> elementReferences;
         nim::Input *input;

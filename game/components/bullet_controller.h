@@ -10,20 +10,20 @@ namespace galaga {
     public:
         BulletController();
         BulletController(const BulletController &other);
-        BulletController(BulletController &&other);
-        ~BulletController();
+        BulletController(BulletController &&other) noexcept;
+        ~BulletController() override;
 
         BulletController &operator=(const BulletController &other);
-        BulletController &operator=(BulletController &&other);
+        BulletController &operator=(BulletController &&other) noexcept;
 
-        virtual void Init() override;
-        virtual void Update() override;
+        void Init() override;
+        void Update() override;
 
         void Fire();
 
     private:
         nim::Input *input;// owned by input locator;
-        nim::SoundComponent<nim::Sound> *shoot;
+        nim::SoundComponent<nim::Sound> *shoot{};
     };
 }// namespace galaga
 #endif//BULLET_CONTROLLER_H

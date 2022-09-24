@@ -10,11 +10,11 @@ namespace galaga {
     public:
         PlayerController();
         PlayerController(const PlayerController &controller);
-        PlayerController(PlayerController &&controller);
-        ~PlayerController();
+        PlayerController(PlayerController &&controller) noexcept;
+        ~PlayerController() override;
 
         PlayerController &operator=(const PlayerController &controller);
-        PlayerController &operator=(PlayerController &&controller);
+        PlayerController &operator=(PlayerController &&controller) noexcept;
 
         void Init() override;
         void Update() override;

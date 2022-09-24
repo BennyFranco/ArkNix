@@ -9,14 +9,14 @@ namespace galaga {
         Bullet();
         Bullet(nim::Direction dir);
         Bullet(const Bullet &other);
-        Bullet(Bullet &&other);
-        ~Bullet();
+        Bullet(Bullet &&other) noexcept;
+        ~Bullet() override;
 
         Bullet &operator=(const Bullet &other);
-        Bullet &operator=(Bullet &&other);
+        Bullet &operator=(Bullet &&other) noexcept;
 
-        virtual void Update() override;
-        virtual void OnCollisionEnter(const nim::GameObject &other) override;
+        void Update() override;
+        void OnCollisionEnter(const nim::GameObject &other) override;
 
     public:
         nim::Direction direction = nim::Direction::Up;

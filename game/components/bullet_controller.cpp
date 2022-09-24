@@ -21,7 +21,7 @@ BulletController::BulletController(const BulletController &other) {
     input = other.input;
 }
 
-BulletController::BulletController(BulletController &&other) {
+BulletController::BulletController(BulletController &&other) noexcept {
     name = std::move(other.name);
     transform = other.transform;
     input = other.input;
@@ -47,7 +47,7 @@ BulletController &BulletController::operator=(const BulletController &other) {
     return *this;
 }
 
-BulletController &BulletController::operator=(BulletController &&other) {
+BulletController &BulletController::operator=(BulletController &&other) noexcept {
     if (&other != this) {
         transform = nullptr;
         input = nullptr;

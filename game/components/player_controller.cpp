@@ -26,7 +26,7 @@ PlayerController::PlayerController(const PlayerController &controller) {
     scoreLabel = controller.scoreLabel;
 }
 
-PlayerController::PlayerController(PlayerController &&controller) {
+PlayerController::PlayerController(PlayerController &&controller) noexcept {
     name = std::move(controller.name);
     transform = controller.transform;
     input = controller.input;
@@ -59,7 +59,7 @@ PlayerController &PlayerController::operator=(const PlayerController &controller
     return *this;
 }
 
-PlayerController &PlayerController::operator=(PlayerController &&controller) {
+PlayerController &PlayerController::operator=(PlayerController &&controller) noexcept {
     if (&controller != this) {
         transform = nullptr;
         input = nullptr;
@@ -84,11 +84,11 @@ void PlayerController::Init() {
 }
 
 void PlayerController::Update() {
-    if (input->GetKeyDown(Key::LEFT) && !(transform->position.x < 0)) {
+    if (input->GetKeyDown(Key::LEFT) && transform->position.x >= 0) {
         transform->position.x -= velocity;
         transform->Position(&transform->position);
     }
-    auto checkRightLimit = !(transform->position.x > 720 - transform->size.x);
+    auto checkRightLimit = transform->position.x <= 720 - transform->size.x;
     if (input->GetKeyDown(Key::RIGHT) && checkRightLimit) {
         transform->position.x += velocity;
         transform->Position(&transform->position);

@@ -24,7 +24,7 @@ Bullet::Bullet(const Bullet &other) {
     direction = other.direction;
 }
 
-Bullet::Bullet(Bullet &&other) {
+Bullet::Bullet(Bullet &&other) noexcept {
     name = std::move(other.name);
     transform = other.transform;
     direction = other.direction;
@@ -46,7 +46,7 @@ Bullet &Bullet::operator=(const Bullet &other) {
     return *this;
 }
 
-Bullet &Bullet::operator=(Bullet &&other) {
+Bullet &Bullet::operator=(Bullet &&other) noexcept {
     if (&other != this) {
         transform = nullptr;
         name = std::move(other.name);
