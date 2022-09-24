@@ -129,7 +129,30 @@ this [link](http://forums.libsdl.org/viewtopic.php?t=7609&sid=40fdb9756b8e22e1b8
 
 ## Udacity Rubric
 
-## [TODO] Files and class structure
+## Files and class structure
+
+Root folders description
+
+| Folder     | Description                                                                               |
+|------------|-------------------------------------------------------------------------------------------|
+| assets     | all stuff as images, sounds, fonts, etc. goes here.                                       |
+| config     | currently only scenes order setup is here                                                 | 
+| docs       | documentation stuff                                                                       |
+| engine     | it has base elements as audio, base components, <br/> main game loop, asset manager, etc. |
+| game       | game specific components and game start point.                                            |
+| scenes     | scenes files in yaml                                                                      |
+| thirdparty | all project submodules goes here.                                                         |
+
+### Engine Class Diagram
+
+The following diagram is a representation of the most important elements of the engine, these are designed to be generic.
+![engine](https://user-images.githubusercontent.com/4169949/192072384-ec0b7dbc-2306-4fdb-8718-8eeacd011a4e.jpg)
+
+### Game Class Diagram
+
+The following diagram shows the most important elements of the game, this components are designed in an specific way
+for this game.
+![Game](https://user-images.githubusercontent.com/4169949/192073590-bb922d43-c0dc-475e-9549-56c79a4cbff5.jpg)
 
 ## Rubric points addressed
 
